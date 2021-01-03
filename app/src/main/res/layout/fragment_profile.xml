@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/gray">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="@dimen/_5sdp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vendor_details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"
+                android:elevation="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <ImageButton
+                android:id="@+id/fragment_policy_and_conditions_back_img"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:src="@drawable/back_icon"
+                android:layout_marginStart="@dimen/_17sdp"
+                android:layout_marginEnd="@dimen/_17sdp"
+                android:elevation="@dimen/_5sdp"
+                android:background="@drawable/gray_shape_trangle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/fragment_home_account_profile_more_bttn"-->
+            <!--                android:layout_width="@dimen/_29sdp"-->
+            <!--                android:layout_height="@dimen/_29sdp"-->
+            <!--                android:src="@drawable/ic_more_vert_black_24dp"-->
+            <!--                android:layout_gravity="right"-->
+            <!--                android:elevation="@dimen/_5sdp"-->
+            <!--                android:layout_marginStart="@dimen/_10sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_10sdp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                android:background="@color/white"-->
+            <!--                />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_tool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:cardBackgroundColor="@android:color/white"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_4sdp"
+                android:orientation="vertical"
+                >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/fragment_home_account_profile_photo_circularImageView"
+                    android:layout_width="@dimen/_85sdp"
+                    android:layout_height="@dimen/_85sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/road"
+                    android:elevation="8dp"
+                    />
+
+                <TextView
+                    android:id="@+id/fragment_my_profile_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="Muhammad Usama"
+                    android:layout_gravity="center"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/_15ssp"
+                    />
+                <TextView
+                    android:id="@+id/fragment_about_us_about_barka_phone3_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:drawableStart="@drawable/ic_baseline_phone_24"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="01094944800"
+                    android:textColor="@color/blue_black"
+                    android:textSize="@dimen/_11ssp" />
+                <TextView
+                    android:id="@+id/fragment_about_us_about_barka_email_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="mohamed123@gmail.com"
+                    android:textColor="@color/blue_black"
+                    android:textSize="@dimen/_11ssp" />
+                <TextView
+                    android:id="@+id/fragment_about_us_about_barka_main_services_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:drawableStart="@drawable/ic_baseline_build_circle_24"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="Main Service : On Site"
+                    android:textColor="@color/blue_black"
+                    android:textSize="@dimen/_11ssp" />
+                <TextView
+                    android:id="@+id/fragment_about_us_about_barka_sub_services_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:drawableStart="@drawable/ic_baseline_build_circle_24"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="Sub Service : On Site"
+                    android:textColor="@color/blue_black"
+                    android:textSize="@dimen/_11ssp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:weightSum="2"
+                    >
+                    <TextView
+                        android:id="@+id/fragment_about_us_about_barka_start_hour_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_baseline_access_time2_24"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:text="Start Hour : 1"
+                        android:textColor="@color/blue_black"
+                        android:textSize="@dimen/_11ssp" />
+                    <TextView
+                        android:id="@+id/fragment_about_us_about_barka_end_hour_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_baseline_access_time2_24"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:text="End Hour : 9"
+                        android:textColor="@color/blue_black"
+                        android:textSize="@dimen/_11ssp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:id="@+id/card_view_tool2"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/_6sdp"-->
+        <!--            app:cardBackgroundColor="@android:color/white"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            >-->
+
+        <!--                <LinearLayout-->
+        <!--                    android:id="@+id/fragment_home_account_profile_e_visa_bttn"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:padding="@dimen/_4sdp"-->
+        <!--                    android:layout_marginTop="@dimen/_10sdp"-->
+        <!--                    android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    >-->
+
+
+        <!--                    </LinearLayout>-->
+        <!--        </androidx.cardview.widget.CardView>-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:cardBackgroundColor="@android:color/white"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_6sdp"            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/working_days"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
+            <include layout="@layout/fragment_vendor_profile_days_item"/>
+            <ScrollView
+                android:id="@+id/home_discover_fragment_sub_home_rv_item_hz_sr_vw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_1sdp"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_10sdp"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragment_luxury_umrah_package_photo_galary_rv_item_hz_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    tools:layoutManager="GridLayoutManager"
+                    tools:spanCount="5"
+                    />
+            </ScrollView>
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            app:cardBackgroundColor="@android:color/white"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_6sdp"
+            android:paddingEnd="@dimen/_6sdp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vendor_info"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
+            <TextView
+                android:id="@+id/fragment_about_us_about_us_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:visibility="visible"
+                android:text="kjfkkkkkkxhfdjfhjhkjl"
+                android:textColor="@color/gray2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

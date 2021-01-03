@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_gravity="center"
+                android:elevation="@dimen/_1sdp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:src="@drawable/kabbot_logo"
+                />
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            android:gravity="center_horizontal"-->
+            <!--            >-->
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/_8sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_8sdp"-->
+            <!--                android:paddingStart="@dimen/_3sdp"-->
+            <!--                android:paddingEnd="@dimen/_3sdp"-->
+            <!--                android:orientation="vertical"-->
+            <!--                >-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="@string/register"-->
+            <!--                    android:textColor="@color/blue_black"-->
+            <!--                    android:textSize="@dimen/_14sdp"-->
+            <!--                    android:textStyle="bold"-->
+            <!--                    />-->
+            <!--                <ImageView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="@dimen/_2sdp"-->
+            <!--                    android:layout_marginTop="@dimen/_5sdp"-->
+            <!--                    android:background="@color/blue_black"-->
+            <!--                    />-->
+            <!--            </LinearLayout>-->
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/login"-->
+            <!--                android:textColor="@color/gray"-->
+            <!--                android:textSize="@dimen/_14sdp"-->
+            <!--                android:gravity="top"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:layout_marginStart="@dimen/_8sdp"-->
+            <!--                android:layout_marginEnd="@dimen/_8sdp"-->
+            <!--                />-->
+            <!--        </LinearLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_home_services_enter_vendor_data_til_date"
+                style="@style/text_input_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:errorTextAppearance="@style/error_appearance"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_home_services_enter_vendor_data_date_etxt"
+                    style="@style/EditTextLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:drawableEnd="@drawable/ic_baseline_date_range_24"
+                    android:hint="@string/date"
+                    android:focusable="false"
+                    android:editable="false"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_home_services_enter_vendor_data_til_time"
+                style="@style/text_input_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:errorTextAppearance="@style/error_appearance"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_home_services_enter_vendor_data_time_etxt"
+                    style="@style/EditTextLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:drawableEnd="@drawable/ic_baseline_access_time_24"
+                    android:hint="@string/time"
+                    android:focusable="false"
+                    android:editable="false"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_home_services_enter_vendor_data_til_address"
+                style="@style/text_input_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorTextAppearance="@style/error_appearance"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fragment_register_address_etxt"
+                    style="@style/EditTextLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_55sdp"
+                    android:hint="@string/address"
+                    android:ems="10"
+                    android:inputType="textAutoComplete" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--        <com.google.android.material.textfield.TextInputLayout-->
+            <!--            android:id="@+id/fragment_register_til_vendor"-->
+            <!--            style="@style/text_input_login"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:errorTextAppearance="@style/error_appearance"-->
+            <!--            >-->
+
+            <!--            <com.google.android.material.textfield.TextInputEditText-->
+            <!--                android:id="@+id/fragment_register_vendor_etxt"-->
+            <!--                style="@style/EditTextLogin"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="@dimen/_55sdp"-->
+            <!--                android:hint="@string/vendor"-->
+            <!--                android:ems="10"-->
+            <!--                android:inputType="textAutoComplete" />-->
+            <!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vendor"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                style="@style/text_input_login"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_45sdp"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fragment_home_services_enter_vendor_data_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/load_more"
+                    android:scrollbars="vertical" />
+
+                <include
+                    layout="@layout/cardview_item_load_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true" />
+
+                <include layout="@layout/error" />
+                <include layout="@layout/cardview_vendor_details_item" />
+                <include layout="@layout/not_found_result_error" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/fragment_home_services_enter_vendor_data_next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/button_style2"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient_btn_blue_black_shape3"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textSize="@dimen/_12ssp"
+            style="@style/button_text_style"
+            />
+        <ImageView
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:src="@drawable/ic_baseline_navigate2_next_24"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:background="@drawable/continue_white_shape"
+            />
+    </LinearLayout>
+</FrameLayout>

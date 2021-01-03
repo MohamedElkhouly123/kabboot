@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Kabboot</string>
+    <string name="invalid_email">Email must be like this \"example@example.example\"</string>
+    <string name="invalid_phone1">Phone number must be enter 8 or 10 numbers that after +1 and </string>
+    <string name="invalid_confirm_password">Confirm password not match</string>
+    <string name="invalid_phone2"> number</string>
+    <string name="All_your_car_needs">All your car needs.</string>
+    <string name="load">Loading..</string>
+    <string name="services">Services</string>
+    <string name="online_store">Online Store</string>
+    <string name="Notification">Notification</string>
+    <string name="profile">Profile</string>
+    <string name="phone">Phone Number</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="forgetpass">Forget Password</string>
+    <string name="fragment_set_new_password_btn_reset_pass">Reset Password</string>
+    <string name="continu">Continue</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="city">City</string>
+    <string name="hot_deals">Hot Deals</string>
+    <string name="promo_codes">Promo Codes</string>
+    <string name="how_can_help">How can we help?</string>
+    <string name="date">Select Date</string>
+    <string name="time">Select Time</string>
+    <string name="submit">Submit</string>
+    <string name="address">Address</string>
+    <string name="vendor">Vendor</string>
+    <string name="load_more">Load More</string>
+    <string name="error_inter_net">No internet connection Please check your internet and try again later</string>
+    <string name="vendor_details">Vendor Details</string>
+    <string name="vendor_info">Vendor Info</string>
+    <string name="working_days">Working Days</string>
+    <string name="next">Next</string>
+    <string name="in_stock">On Stock</string>
+    <string name="services_booked">Services Booked</string>
+    <string name="time_and_date_of_visit">Time and date of visit</string>
+    <string name="complete_order_book">Complete Order Booking</string>
+
+</resources>

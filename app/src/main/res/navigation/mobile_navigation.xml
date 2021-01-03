@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_services">
+
+    <fragment
+        android:id="@+id/navigation_services"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesFragment"
+        android:label="HomeServicesFragment" >
+        <action
+            android:id="@+id/action_navigation_services_to_homeOnSiteServicesFragment"
+            app:destination="@id/homeOnSiteServicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_online_store"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.OnLineStoreFragment"
+        android:label="OnLineStoreFragment" >
+        <action
+            android:id="@+id/action_navigation_online_store_to_navigation_services"
+            app:destination="@id/navigation_services" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.Notification.NotificationFragment"
+        android:label="NotificationFragment" >
+        <action
+            android:id="@+id/action_navigation_notification_to_navigation_services"
+            app:destination="@id/navigation_services" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_services"
+            app:destination="@id/navigation_services" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeOnSiteServicesFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeOnSiteServicesFragment"
+        android:label="HomeOnSiteServicesFragment" >
+        <action
+            android:id="@+id/action_homeOnSiteServicesFragment_to_navigation_services"
+            app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_homeOnSiteServicesFragment_to_homeServicesEnterVenderDataFragment"
+            app:destination="@id/homeServicesEnterVenderDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeServicesEnterVenderDataFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderDataFragment"
+        android:label="HomeServicesEnterVenderDataFragment" >
+        <action
+            android:id="@+id/action_homeServicesEnterVenderDataFragment_to_homeOnSiteServicesFragment"
+            app:destination="@id/homeOnSiteServicesFragment" />
+        <action
+            android:id="@+id/action_homeServicesEnterVenderDataFragment_to_completeBookingServicesFragment"
+            app:destination="@id/completeBookingServicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/completeBookingServicesFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment"
+        android:label="CompleteBookingServicesFragment" >
+        <action
+            android:id="@+id/action_completeBookingServicesFragment_to_homeServicesEnterVenderDataFragment"
+            app:destination="@id/homeServicesEnterVenderDataFragment" />
+    </fragment>
+</navigation>
