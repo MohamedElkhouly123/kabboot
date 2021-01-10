@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_4sdp"
+    >
+
+<!--        <TextView-->
+<!--            android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Inspection"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:layout_gravity="start"-->
+<!--            android:drawableStart="@drawable/ic_baseline_check_box_24"-->
+<!--            android:drawablePadding="@dimen/_5sdp"-->
+<!--            android:layout_marginStart="@dimen/_5sdp"-->
+<!--            android:layout_marginEnd="@dimen/_5sdp"-->
+<!--            android:textSize="@dimen/_12ssp" />-->
+    <CheckBox
+        android:id="@+id/fragment_sign_up_cb_remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Inspectionjkhkjjjjj"
+        android:buttonTint="@color/blue_black"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="normal" />
+        <TextView
+            android:id="@+id/fragment_home_complet_booking_services_sub_cat_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100 EGP"
+            android:textColor="@color/black"
+            android:layout_gravity="end|center"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp" />
+    </FrameLayout>

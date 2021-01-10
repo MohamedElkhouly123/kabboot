@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_services_to_homeOnSiteServicesFragment"
             app:destination="@id/homeOnSiteServicesFragment" />
+        <action
+            android:id="@+id/action_navigation_services_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_online_store"
@@ -20,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_online_store_to_navigation_services"
             app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_navigation_online_store_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_notification"
@@ -36,6 +42,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_services"
             app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_navigation_profile_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeOnSiteServicesFragment"
@@ -58,6 +67,9 @@
         <action
             android:id="@+id/action_homeServicesEnterVenderDataFragment_to_completeBookingServicesFragment"
             app:destination="@id/completeBookingServicesFragment" />
+        <action
+            android:id="@+id/action_homeServicesEnterVenderDataFragment_to_vendorProfileFragment"
+            app:destination="@id/vendorProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/completeBookingServicesFragment"
@@ -66,5 +78,54 @@
         <action
             android:id="@+id/action_completeBookingServicesFragment_to_homeServicesEnterVenderDataFragment"
             app:destination="@id/homeServicesEnterVenderDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.ProductDetailsFragment"
+        android:label="ProductDetailsFragment" >
+        <action
+            android:id="@+id/action_productDetailsFragment_to_navigation_online_store"
+            app:destination="@id/navigation_online_store" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_myCartFragment"
+            app:destination="@id/myCartFragment" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_allProductsFragment"
+            app:destination="@id/allProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vendorProfileFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.VendorProfileFragment"
+        android:label="VendorProfileFragment" >
+        <action
+            android:id="@+id/action_vendorProfileFragment_to_homeServicesEnterVenderDataFragment"
+            app:destination="@id/homeServicesEnterVenderDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myCartFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment"
+        android:label="MyCartFragment" >
+        <action
+            android:id="@+id/action_myCartFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.AboutUsFragment"
+        android:label="AboutUsFragment" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/allProductsFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.AllProductsFragment"
+        android:label="AllProductsFragment" >
+        <action
+            android:id="@+id/action_allProductsFragment_to_navigation_services"
+            app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_allProductsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
 </navigation>

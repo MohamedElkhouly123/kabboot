@@ -4,11 +4,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Html;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,12 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -95,7 +102,66 @@ public class HelperMethod {
         recyclerView.setLayoutManager(gridLayoutManager);
     }
 
-    public static void showCalender(Context context, String title, final TextView text_view_data, final DateTxt data1, Calendar maxDate, Calendar minDate) {
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        private final EditText editText;
+
+        public TimePickerFragment(EditText editText) {
+            this.editText=editText;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // Do something with the time chosen by the user
+            editText.setText(hourOfDay+":"+minute);
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        private final EditText editText;
+
+        public DatePickerFragment(EditText editText) {
+            this.editText=editText;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+
+            DecimalFormat mFormat = new DecimalFormat("00", symbols);
+            String data = year + "-" + mFormat.format(Double.valueOf((month + 1))) + "-" + mFormat.format(Double.valueOf(day));
+            editText.setText(data);
+
+        }
+    }
+
+    public static void showCalender(Context context, String title, final TextView text_view_data, final DateTxt data1) {
         DatePickerDialog mDatePicker = new DatePickerDialog(context, AlertDialog.THEME_HOLO_LIGHT, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker datepicker, int selectedYear, int selectedMonth, int selectedDay) {
@@ -111,8 +177,8 @@ public class HelperMethod {
                 text_view_data.setText(data);
             }
         }, Integer.parseInt(data1.getYear()), Integer.parseInt(data1.getMonth()) - 1, Integer.parseInt(data1.getDay()));
-        mDatePicker.getDatePicker().setMinDate(minDate.getTimeInMillis());
-        mDatePicker.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+//        mDatePicker.getDatePicker().setMinDate(minDate.getTimeInMillis());
+//        mDatePicker.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
         mDatePicker.setTitle(title);
         mDatePicker.show();
     }
@@ -213,9 +279,9 @@ public class HelperMethod {
                 .load(URl)
                 .into(imageView);
 
-        Glide.with(context).load(URl)
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-                .into(imageView);
+//        Glide.with(context).load(URl)
+//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+//                .into(imageView);
 //        Glide.with(imageView.getContext())
 //                .setDefaultRequestOptions(new RequestOptions()
 //                        .circleCrop())

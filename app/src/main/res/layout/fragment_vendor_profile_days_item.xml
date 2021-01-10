@@ -23,7 +23,7 @@
             android:background="@drawable/circle_btn_yello_shape"
             />
         <ImageView
-            android:id="@+id/cardview_hz_hotel_aminities_item_item_img"
+            android:id="@+id/fragment_vendor_profile_days_item_item_img"
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_gravity="center"
@@ -31,7 +31,7 @@
             />
     </FrameLayout>
     <TextView
-        android:id="@+id/cardview_hz_hotel_aminities_item_item_name_tv"
+        android:id="@+id/fragment_vendor_profile_days_item_day_name_tv"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
         android:text="Suter Day"

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5sdp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        >
+        <ImageView
+            android:id="@+id/fragment_my_cart_item_img"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@drawable/product"
+            />
+        <TextView
+            android:id="@+id/fragment_my_cart_item_name_tv"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:text="VITALTECH 5W540 Full Synthetic Motor Oil - 14L"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/_10sdp"
+            >
+            <TextView
+                android:id="@+id/fragment_my_cart_item_items_num_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1 Item"
+                android:textColor="@color/gray2"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_11ssp" />
+            <TextView
+                android:id="@+id/fragment_my_cart_item_items_price_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100 EGP"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:textColor="@color/gray2"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

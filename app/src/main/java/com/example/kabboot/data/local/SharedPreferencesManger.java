@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.google.gson.Gson;
 
 public class SharedPreferencesManger {
@@ -63,25 +64,25 @@ public class SharedPreferencesManger {
         return sharedPreferences.getString(data_Key, null);
     }
 
-//
-//    public static UserData LoadUserData(Activity activity) {
-//        setSharedPreferences(activity);
-//
-//        UserData loginData = null;
-//        Gson gson = new Gson();
-//        loginData = gson.fromJson(LoadData(activity, USER_DATA), UserData.class);
-//
-//        return loginData;
-//    }
-//    public static UserData LoadUserData2(Context activity) {
-//        setSharedPreferences((Activity) activity);
-//
-//        UserData loginData = null;
-//        Gson gson = new Gson();
-//        loginData = gson.fromJson(LoadData((Activity) activity, USER_DATA), UserData.class);
-//
-//        return loginData;
-//    }
+
+    public static UserData LoadUserData(Activity activity) {
+        setSharedPreferences(activity);
+
+        UserData loginData = null;
+        Gson gson = new Gson();
+        loginData = gson.fromJson(LoadData(activity, USER_DATA), UserData.class);
+
+        return loginData;
+    }
+    public static UserData LoadUserData2(Context activity) {
+        setSharedPreferences((Activity) activity);
+
+        UserData loginData = null;
+        Gson gson = new Gson();
+        loginData = gson.fromJson(LoadData((Activity) activity, USER_DATA), UserData.class);
+
+        return loginData;
+    }
 
     public static boolean LoadBoolean(Activity activity, String data_Key) {
         setSharedPreferences(activity);

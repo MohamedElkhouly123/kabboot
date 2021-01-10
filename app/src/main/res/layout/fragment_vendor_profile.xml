@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -83,7 +83,7 @@
                 android:orientation="vertical"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/fragment_home_account_profile_photo_circularImageView"
+                    android:id="@+id/fragment_vendor_profile_photo_circularImageView"
                     android:layout_width="@dimen/_85sdp"
                     android:layout_height="@dimen/_85sdp"
                     android:layout_marginStart="@dimen/_6sdp"
@@ -95,7 +95,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/fragment_my_profile_name_tv"
+                    android:id="@+id/fragment_vendor_profile_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
@@ -105,11 +105,12 @@
                     android:textSize="@dimen/_15ssp"
                     />
                 <TextView
-                    android:id="@+id/fragment_about_us_about_barka_phone3_tv"
+                    android:id="@+id/fragment_vendor_profile_phone3_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_25sdp"
+                    android:gravity="center"
                     android:drawableStart="@drawable/ic_baseline_phone_24"
                     android:drawablePadding="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
@@ -117,19 +118,20 @@
                     android:textColor="@color/blue_black"
                     android:textSize="@dimen/_11ssp" />
                 <TextView
-                    android:id="@+id/fragment_about_us_about_barka_email_tv"
+                    android:id="@+id/fragment_vendor_profile_email_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_7sdp"
                     android:drawableStart="@drawable/ic_baseline_email_24"
                     android:drawablePadding="@dimen/_5sdp"
+                    android:gravity="center"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:text="mohamed123@gmail.com"
                     android:textColor="@color/blue_black"
                     android:textSize="@dimen/_11ssp" />
                 <TextView
-                    android:id="@+id/fragment_about_us_about_barka_main_services_tv"
+                    android:id="@+id/fragment_vendor_profile_main_services_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -137,11 +139,12 @@
                     android:drawableStart="@drawable/ic_baseline_build_circle_24"
                     android:drawablePadding="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
+                    android:gravity="center"
                     android:text="Main Service : On Site"
                     android:textColor="@color/blue_black"
                     android:textSize="@dimen/_11ssp" />
                 <TextView
-                    android:id="@+id/fragment_about_us_about_barka_sub_services_tv"
+                    android:id="@+id/fragment_vendor_profile_sub_services_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -149,6 +152,7 @@
                     android:drawableStart="@drawable/ic_baseline_build_circle_24"
                     android:drawablePadding="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
+                    android:gravity="center"
                     android:text="Sub Service : On Site"
                     android:textColor="@color/blue_black"
                     android:textSize="@dimen/_11ssp" />
@@ -161,7 +165,7 @@
                     android:weightSum="2"
                     >
                     <TextView
-                        android:id="@+id/fragment_about_us_about_barka_start_hour_tv"
+                        android:id="@+id/fragment_vendor_profile_start_hour_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -169,11 +173,12 @@
                         android:drawableStart="@drawable/ic_baseline_access_time2_24"
                         android:drawablePadding="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
+                        android:gravity="center_vertical"
                         android:text="Start Hour : 1"
                         android:textColor="@color/blue_black"
                         android:textSize="@dimen/_11ssp" />
                     <TextView
-                        android:id="@+id/fragment_about_us_about_barka_end_hour_tv"
+                        android:id="@+id/fragment_vendor_profile_end_hour_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -183,6 +188,7 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:text="End Hour : 9"
                         android:textColor="@color/blue_black"
+                        android:gravity="center_vertical"
                         android:textSize="@dimen/_11ssp" />
                 </LinearLayout>
             </LinearLayout>
@@ -232,18 +238,17 @@
                     android:text="@string/working_days"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp" />
-                <include layout="@layout/fragment_vendor_profile_days_item"/>
+<!--                <include layout="@layout/fragment_vendor_profile_days_item"/>-->
                 <ScrollView
-                    android:id="@+id/home_discover_fragment_sub_home_rv_item_hz_sr_vw"
+                    android:id="@+id/fragment_vendor_profile_rv_item_hz_sr_vw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_1sdp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginTop="@dimen/_10sdp"
                     >
-
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/fragment_luxury_umrah_package_photo_galary_rv_item_hz_rv"
+                        android:id="@+id/fragment_vendor_profile_days_avalible_rv_item_hz_rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_2sdp"
@@ -277,7 +282,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp" />
                 <TextView
-                    android:id="@+id/fragment_about_us_about_us_description_tv"
+                    android:id="@+id/fragment_vendor_profile_description_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
@@ -290,4 +295,4 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

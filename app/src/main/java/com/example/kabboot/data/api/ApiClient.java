@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "https://barakatravel.net/api/";
+    public static final String BASE_URL = "https://www.kabboot.com/Api/";
     public static Retrofit retrofit = null;
 
     public static ApiServices getApiClient(){

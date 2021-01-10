@@ -66,12 +66,29 @@
                 android:layout_marginEnd="@dimen/_8sdp"
                 />
         </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_register_til_user_name"
+            style="@style/text_input_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:errorTextAppearance="@style/error_appearance"
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_register_user_name"
+            style="@style/EditTextLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:hint="@string/user_name"
+            android:ems="10"
+            android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fragment_register_til_phone"
         style="@style/text_input_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
         app:errorTextAppearance="@style/error_appearance"
         >
 
@@ -84,6 +101,23 @@
             android:ems="10"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_register_til_email"
+            style="@style/text_input_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragment_register_email_etxt"
+                style="@style/EditTextLogin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:hint="@string/email"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +125,7 @@
             >
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fragment_register_til_gender"
+                android:id="@+id/fragment_register_til_city"
                 style="@style/text_input_login"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/_1sdp"
@@ -104,19 +138,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/city"
-                    android:focusable="true"
-                    android:editable="false"
-                    android:inputType="none" />
 
+                    android:inputType="textAutoComplete" />
+<!--                android:focusable="true"-->
+<!--                android:editable="false"-->
+<!--                android:inputType="none"-->
             </com.google.android.material.textfield.TextInputLayout>
             <Spinner
-                android:id="@+id/fragment_register_sp_gender"
+                android:id="@+id/fragment_register_sp_city"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:elevation="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_19sdp"
                 android:layout_marginEnd="@dimen/_19sdp"
+                android:visibility="gone"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:textAlignment="center"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Kabboot</string>
     <string name="invalid_email">Email must be like this \"example@example.example\"</string>
-    <string name="invalid_phone1">Phone number must be enter 8 or 10 numbers that after +1 and </string>
+    <string name="invalid_phone1">Phone number must be equal 11 numbers</string>
     <string name="invalid_confirm_password">Confirm password not match</string>
     <string name="invalid_phone2"> number</string>
     <string name="All_your_car_needs">All your car needs.</string>
@@ -28,7 +28,6 @@
     <string name="address">Address</string>
     <string name="vendor">Vendor</string>
     <string name="load_more">Load More</string>
-    <string name="error_inter_net">No internet connection Please check your internet and try again later</string>
     <string name="vendor_details">Vendor Details</string>
     <string name="vendor_info">Vendor Info</string>
     <string name="working_days">Working Days</string>
@@ -37,5 +36,38 @@
     <string name="services_booked">Services Booked</string>
     <string name="time_and_date_of_visit">Time and date of visit</string>
     <string name="complete_order_book">Complete Order Booking</string>
+    <string name="view_cart">View Cart</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="my_cart">My Cart</string>
+    <string name="Items">Items</string>
+    <string name="delivery_details">Delivery Details</string>
+    <string name="complete_payment">Complete Payment</string>
+    <string name="Recipt">Recipt</string>
+    <string name="Apply">Apply</string>
+    <string name="Enter_your_promocode">Enter your promocode</string>
+    <string name="Filters">Filters</string>
+    <string name="user_name">User Name</string>
+    <string name="select_date">select date please</string>
+    <string name="email">Email</string>
+    <string name="wait">Please wait....</string>
+    <string name="error">Something went wrong try agian</string>
+    <string name="error_inter_net">No internet connection Please check your internet and try again later</string>
+    <string name="empty">Please Enter and Complete your Data First</string>
+    <string name="invalid_password">Password Must be more than 3 of Chars and Numbers</string>
+    <string name="invalid_user_name">Username Must be more than 2 Chars</string>
+    <string name="invalid_email_required_field">Email Field Required</string>
+    <string name="invalid_date_required_field">Date Field Required</string>
+    <string name="invalid_time_required_field">Time Field Required</string>
+    <string name="invalid_address_required_field">Address Field Required</string>
+    <string name="invalid_vendor_required_field">Please Must Choose one Vendor From List</string>
+    <string name="invalid_city_required_field">City Field Required</string>
+    <string name="account">My Account</string>
+    <string name="logout">Log Out</string>
+    <string name="about_kabbot_uSA">About Kabboot</string>
+    <string name="ADDRESS_CONTACT_INFO">ADDRESS CONTACT INFO</string>
+    <string name="location">Location</string>
+    <string name="hi_about_us">Hi! Welcome to Kabboot App</string>
+    <string name="all_products">All  Products</string>
+    <string name="Specifications">Specifications</string>
 
 </resources>
