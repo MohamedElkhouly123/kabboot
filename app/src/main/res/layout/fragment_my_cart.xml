@@ -43,7 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
                 <ImageButton
-                    android:id="@+id/fragment_policy_and_conditions_back_img"
+                    android:id="@+id/fragment_my_cart_back_img"
                     android:layout_width="@dimen/_27sdp"
                     android:layout_height="@dimen/_27sdp"
                     android:src="@drawable/back_icon"
@@ -107,6 +107,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp" />
                         <TextView
+                            android:id="@+id/fragment_my_cart_total_items_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5320 EGP"
@@ -118,7 +119,7 @@
 <!--                    <include layout="@layout/fragment_my_cart_item"/>-->
 <!--                    <include layout="@layout/fragment_my_cart_item"/>-->
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/ffragment_all_products_recycler_view"
+                        android:id="@+id/fragment_my_cart_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/load_more"
@@ -138,6 +139,7 @@
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_10sdp"
+                    android:visibility="visible"
                     android:paddingBottom="@dimen/_15sdp"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"            >
@@ -149,7 +151,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13ssp" />
                     <TextView
-                        android:id="@+id/fragment_about_us_about_barka_phone3_tv"
+                        android:id="@+id/fragment_my_cart_phone3_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_25sdp"
@@ -180,6 +182,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_20sdp"
                     android:paddingStart="@dimen/_10sdp"
@@ -199,7 +202,7 @@
                         android:weightSum="7"
                         >
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/fragment_login_til_phone"
+                        android:id="@+id/fragment_my_cart_til_promo_code"
                         style="@style/text_input_login"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/_1sdp"
@@ -222,7 +225,7 @@
                             android:inputType="phone" />
                     </com.google.android.material.textfield.TextInputLayout>
                     <Button
-                        android:id="@+id/dialog_evisa_booking_pay_now_btn"
+                        android:id="@+id/fragment_my_cart_apply_now_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -239,6 +242,7 @@
                         />
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/fragment_my_cart_Subtotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Subtotal 5320 EGP"
@@ -250,6 +254,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
                     <TextView
+                        android:id="@+id/fragment_my_cart_fees"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Delivery Fees 30 EGP"
@@ -261,6 +266,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
                     <TextView
+                        android:id="@+id/fragment_my_cart_tax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tax 0"
@@ -272,9 +278,10 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
                     <TextView
+                        android:id="@+id/fragment_my_discount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tax 0"
+                        android:text="Discount: 0 EGP"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -283,6 +290,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
                     <TextView
+                        android:id="@+id/fragment_my_cart_total_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Total :  5320 EGP"
@@ -300,7 +308,7 @@
     </ScrollView>
         </LinearLayout>
     <LinearLayout
-        android:id="@+id/fragment_home_complet_booking_services"
+        android:id="@+id/fragment_home_complet_booking_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

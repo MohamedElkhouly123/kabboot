@@ -12,7 +12,9 @@ import java.io.Serializable;
 
 @Entity(tableName = "clientNewOrder")
 public class AllProductForRom implements Serializable {
-//    @PrimaryKey(autoGenerate = true)
+
+
+    //    @PrimaryKey(autoGenerate = true)
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "itemId")
 
@@ -50,7 +52,7 @@ public class AllProductForRom implements Serializable {
     private String created;
     @SerializedName("updated")
     @Expose
-    private Object updated;
+    private String updated;
     @SerializedName("hotdeals")
     @Expose
     private String hotdeals;
@@ -63,7 +65,7 @@ public class AllProductForRom implements Serializable {
     @SerializedName("product_qty")
     @Expose
     private String quantity;
-    public AllProductForRom( String productId, String productName, String productPrice, String productCat, String vendorIdFk, String productSpecification, String productDesc, String image, String inStock, String hotdeals, String mainCategoryName, String vendorName) {
+    public AllProductForRom(String productId, String productName, String productPrice, String productCat, String vendorIdFk, String productSpecification, String productDesc, String image, String inStock, String hotdeals, String mainCategoryName, String vendorName, String quantity) {
 //        this.itemId = itemId;
         this.productId = productId;
         this.productName = productName;
@@ -75,10 +77,18 @@ public class AllProductForRom implements Serializable {
         this.image = image;
         this.inStock = inStock;
 //        this.created = created;
-//        this.updated = updated;
+        this.quantity = quantity;
         this.hotdeals = hotdeals;
         this.mainCategoryName = mainCategoryName;
         this.vendorName = vendorName;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public String getProductId() {
@@ -161,11 +171,11 @@ public class AllProductForRom implements Serializable {
         this.created = created;
     }
 
-    public Object getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Object updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 

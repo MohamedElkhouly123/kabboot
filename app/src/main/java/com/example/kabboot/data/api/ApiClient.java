@@ -2,6 +2,9 @@ package com.example.kabboot.data.api;
 
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -12,7 +15,9 @@ public class ApiClient {
 
     public static final String BASE_URL = "https://www.kabboot.com/Api/";
     public static Retrofit retrofit = null;
-
+    public static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
     public static ApiServices getApiClient(){
 
         if(retrofit == null){
@@ -23,7 +28,7 @@ public class ApiClient {
                     .writeTimeout(150, TimeUnit.SECONDS);
             Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(httpClient.build());
 
              retrofit = builder.build();

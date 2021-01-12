@@ -44,7 +44,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
-import static com.example.kabboot.utils.HelperMethod.showCalender;
 import static com.example.kabboot.utils.validation.Validation.cleanError;
 import static com.example.kabboot.utils.validation.Validation.validationAllEmpty;
 import static com.example.kabboot.utils.validation.Validation.validationLength;
@@ -52,12 +51,12 @@ import static com.example.kabboot.utils.validation.Validation.validationLength;
 
 public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
-    @BindView(R.id.fragment_home_services_enter_vendor_data_til_date)
-    TextInputLayout fragmentHomeServicesEnterVendorDataTilDate;
-    @BindView(R.id.fragment_home_services_enter_vendor_data_til_time)
-    TextInputLayout fragmentHomeServicesEnterVendorDataTilTime;
-    @BindView(R.id.fragment_home_services_enter_vendor_data_til_address)
-    TextInputLayout fragmentHomeServicesEnterVendorDataTilAddress;
+//    @BindView(R.id.fragment_home_services_enter_vendor_data_til_date)
+//    TextInputLayout fragmentHomeServicesEnterVendorDataTilDate;
+//    @BindView(R.id.fragment_home_services_enter_vendor_data_til_time)
+//    TextInputLayout fragmentHomeServicesEnterVendorDataTilTime;
+//    @BindView(R.id.fragment_home_services_enter_vendor_data_til_address)
+//    TextInputLayout fragmentHomeServicesEnterVendorDataTilAddress;
     @BindView(R.id.fragment_home_services_enter_vendor_data_recycler_view)
     RecyclerView fragmentHomeServicesEnterVendorDataRecyclerView;
     @BindView(R.id.load_more)
@@ -83,6 +82,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     private DateTxt checkinDate;
     private int myVendorId;
     private GetAllvendors vendorData;
+    private List<String> availableDaysList= new ArrayList<>();
 
     public HomeServicesEnterVenderDataFragment() {
         // Required empty public constructor
@@ -105,6 +105,8 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         init();
         return root;
     }
+
+
 
     private void initListener() {
 
@@ -257,20 +259,20 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
 
-    @OnClick({R.id.fragment_home_services_enter_vendor_data_date_etxt, R.id.fragment_home_services_enter_vendor_data_time_etxt, R.id.fragment_home_services_enter_vendor_data_next_btn})
+    @OnClick({ R.id.fragment_home_services_enter_vendor_data_next_btn})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fragment_home_services_enter_vendor_data_date_etxt:
-//                checkinDate = new DateTxt("01", "01", "2021", "01-01-2021");
-//                showCalender(getActivity(), getActivity().getString(R.string.select_date), fragmentHomeServicesEnterVendorDataTilDate.getEditText(), checkinDate);
-                DialogFragment datePickerFragment = new HelperMethod.DatePickerFragment(fragmentHomeServicesEnterVendorDataTilDate.getEditText());
-                datePickerFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
-                break;
-            case R.id.fragment_home_services_enter_vendor_data_time_etxt:
-                DialogFragment timePickerFragment = new HelperMethod.TimePickerFragment(fragmentHomeServicesEnterVendorDataTilTime.getEditText());
-                timePickerFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
-
-                break;
+//            case R.id.fragment_home_services_enter_vendor_data_date_etxt:
+////                checkinDate = new DateTxt("01", "01", "2021", "01-01-2021");
+////                showCalender(getActivity(), getActivity().getString(R.string.select_date), fragmentHomeServicesEnterVendorDataTilDate.getEditText(), checkinDate);
+//                DialogFragment datePickerFragment = new HelperMethod.DatePickerFragment(fragmentHomeServicesEnterVendorDataTilDate.getEditText());
+//                datePickerFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
+//                break;
+//            case R.id.fragment_home_services_enter_vendor_data_time_etxt:
+//                DialogFragment timePickerFragment = new HelperMethod.TimePickerFragment(fragmentHomeServicesEnterVendorDataTilTime.getEditText());
+//                timePickerFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
+//
+//                break;
             case R.id.fragment_home_services_enter_vendor_data_next_btn:
                 onVaildate();
                 break;
@@ -278,55 +280,94 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
     private void onVaildate() {
-        List<EditText> editTexts = new ArrayList<>();
-        List<TextInputLayout> textInputLayouts = new ArrayList<>();
-        List<Spinner> spinners = new ArrayList<>();
-
-        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilDate);
-        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilTime);
-        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilAddress);
-        cleanError(textInputLayouts);
-
-        if (!validationAllEmpty(editTexts, textInputLayouts, spinners, getString(R.string.empty))) {
-
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.empty));
-            return;
-        }
-
-
-
-        if (!validationLength(fragmentHomeServicesEnterVendorDataTilDate, getString(R.string.invalid_date_required_field), 1)) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_date_required_field));
-            return;
-        }
-        if (!validationLength(fragmentHomeServicesEnterVendorDataTilTime, getString(R.string.invalid_time_required_field), 1)) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_time_required_field));
-            return;
-        }
-        if (!validationLength(fragmentHomeServicesEnterVendorDataTilAddress, getString(R.string.invalid_address_required_field), 1)) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
-            return;
-        }
+//        List<EditText> editTexts = new ArrayList<>();
+//        List<TextInputLayout> textInputLayouts = new ArrayList<>();
+//        List<Spinner> spinners = new ArrayList<>();
+//
+//        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilDate);
+//        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilTime);
+//        textInputLayouts.add(fragmentHomeServicesEnterVendorDataTilAddress);
+//        cleanError(textInputLayouts);
+//
+//        if (!validationAllEmpty(editTexts, textInputLayouts, spinners, getString(R.string.empty))) {
+//
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.empty));
+//            return;
+//        }
+//
+//
+//
+//        if (!validationLength(fragmentHomeServicesEnterVendorDataTilDate, getString(R.string.invalid_date_required_field), 1)) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_date_required_field));
+//            return;
+//        }
+//        if (!validationLength(fragmentHomeServicesEnterVendorDataTilTime, getString(R.string.invalid_time_required_field), 1)) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_time_required_field));
+//            return;
+//        }
+//        if (!validationLength(fragmentHomeServicesEnterVendorDataTilAddress, getString(R.string.invalid_address_required_field), 1)) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
+//            return;
+//        }
         myVendorId= homeServicesVendorsVrRvAdapter.vindorId;
         if(myVendorId != -1){
             vendorData= getAllvendorsList.get(myVendorId);
-            String date= fragmentHomeServicesEnterVendorDataTilDate.getEditText().getText().toString();
-            String time= fragmentHomeServicesEnterVendorDataTilTime.getEditText().getText().toString();
-            String address= fragmentHomeServicesEnterVendorDataTilAddress.getEditText().getText().toString();
+            availableDaysList=getAllAvailableDaysItemList(vendorData);
+            if(vendorData.getAllVendorServices().size()!=0) {
 
-            Bundle bundle = new Bundle();
-            bundle.putString("MainServiceName", mainServiceName);
-            bundle.putString("Date", date);
-            bundle.putString("Time", time);
-            bundle.putString("Address", address);
-            bundle.putSerializable("VendorDataObject", vendorData);
-            bundle.putSerializable("Object", (Serializable) subCatDataList);
-            navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_completeBookingServicesFragment,bundle);
+                if(availableDaysList.size()!=0) {
+//            String date= fragmentHomeServicesEnterVendorDataTilDate.getEditText().getText().toString();
+//            String time= fragmentHomeServicesEnterVendorDataTilTime.getEditText().getText().toString();
+//            String address= fragmentHomeServicesEnterVendorDataTilAddress.getEditText().getText().toString();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("MainServiceName", mainServiceName);
+//            bundle.putString("Date", date);
+//            bundle.putString("Time", time);
+//            bundle.putString("Address", address);
+                    bundle.putSerializable("VendorDataObject", vendorData);
+                    bundle.putSerializable("Object", (Serializable) subCatDataList);
+                    navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeServicesEnterVenderData2Fragment, bundle);
+                }else {
+                    ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_no_days));
+                    return;
+                }
+            }else {
+                ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_no_services));
+                return;
+            }
         }else {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_required_field));
             return;
         }
 
+    }
+
+    private List<String> getAllAvailableDaysItemList(GetAllvendors vendorData2) {
+
+        List<String> allDaysItems = new ArrayList<String>();
+        if (vendorData2.getSaturday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Saturday");
+        }
+        if (vendorData2.getSunday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Sunday");
+        }
+        if (vendorData2.getMonday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Monday");
+        }
+        if (vendorData2.getTuesday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Tuesday");
+        }
+        if (vendorData2.getWednesday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Wednesday");
+        }
+        if (vendorData2.getThursday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Thursday");
+        }
+        if (vendorData2.getFriday().equalsIgnoreCase("1")) {
+            allDaysItems.add("Friday");
+        }
+        return allDaysItems;
     }
 
 }

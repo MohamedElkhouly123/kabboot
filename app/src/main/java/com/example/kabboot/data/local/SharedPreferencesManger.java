@@ -13,6 +13,7 @@ public class SharedPreferencesManger {
     public static String USER_DATA = "USER_DATA";
     public static String REMEMBER_ME = "REMEMBER_ME";
     public static String USER_PASSWORD = "USER_PASSWORD";
+    public static String USER_TOKEN = "USER_TOKEN";
     public static String CLIENT = "CLIENT";
     public static String TABPOSION = "TABPOSION";
     public static String GOOGLECHECK = "GOOGLECHECK";

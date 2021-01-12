@@ -7,13 +7,15 @@ import com.example.kabboot.data.model.getAllservicesResponce.GetAllservicesRespo
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllVendorsDataResponce;
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
-
-import java.util.List;
+import com.example.kabboot.data.model.saveServiceOrdersRequest.SaveServiceOrdersRequest;
+import com.example.kabboot.data.model.saveStoreOrdersRequest.SaveStoreOrdersRequest;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiServices {
@@ -57,27 +59,35 @@ public interface ApiServices {
 
     @POST("forgetPassword")
     @FormUrlEncoded
-    Call<GetUserDataResponce> userResetPassword(@Field("user_phone") String phone);
+    Call<GetUserDataResponce> userResetPassword(@Field("user_email") String email);
 
-    @POST("saveServiceOrders")
-    @FormUrlEncoded
-    Call<GetUserDataResponce> saveServiceOrders(
-            @Field("user_id") String user_id,
-            @Field("user_name") String user_name,
-            @Field("user_phone") String user_phone,
-            @Field("user_city") String user_city,
-            @Field("token") String token,
-            @Field("orderServiceList") List<Integer> orderServiceList
+//    @POST("saveServiceOrders")
+//    @FormUrlEncoded
+//    Call<GetUserDataResponce> saveServiceOrders(
+//            @Field("user_id") String user_id,
+//            @Field("user_name") String user_name,
+//            @Field("user_phone") String user_phone,
+//            @Field("user_city") String user_city,
+//            @Field("token") String token,
+//            @Field("orderServiceList[\"service_id\"]") List<Integer> orderServiceList
+//
+//    );
 
-    );
+//    @POST("saveStoreOrders")
+//    @FormUrlEncoded
+//    Call<GetUserDataResponce> saveStoreOrders(
+//            @Field("user_id") String user_id,
+//            @Field("user_phone") String user_phone,
+//            @Field("token") String token,
+//            @Field("orderItemList[\"product_id\"\"product_qty\"]") List<OrderProductsItemsListData> orderItemList
+//
+//    );
 
+    @Headers({"Accept: application/json"})
     @POST("saveStoreOrders")
-    @FormUrlEncoded
-    Call<GetUserDataResponce> saveStoreOrders(
-            @Field("user_id") String user_id,
-            @Field("user_phone") String user_phone,
-            @Field("token") String token,
-            @Field("orderItemList") List<Integer> orderItemList
+    Call<GetUserDataResponce> saveStoreOrders(@Body SaveStoreOrdersRequest saveStoreOrdersRequest);
 
-    );
+    @Headers("Content-Type: application/json")
+    @POST("saveServiceOrders")
+    Call<GetUserDataResponce> saveServiceOrders(@Body SaveServiceOrdersRequest saveServiceOrdersRequest);
 }

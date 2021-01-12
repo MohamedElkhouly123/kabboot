@@ -36,6 +36,9 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:gravity="center"
                 android:elevation="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,11 +107,11 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_15sdp"
                 android:paddingStart="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_6sdp"            >
                 <TextView
-                    android:id="@+id/fragment_home_complet_booking_services_book_sub_cat_name_tv"
+                    android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/services_booked"
@@ -120,33 +123,33 @@
                     android:layout_height="match_parent"
                     android:layout_above="@+id/load_more"
                     android:scrollbars="vertical" />
-               <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                >
-                <TextView
-                    android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Inspection"
-                    android:textColor="@color/black"
-                    android:layout_gravity="start"
-                    android:drawableStart="@drawable/ic_baseline_check_box_24"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:textSize="@dimen/_12ssp" />
-                <TextView
-                    android:id="@+id/fragment_home_complet_booking_services_sub_cat_price_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="100 EGP"
-                    android:textColor="@color/black"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:textSize="@dimen/_12ssp" />
-            </FrameLayout>
+<!--               <FrameLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_8sdp"-->
+<!--                >-->
+<!--                <TextView-->
+<!--                    android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Inspection"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_gravity="start"-->
+<!--                    android:drawableStart="@drawable/ic_baseline_check_box_24"-->
+<!--                    android:drawablePadding="@dimen/_5sdp"-->
+<!--                    android:layout_marginStart="@dimen/_5sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    android:textSize="@dimen/_12ssp" />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/fragment_home_complet_booking_services_sub_cat_price_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="100 EGP"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                    android:textSize="@dimen/_12ssp" />-->
+<!--            </FrameLayout>-->
                 <TextView
                     android:id="@+id/fragment_home_complet_booking_services_sub_serv_total_price_tv"
                     android:layout_width="wrap_content"
@@ -155,7 +158,6 @@
                     android:textColor="@color/black"
                     android:layout_gravity="end"
                     android:textStyle="bold"
-                    android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>

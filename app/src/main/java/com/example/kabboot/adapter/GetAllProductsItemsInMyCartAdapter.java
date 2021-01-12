@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
+import com.example.kabboot.data.model.getAllproductsResponce.OrderProductsItemsListData;
 import com.example.kabboot.view.activity.BaseActivity;
 import com.example.kabboot.view.activity.HomeCycleActivity;
 
@@ -26,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.kabboot.utils.HelperMethod.onLoadImageFromUrl2;
+import static com.example.kabboot.utils.HelperMethod.showToast;
 
 
 public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<GetAllProductsItemsInMyCartAdapter.ViewHolder> {
@@ -37,9 +39,10 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
     private List<AllProductForRom> allProducts = new ArrayList<>();
     private NavController navController;
     private static boolean show = false;
+    private List<OrderProductsItemsListData> orderItemsList = new ArrayList<>();
+
 
     public GetAllProductsItemsInMyCartAdapter(Context context, Activity activity, NavController navController, List<AllProductForRom> allProducts) {
-        allProducts.clear();
         this.activity = (BaseActivity) activity;
         this.context = context;
         this.navController = navController;
@@ -64,18 +67,19 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
     }
 
     private void setData(ViewHolder holder, int position) {
+//        orderItemsList.add( new OrderProductsItemsListData(String.valueOf(allProducts.get(position).getItemId()), allProducts.get(position).getQuantity()));
 
         AllProductForRom getAllProducts = allProducts.get(position);
 //            holder.cardviewHzDiscoverItemRateImgHide.setVisibility(View.VISIBLE);
         holder.fragmentMyCartItemNameTv.setText(getAllProducts.getProductName());
-        holder.fragmentMyCartItemItemsNumTv.setText(getAllProducts.getQuantity());
-        int totalPrice = Integer.parseInt(getAllProducts.getQuantity() )* Integer.parseInt(getAllProducts.getProductPrice());
-        holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice));
+        holder.fragmentMyCartItemItemsNumTv.setText("("+getAllProducts.getQuantity()+") Item");
+        int totalPrice = (int) (Integer.parseInt(getAllProducts.getQuantity() )* Double.parseDouble(getAllProducts.getProductPrice()));
+        holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice)+" EGP");
         if (getAllProducts.getImage() != null) {
             String productImage = "https://www.kabboot.com/uploads/product/" + getAllProducts.getImage().trim();
             onLoadImageFromUrl2(holder.fragmentMyCartItemImg, productImage.trim(), context);
         }
-//        showToast(activity, String.valueOf(getDisscoverGetHotelsItemsListData.size()+ "  " +String.valueOf(itemNum)));
+//        showToast(activity, orderItemsList.get(position).getId());
 
     }
 

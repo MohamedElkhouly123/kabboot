@@ -1,7 +1,5 @@
 package com.example.kabboot.view.fragment.HomeCycle2.accountProfile;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,28 +10,17 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.kabboot.R;
-import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
-import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-
-import static com.example.kabboot.data.api.ApiClient.getApiClient;
-import static com.example.kabboot.utils.HelperMethod.onPermission;
 
 
 public class AboutUsFragment extends BaSeFragment {

@@ -60,7 +60,10 @@
     <string name="invalid_time_required_field">Time Field Required</string>
     <string name="invalid_address_required_field">Address Field Required</string>
     <string name="invalid_vendor_required_field">Please Must Choose one Vendor From List</string>
+    <string name="invalid_vendor_no_services">No Services Available Now Please Choose other Vendor From List</string>
+    <string name="invalid_vendor_no_days">This Vendor Not Available Now Please Choose other From List</string>
     <string name="invalid_city_required_field">City Field Required</string>
+    <string name="invalid_services_required_field">Please Select At least One Service First</string>
     <string name="account">My Account</string>
     <string name="logout">Log Out</string>
     <string name="about_kabbot_uSA">About Kabboot</string>
@@ -69,5 +72,6 @@
     <string name="hi_about_us">Hi! Welcome to Kabboot App</string>
     <string name="all_products">All  Products</string>
     <string name="Specifications">Specifications</string>
+    <string name="select_vendor">Select Vendor</string>
 
 </resources>

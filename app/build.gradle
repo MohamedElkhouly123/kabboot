@@ -60,8 +60,8 @@ dependencies {
         implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
         //Room
-//    implementation "android.arch.persistence.room:runtime:$room_version"
-//    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 
     //     ultraviewpager
     implementation ('com.alibaba.android:ultraviewpager:1.0.7.7@aar') {
@@ -81,7 +81,11 @@ dependencies {
 
         //smile rating bar
 //    implementation 'com.github.sujithkanna:smileyrating:1.6.8'
-        // glide
+
+//    timepicker
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+
+    // glide
         implementation 'com.github.bumptech.glide:glide:4.11.0'
         annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 //    implementation 'com.github.bumptech.glide:glide:3.7.0'

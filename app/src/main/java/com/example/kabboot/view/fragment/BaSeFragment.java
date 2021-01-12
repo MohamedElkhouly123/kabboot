@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.kabboot.view.activity.BaseActivity;
 import com.example.kabboot.view.activity.HomeCycleActivity;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 
 
-public class BaSeFragment extends Fragment {
+public abstract class BaSeFragment extends Fragment {
 
 
     public BaseActivity baseActivity;

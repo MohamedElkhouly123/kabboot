@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
+import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,6 +29,7 @@ import retrofit2.Call;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
 import static com.example.kabboot.utils.validation.Validation.cleanError;
+import static com.example.kabboot.utils.validation.Validation.validationEmail;
 import static com.example.kabboot.utils.validation.Validation.validationPhone;
 import static com.example.kabboot.utils.validation.Validation.validationTextInputLayoutListEmpty;
 
@@ -36,9 +38,9 @@ public class ForgettPasswordFragment extends BaSeFragment {
 
 
     List<TextInputLayout> textInputLayoutList = new ArrayList<>();
-    @BindView(R.id.fragment_forget_password_up_til_phone)
-    TextInputLayout fragmentForgetPasswordUpTilPhone;
-    private String phone;
+    @BindView(R.id.fragment_forget_password_up_til_email)
+    TextInputLayout fragmentForgetPasswordUpTilEmail;
+    private String email;
     private ViewModelUser viewModelUser;
 
     public ForgettPasswordFragment() {
@@ -52,7 +54,7 @@ public class ForgettPasswordFragment extends BaSeFragment {
 
         ButterKnife.bind(this, root);
         initListener();
-        textInputLayoutList.add(fragmentForgetPasswordUpTilPhone);
+        textInputLayoutList.add(fragmentForgetPasswordUpTilEmail);
 
         return root;
     }
@@ -93,8 +95,8 @@ public class ForgettPasswordFragment extends BaSeFragment {
             return;
         }
 
-        if (!validationPhone(getActivity(), fragmentForgetPasswordUpTilPhone)) {
-//            ToastCreator.onCreateErrorToast(getActivity(),  getString(R.string.invalid_phone1));
+        if (!validationEmail(getActivity(), fragmentForgetPasswordUpTilEmail)) {
+            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_email_required_field));
             return;
         }
 
@@ -103,12 +105,12 @@ public class ForgettPasswordFragment extends BaSeFragment {
     }
 
     private void onCall() {
-        phone = fragmentForgetPasswordUpTilPhone.getEditText().getText().toString();
+        email = fragmentForgetPasswordUpTilEmail.getEditText().getText().toString();
 
 
         Call<GetUserDataResponce> resetPasswordCall = null;
 
-        resetPasswordCall = getApiClient().userResetPassword(phone);
+        resetPasswordCall = getApiClient().userResetPassword(email);
 
         viewModelUser.setAndMakeResetAndNewPasswordResponseAndSignUpAndBooking(getActivity(),resetPasswordCall, "Succes Set New Password", true);
 

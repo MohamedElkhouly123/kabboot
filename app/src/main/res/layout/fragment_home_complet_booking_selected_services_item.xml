@@ -5,29 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_7sdp"
-    android:paddingBottom="@dimen/_7sdp"
+    android:paddingTop="@dimen/_13sdp"
+    android:paddingBottom="@dimen/_13sdp"
+
     >
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Inspection"-->
-    <!--            android:textColor="@color/black"-->
-    <!--            android:layout_gravity="start"-->
-    <!--            android:drawableStart="@drawable/ic_baseline_check_box_24"-->
-    <!--            android:drawablePadding="@dimen/_5sdp"-->
-    <!--            android:layout_marginStart="@dimen/_5sdp"-->
-    <!--            android:layout_marginEnd="@dimen/_5sdp"-->
-    <!--            android:textSize="@dimen/_12ssp" />-->
-    <CheckBox
-        android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"
+    <TextView
+        android:id="@+id/fragment_home_complet_booking_selected_services_item_cb_remembered_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/blue_black"
         android:text="Inspectionjkhkjjjjj"
         android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_baseline_check_box_24"
+        android:drawablePadding="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:textSize="@dimen/_11ssp"
@@ -36,10 +26,26 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"  />
+<!--    <CheckBox-->
+<!--        android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"-->
+<!--        android:layout_width="@dimen/_165sdp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:buttonTint="@color/blue_black"-->
+<!--        android:text="Inspectionjkhkjjjjj"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_marginStart="@dimen/_5sdp"-->
+<!--        android:layout_marginEnd="@dimen/_5sdp"-->
+<!--        android:textSize="@dimen/_11ssp"-->
+<!--        android:ellipsize="end"-->
+<!--        android:maxLines="2"-->
+<!--        android:textStyle="normal"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
-        android:id="@+id/fragment_home_complet_booking_services_item_price_tv"
+        android:id="@+id/fragment_home_complet_booking_selected_services_item_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center"

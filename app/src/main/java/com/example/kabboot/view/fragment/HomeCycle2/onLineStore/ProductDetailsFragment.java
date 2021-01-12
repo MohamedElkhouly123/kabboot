@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager.widget.PagerAdapter;
@@ -22,13 +21,12 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.kabboot.R;
 import com.example.kabboot.adapter.ProductDetailsUltraPagerAdapter;
 import com.example.kabboot.data.local.DataBase;
-import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
-import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.tmall.ultraviewpager.UltraViewPager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -68,15 +66,17 @@ public class ProductDetailsFragment extends BaSeFragment {
     private NavController navController;
     @BindView(R.id.fragment_product_details_ultra_viewpager)
     UltraViewPager ultraViewPager;
-    private static int productItemsNum=0;
+    private int productItemsNum=0;
     private DataBase dataBase;
     private boolean first =true;
     private int productItemsPrice=0;
     private AllProduct productData ;
+    private List<AllProductForRom> items= new ArrayList<>();
     private List<String> allProductImages = new ArrayList<>();
     private AllProductForRom allProductForRom;
     private String onSoreOrAllProducts;
     private String dealOrPromo;
+    private boolean firstPress=true;
 
     public ProductDetailsFragment() {
         // Required empty public constructor
@@ -132,8 +132,8 @@ public class ProductDetailsFragment extends BaSeFragment {
 
     private void room() {
 
-        LiveData<List<AllProductForRom>> items2;
-        String[] name = new String[10];
+//        LiveData<List<AllProductForRom>> items2;
+//        String[] name = new String[10];
 //                Executors.newSingleThreadExecutor().execute(() -> {
 //
 //                });
@@ -146,33 +146,33 @@ public class ProductDetailsFragment extends BaSeFragment {
 //                                    quantity, "ahmed", note, item.getPhotoUrl(),
 //                                    item.getName());
 //                            roomDao.addItem(orderItem);
-                         allProductForRom = new AllProductForRom(productData.getProductId(),productData.getProductName(),productData.getProductPrice(),productData.getProductCat(),productData.getVendorIdFk(),productData.getProductSpecification(),productData.getProductDesc(),productData.getImage(),productData.getInStock(),productData.getHotdeals(),productData.getMainCategoryName(), productData.getVendorName());
+                         allProductForRom = new AllProductForRom(productData.getProductId(),productData.getProductName(),productData.getProductPrice(),productData.getProductCat(),productData.getVendorIdFk(),productData.getProductSpecification(),productData.getProductDesc(),productData.getImage(),productData.getInStock(),productData.getHotdeals(),productData.getMainCategoryName(), productData.getVendorName(),String.valueOf(productItemsNum));
+                        dataBase.addNewOrderItemDao().deletAll();
 
 //                                clientMakeNewOrderItemForRoo z z  s m.setCategoryId("2");
-                                allProductForRom.setQuantity(String.valueOf(productItemsNum));
+//                                allProductForRom.setQuantity(String.valueOf(productItemsNum));
 //                                clientMakeNewOrderItemForRoom.setName("checolete2");
 //                                Log.i(TAG, clientMakeNewOrderItemForRoom.getName()+"yes");
-//                        dataBase.addNewOrderItemDao().deletAll();
 
-                        dataBase.addNewOrderItemDao().insert(allProductForRom);
 //                                dataBase.addNewOrderItemDao().add(clientMakeNewOrderItemForRoom);
 //                                dataBase.addNewOrderItemDao().add(clientMakeNewOrderItemForRoom);
 
 //                    DataBase.getInstance(getContext()).addNewOrderItemDao().update(clientMakeNewOrderItemForRoom);
-                        List<AllProductForRom> items = dataBase.addNewOrderItemDao().getAllItems();
-                        Log.i(TAG, items.get(0).getProductName()+"yes");
-                                Log.i(TAG, items.get(7).getProductName()+"yes");
+//                        dataBase.addNewOrderItemDao().insert(allProductForRom);
 
-                        for (int i = 0; i > items.size(); i++) {
-                            name[i] = items.get(i).getQuantity();
-                        }
+//                        List<AllProductForRom> items = dataBase.addNewOrderItemDao().getAllItems();
+//                        Log.i(TAG, items.get(0).getProductName()+" yes");
+//                                Log.i(TAG, items.get(0).getProductName()+items.get(0).getQuantity()+"yes");
+//
+//                        for (int i = 0; i > items.size(); i++) {
+//                            name[i] = items.get(i).getQuantity();
+//                        }
                     }
                 });
 
 
-//                for (int i=0;i>name.length;i++) {
 
-        showToast(getActivity(), name[0] + name[1]);
+//        showToast(getActivity(), name[0] );
     }
 
     private void setData() {
@@ -197,9 +197,48 @@ public class ProductDetailsFragment extends BaSeFragment {
             navController.navigate(R.id.action_productDetailsFragment_to_navigation_online_store);
             homeCycleActivity.setNavigation("v");
         }
-        room();
+        roomAddItem();
     }
 
+    private void roomAddAndGetItem() {
+        Executors.newSingleThreadExecutor().execute(
+
+                new Runnable() {
+                    @Override
+                    public void run() {
+                if(productItemsNum>0) {
+//                    dataBase.addNewOrderItemDao().deletAll();
+                    allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
+                    dataBase.addNewOrderItemDao().insert(allProductForRom);
+                    items = dataBase.addNewOrderItemDao().getAllItems();
+                    Log.i(TAG,items.get(0).getQuantity() +"  mohamed");
+                    Bundle bundle = new Bundle();
+                    bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
+                    bundle.putSerializable("Object", productData);
+                    bundle.putSerializable("Object2", (Serializable) items);
+                    bundle.putString("DealOrPromo", dealOrPromo);
+                    navController.navigate(R.id.action_productDetailsFragment_to_myCartFragment,bundle);
+                }
+                    }
+                });
+    }
+
+    private void roomAddItem() {
+        if(productItemsNum>0) {
+
+            Executors.newSingleThreadExecutor().execute(
+
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
+                            dataBase.addNewOrderItemDao().insert(allProductForRom);
+
+                        }
+                    });
+        }
+    }
 
     @SuppressLint("ResourceType")
     @OnClick({R.id.fragment_product_details_back_img, R.id.fragment_product_details_view_cart_btn, R.id.fragment_product_details_items_minus_item_btn, R.id.fragment_product_details_items_plus_item_btn, R.id.fragment_product_details_items_add_to_card_tv})
@@ -209,11 +248,10 @@ public class ProductDetailsFragment extends BaSeFragment {
                 onBack();
                 break;
             case R.id.fragment_product_details_view_cart_btn:
-                Bundle bundle = new Bundle();
-                bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
-                bundle.putSerializable("Object", productData);
-                bundle.putString("DealOrPromo", dealOrPromo);
-                navController.navigate(R.id.action_productDetailsFragment_to_myCartFragment,bundle);
+                if(firstPress) {
+                    roomAddAndGetItem();
+                    firstPress=false;
+                }
                 break;
             case R.id.fragment_product_details_items_minus_item_btn:
                 if(productItemsNum>=0){
@@ -256,4 +294,6 @@ public class ProductDetailsFragment extends BaSeFragment {
                 break;
         }
     }
+
+
 }

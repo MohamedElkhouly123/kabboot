@@ -3,6 +3,7 @@ package com.example.kabboot.view.viewModel;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,13 +19,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
 import static com.example.kabboot.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.kabboot.data.local.SharedPreferencesManger.SaveData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.USER_DATA;
 import static com.example.kabboot.data.local.SharedPreferencesManger.USER_PASSWORD;
+import static com.example.kabboot.data.local.SharedPreferencesManger.USER_TOKEN;
 import static com.example.kabboot.data.local.SharedPreferencesManger.clean;
 import static com.example.kabboot.utils.HelperMethod.dismissProgressDialog;
 import static com.example.kabboot.utils.HelperMethod.progressDialog;
+import static com.example.kabboot.utils.HelperMethod.showToast;
 import static com.example.kabboot.utils.ToastCreator.onCreateErrorToast;
 import static com.example.kabboot.utils.network.InternetState.isConnected;
 
@@ -69,7 +73,8 @@ public class ViewModelUser extends ViewModel {
                             if (response.body().getSuccess()==1) {
 //                                if (response.body().getMessage() != "the user is not vertified to login please visit your email") {
                                 clean(activity);
-                                    SaveData(activity, USER_PASSWORD, password);
+                                SaveData(activity, USER_PASSWORD, password);
+                                SaveData(activity, USER_TOKEN, response.body().getToken());
                                 SaveData(activity, USER_DATA, response.body().getMember());
                                 SaveData(activity, REMEMBER_ME, remember);
                                 if (auth) {
@@ -161,7 +166,7 @@ public class ViewModelUser extends ViewModel {
 //                                }
                         } else {
                                 dismissProgressDialog();
-                                onCreateErrorToast(activity, response.body().getMessage());
+                                onCreateErrorToast(activity, response.body().getMessage() );
 
                             }
                         } catch (Exception e) {
@@ -173,7 +178,9 @@ public class ViewModelUser extends ViewModel {
                 @Override
                 public void onFailure(Call<GetUserDataResponce> call, Throwable t) {
                     dismissProgressDialog();
-//                    showToast(activity, String.valueOf(t.getMessage()));
+                    showToast(activity, String.valueOf(t.getMessage()));
+                    Log.i(TAG,String.valueOf(t.getMessage()));
+                    Log.i(TAG,String.valueOf(t.getCause()));
                     onCreateErrorToast(activity, activity.getString(R.string.error));
                     generalRegisterationAndForgetPasswordAndBookingsResponse.postValue(null);
                 }

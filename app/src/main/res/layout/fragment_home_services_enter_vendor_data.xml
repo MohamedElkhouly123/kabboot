@@ -4,6 +4,68 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/gray"
+        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="@dimen/_5sdp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_vendor"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:elevation="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <ImageButton
+            android:id="@+id/fragment_policy_and_conditions_back_img"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:src="@drawable/back_icon"
+            android:layout_marginStart="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/_17sdp"
+            android:elevation="@dimen/_5sdp"
+            android:background="@drawable/gray_shape_trangle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--            <ImageButton-->
+        <!--                android:id="@+id/fragment_home_account_profile_more_bttn"-->
+        <!--                android:layout_width="@dimen/_29sdp"-->
+        <!--                android:layout_height="@dimen/_29sdp"-->
+        <!--                android:src="@drawable/ic_more_vert_black_24dp"-->
+        <!--                android:layout_gravity="right"-->
+        <!--                android:elevation="@dimen/_5sdp"-->
+        <!--                android:layout_marginStart="@dimen/_10sdp"-->
+        <!--                android:layout_marginEnd="@dimen/_10sdp"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                android:background="@color/white"-->
+        <!--                />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/fragment_home_services_enter_vendor_data_sr_refresh"
         android:layout_width="match_parent"
@@ -18,17 +80,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <ImageView
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="@dimen/_120sdp"
-                android:layout_gravity="center"
-                android:elevation="@dimen/_1sdp"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:src="@drawable/kabbot_logo"
-                />
+<!--            <ImageView-->
+<!--                android:layout_width="@dimen/_130sdp"-->
+<!--                android:layout_height="@dimen/_120sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:elevation="@dimen/_1sdp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:layout_marginTop="@dimen/_15sdp"-->
+<!--                android:layout_marginStart="@dimen/_15sdp"-->
+<!--                android:layout_marginEnd="@dimen/_15sdp"-->
+<!--                android:src="@drawable/kabbot_logo"-->
+<!--                />-->
+
+
             <!--        <LinearLayout-->
             <!--            android:layout_width="match_parent"-->
             <!--            android:layout_height="wrap_content"-->
@@ -72,63 +136,65 @@
             <!--                />-->
             <!--        </LinearLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fragment_home_services_enter_vendor_data_til_date"
-                style="@style/text_input_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:errorTextAppearance="@style/error_appearance"
-                >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/fragment_home_services_enter_vendor_data_til_date"-->
+<!--                style="@style/text_input_login"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                app:errorTextAppearance="@style/error_appearance"-->
+<!--                >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fragment_home_services_enter_vendor_data_date_etxt"
-                    style="@style/EditTextLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:drawableEnd="@drawable/ic_baseline_date_range_24"
-                    android:hint="@string/date"
-                    android:focusable="false"
-                    android:editable="false"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fragment_home_services_enter_vendor_data_til_time"
-                style="@style/text_input_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:errorTextAppearance="@style/error_appearance"
-                >
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/fragment_home_services_enter_vendor_data_date_etxt"-->
+<!--                    style="@style/EditTextLogin"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_50sdp"-->
+<!--                    android:drawableEnd="@drawable/ic_baseline_date_range_24"-->
+<!--                    android:hint="@string/date"-->
+<!--                    android:focusable="false"-->
+<!--                    android:editable="false"-->
+<!--                    android:inputType="none" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/fragment_home_services_enter_vendor_data_til_time"-->
+<!--                style="@style/text_input_login"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_10sdp"-->
+<!--                app:errorTextAppearance="@style/error_appearance"-->
+<!--                >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fragment_home_services_enter_vendor_data_time_etxt"
-                    style="@style/EditTextLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:drawableEnd="@drawable/ic_baseline_access_time_24"
-                    android:hint="@string/time"
-                    android:focusable="false"
-                    android:editable="false"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fragment_home_services_enter_vendor_data_til_address"
-                style="@style/text_input_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorTextAppearance="@style/error_appearance"
-                >
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/fragment_home_services_enter_vendor_data_time_etxt"-->
+<!--                    style="@style/EditTextLogin"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_50sdp"-->
+<!--                    android:drawableEnd="@drawable/ic_baseline_access_time_24"-->
+<!--                    android:hint="@string/time"-->
+<!--                    android:focusable="false"-->
+<!--                    android:editable="false"-->
+<!--                    android:inputType="none" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/fragment_home_services_enter_vendor_data_til_address"-->
+<!--                style="@style/text_input_login"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:errorTextAppearance="@style/error_appearance"-->
+<!--                >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fragment_register_address_etxt"
-                    style="@style/EditTextLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_55sdp"
-                    android:hint="@string/address"
-                    android:ems="10"
-                    android:inputType="textAutoComplete" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/fragment_register_address_etxt"-->
+<!--                    style="@style/EditTextLogin"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_55sdp"-->
+<!--                    android:hint="@string/address"-->
+<!--                    android:ems="10"-->
+<!--                    android:inputType="textAutoComplete" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
             <!--        <com.google.android.material.textfield.TextInputLayout-->
             <!--            android:id="@+id/fragment_register_til_vendor"-->
             <!--            style="@style/text_input_login"-->
@@ -150,6 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vendor"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 style="@style/text_input_login"
@@ -227,6 +294,7 @@
 
     </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/fragment_home_services_enter_vendor_data_next_btn"
         android:layout_width="match_parent"

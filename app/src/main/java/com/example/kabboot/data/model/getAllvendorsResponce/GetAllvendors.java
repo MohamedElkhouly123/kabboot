@@ -1,10 +1,10 @@
 
 package com.example.kabboot.data.model.getAllvendorsResponce;
 
+import java.io.Serializable;
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 
 public class GetAllvendors implements Serializable {
 
@@ -77,6 +77,9 @@ public class GetAllvendors implements Serializable {
     @SerializedName("sub_category_name")
     @Expose
     private String subCategoryName;
+    @SerializedName("all_vendor_services")
+    @Expose
+    private List<AllVendorService> allVendorServices = null;
 
     public String getVendorId() {
         return vendorId;
@@ -260,6 +263,14 @@ public class GetAllvendors implements Serializable {
 
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
+    }
+
+    public List<AllVendorService> getAllVendorServices() {
+        return allVendorServices;
+    }
+
+    public void setAllVendorServices(List<AllVendorService> allVendorServices) {
+        this.allVendorServices = allVendorServices;
     }
 
 }

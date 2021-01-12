@@ -1,13 +1,20 @@
 package com.example.kabboot.view.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
+
+import androidx.annotation.NonNull;
 
 import com.example.kabboot.R;
 import com.example.kabboot.view.fragment.splashCycle.SplashFragment;
 import com.example.kabboot.view.fragment.splashCycle.SplashLoadFragment;
 
+import static com.example.kabboot.data.local.SharedPreferencesManger.LoadBoolean;
+import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
+import static com.example.kabboot.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.kabboot.utils.HelperMethod.replaceFragment;
 import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
 
@@ -15,6 +22,11 @@ import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimatio
 public class SplashCycleActivity extends BaseActivity {
 //    @BindView(R.id.progressbar)
 //    ProgressBar progressBar;
+
+    //Boolean variable to mark if the transaction is safe
+    private boolean isTransactionSafe;
+    //Boolean variable to mark if there is any transaction pending
+//    private boolean isTransactionPending;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,31 +37,49 @@ public class SplashCycleActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+//        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+
     private void splashScreen() {
         Handler handler = new Handler();
         Runnable r = new Runnable() {
             public void run() {
 
-//                if (LoadUserData(getActivity()) != null && LoadBoolean(getActivity(), REMEMBER_ME)) {
-//                    startActivity(new Intent(SplashCycleActivity.this, HomeCycleActivity.class));
-//                    finish();
-//                }else {
+                if (LoadUserData(SplashCycleActivity.this) != null && LoadBoolean(SplashCycleActivity.this, REMEMBER_ME)) {
+                    startActivity(new Intent(SplashCycleActivity.this, HomeCycleActivity.class));
+                    finish();
+                }else {
 //                            replaceFragment(getActivity().getSupportFragmentManager(), R.id.splash_activity_fram, new AboutAppAndIntroFragment());
 //                }
 //                fragmentLoadSplashAnimationImg.setAnimation(null);
+//                if(isTransactionSafe) {
                 if (!isFinishing() && !isDestroyed()) {
                     replaceFragmentWithAnimation(getSupportFragmentManager(), R.id.splash_activity_fram, new SplashLoadFragment(), "b");
                 }
                     //                    startActivity(new Intent(SplashCycleActivity.this, AboutAppActivity.class));
-
-//                    finish();
 //                }
+//                    finish();
+                }
             }
         };
         handler.postDelayed(r, 2000);
 
     }
 
+    public void onPostResume(){
+        super.onPostResume();
+        isTransactionSafe=true;
+
+    }
+
+    public void onPause(){
+        super.onPause();
+        isTransactionSafe=false;
+
+    }
 //    @Override
 //    public void onBackPressed() {
 //        finish();
