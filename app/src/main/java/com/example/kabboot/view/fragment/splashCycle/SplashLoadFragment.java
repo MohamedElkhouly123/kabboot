@@ -24,12 +24,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
+import static com.example.kabboot.view.activity.SplashCycleActivity.isTransactionSafe;
 
 
 public class SplashLoadFragment extends BaSeFragment {
 
     @BindView(R.id.fragment_load_splash_animation_img)
     ImageView fragmentLoadSplashAnimationImg;
+    private long delay =3200;
+    private boolean first=false;
+//    private boolean isTransactionSafe;
 
     public SplashLoadFragment() {
         // Required empty public constructor
@@ -68,7 +72,10 @@ public class SplashLoadFragment extends BaSeFragment {
         Handler handler = new Handler();
         Runnable r = new Runnable() {
             public void run() {
-                if (!getActivity().isFinishing() && !getActivity().isDestroyed()) {
+                if(isTransactionSafe) {
+
+                    if (!getActivity().isFinishing() && !getActivity().isDestroyed()) {
+                        first=true;
                 startActivity(new Intent(getActivity(), UserCycleActivity.class));
                 getActivity().finish();}
 
@@ -83,11 +90,22 @@ public class SplashLoadFragment extends BaSeFragment {
 //                    startActivity(new Intent(SplashCycleActivity.this, AboutAppActivity.class));
 
 //                    finish();
-//                }
+                }
             }
         };
-        handler.postDelayed(r, 3200);
+        handler.postDelayed(r, delay);
 
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getActivity().isFinishing() && !getActivity().isDestroyed() ) {
+//            delay=500;
+            splashScreen();
+        }
     }
 
     @Override

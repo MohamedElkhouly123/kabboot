@@ -85,23 +85,51 @@
                     android:layout_height="wrap_content"
                     android:text="Nacita Autocar Care Providor"
                     android:textColor="@color/black"
-                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:textSize="@dimen/_15ssp" />
+                <TextView
+                    android:id="@+id/fragment_home_complet_booking_sub_cat2_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nacita Autocar Care Providor"
+                    android:textColor="@color/black2"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:textSize="@dimen/_13ssp" />
-                <androidx.cardview.widget.CardView
+                    android:textSize="@dimen/_11ssp" />
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    app:cardCornerRadius="@dimen/_4sdp"
-                    app:cardBackgroundColor="@android:color/white"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:orientation="horizontal"
                     >
+                    <TextView
+                        android:id="@+id/fragment_home_complet_booking_is_close_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Closed"
+                        android:textColor="@color/gray2"
+                        android:textSize="@dimen/_11ssp" />
+                    <TextView
+                        android:id="@+id/fragment_home_complet_booking_is_open_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opens 12:30 Mon"
+                        android:textColor="@color/black2"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:textSize="@dimen/_11ssp" />
+                </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:orientation="vertical"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         android:paddingTop="@dimen/_5sdp"
                         android:paddingBottom="@dimen/_12sdp"
                         android:paddingStart="@dimen/_6sdp"
@@ -111,8 +139,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/services_booked"
-                            android:textColor="@color/gray2"
-                            android:textSize="@dimen/_11ssp" />
+                            android:textColor="@color/blue_black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_12ssp" />
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/fragment_home_services_enter_vendor_data2_recycler_view"
                             android:layout_width="match_parent"
@@ -158,7 +187,6 @@
 <!--                            android:layout_marginEnd="@dimen/_5sdp"-->
 <!--                            android:textSize="@dimen/_12ssp" />-->
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/fragment_home_services_enter_vendor_data2_til_date"
                     style="@style/text_input_login"
@@ -172,7 +200,7 @@
                         android:id="@+id/fragment_home_services_enter_vendor_data2_date_etxt"
                         style="@style/EditTextLogin2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_56sdp"
                         android:drawableEnd="@drawable/ic_baseline_date_range_24"
                         android:hint="@string/date"
                         android:focusable="false"
@@ -192,7 +220,7 @@
                         android:id="@+id/fragment_home_services_enter_vendor_data2_time_etxt"
                         style="@style/EditTextLogin2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_56sdp"
                         android:drawableEnd="@drawable/ic_baseline_access_time_24"
                         android:hint="@string/time"
                         android:focusable="false"
@@ -211,7 +239,7 @@
                         android:id="@+id/fragment_home_services_enter_vendor_data2_address_etxt"
                         style="@style/EditTextLogin2"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_55sdp"
+                        android:layout_height="@dimen/_56sdp"
                         android:hint="@string/address"
                         android:ems="10"
                         android:inputType="textAutoComplete" />

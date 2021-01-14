@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="On Site Services"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
             android:elevation="@dimen/_5sdp"
@@ -40,18 +41,18 @@
             card_view:layout_constraintEnd_toEndOf="parent"
 
             />
-        <!--            <ImageButton-->
-        <!--                android:id="@+id/fragment_choose_static_evisa_back_btn"-->
-        <!--                android:layout_width="@dimen/_27sdp"-->
-        <!--                android:layout_height="@dimen/_27sdp"-->
-        <!--                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"-->
-        <!--                android:layout_marginStart="@dimen/_17sdp"-->
-        <!--                android:layout_marginEnd="@dimen/_17sdp"-->
-        <!--                android:elevation="@dimen/_5sdp"-->
-        <!--                android:background="@drawable/gray_shape_trangle"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+                    <ImageButton
+                        android:id="@+id/fragment_home_on_site_services_back_btn"
+                        android:layout_width="@dimen/_27sdp"
+                        android:layout_height="@dimen/_27sdp"
+                        android:src="@drawable/back_icon"
+                        android:layout_marginStart="@dimen/_17sdp"
+                        android:layout_marginEnd="@dimen/_17sdp"
+                        android:elevation="@dimen/_5sdp"
+                        android:background="@drawable/gray_shape_trangle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
         />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -101,6 +102,9 @@
                         android:id="@+id/fragment_home_on_site_services_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_above="@+id/load_more"
                         android:scrollbars="vertical" />
 

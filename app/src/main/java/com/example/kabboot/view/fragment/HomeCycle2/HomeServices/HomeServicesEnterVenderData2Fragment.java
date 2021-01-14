@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,18 +23,19 @@ import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
 import com.example.kabboot.data.model.getAllvendorsResponce.AllVendorService;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.OrderServiceList;
-import com.example.kabboot.utils.HelperMethod;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +44,19 @@ import butterknife.OnClick;
 import static com.example.kabboot.utils.validation.Validation.cleanError;
 import static com.example.kabboot.utils.validation.Validation.validationAllEmpty;
 import static com.example.kabboot.utils.validation.Validation.validationLength;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+import static java.util.Calendar.THURSDAY;
+import static java.util.Calendar.TUESDAY;
+import static java.util.Calendar.WEDNESDAY;
+import static java.util.Calendar.YEAR;
+import static java.util.Calendar.getInstance;
 
 
 public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
@@ -69,6 +82,8 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     TextInputLayout fragmentHomeServicesEnterVendorData2TilTime;
     @BindView(R.id.fragment_home_services_enter_vendor_data2_sub_cat_name_tv)
     TextView fragmentHomeServicesEnterVendorData2SubCatNameTv;
+    @BindView(R.id.fragment_home_complet_booking_sub_cat2_name_tv)
+    TextView fragmentHomeCompletBookingSubCat2NameTv;
     private NavController navController;
     private List<AllVendorService> allVendorServiceList = new ArrayList<AllVendorService>();
     private HomeServicesVendorsVrRvAdapter homeServicesVendorsVrRvAdapter;
@@ -82,8 +97,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     private GetAllvendors vendorData;
     private GetAllServicesAdapter getAllServicesAdapter;
     private String startHour, endHour;
-    private List<String> availableDaysList = new ArrayList<>();
-//    private int myVendorId;
+    //    private int myVendorId;
 //    private GetAllvendors vendorData;
 
     public HomeServicesEnterVenderData2Fragment() {
@@ -104,7 +118,6 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
         homeCycleActivity.setNavigation("g");
-        availableDaysList = getAllAvailableDaysItemList();
 //        showToast(getActivity(), getAllAvailableDaysItemList().get(0));
         setData();
         init();
@@ -112,39 +125,15 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
     private void setData() {
+//        availableDays[0]= Calendar.SUNDAY;
+
         fragmentHomeServicesEnterVendorData2BookCatNameTv.setText("Book " + mainServiceName + " Service");
-        fragmentHomeServicesEnterVendorData2SubCatNameTv.setText(subCatDataList.get(0).getCategoryName() + " Services Booked");
+        fragmentHomeServicesEnterVendorData2SubCatNameTv.setText("Services Booked");
+        fragmentHomeCompletBookingSubCat2NameTv.setText(subCatDataList.get(0).getCategoryName());
         fragmentHomeCompletBookingServicesVendorNameTv.setText(vendorData.getVendorName());
         startHour = vendorData.getStartHour();
         endHour = vendorData.getEndHour();
         allVendorServiceList = vendorData.getAllVendorServices();
-    }
-
-    private List<String> getAllAvailableDaysItemList() {
-
-        List<String> allDaysItems = new ArrayList<String>();
-        if (vendorData.getSaturday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Saturday");
-        }
-        if (vendorData.getSunday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Sunday");
-        }
-        if (vendorData.getMonday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Monday");
-        }
-        if (vendorData.getTuesday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Tuesday");
-        }
-        if (vendorData.getWednesday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Wednesday");
-        }
-        if (vendorData.getThursday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Thursday");
-        }
-        if (vendorData.getFriday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Friday");
-        }
-        return allDaysItems;
     }
 
     private void init() {
@@ -185,12 +174,12 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
 //                DialogFragment datePickerFragment = new HelperMethod.DatePickerFragment(fragmentHomeServicesEnterVendorData2TilDate.getEditText());
 //                datePickerFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
 
-               showDate();
+                showDate();
                 break;
             case R.id.fragment_home_services_enter_vendor_data2_time_etxt:
-                DialogFragment timePickerFragment = new HelperMethod.TimePickerFragment(fragmentHomeServicesEnterVendorData2TilTime.getEditText());
-                timePickerFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
-
+//                DialogFragment timePickerFragment = new HelperMethod.TimePickerFragment(fragmentHomeServicesEnterVendorData2TilTime.getEditText());
+//                timePickerFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
+                showTime();
                 break;
             case R.id.fragment_home_services_enter_vendor_data2_next_btn:
                 onVaildate();
@@ -199,17 +188,42 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
     private void showDate() {
-        Calendar now = Calendar.getInstance();
+        Calendar min_date_c = getInstance();
 
-        DatePickerDialog dpd = DatePickerDialog.newInstance(this,
-                now.get(Calendar.YEAR), // Initial year selection
-                now.get(Calendar.MONTH), // Initial month selection
-                now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+        DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(this,
+                min_date_c.get(YEAR), // Initial year selection
+                min_date_c.get(MONTH), // Initial month selection
+                min_date_c.get(DAY_OF_MONTH) // Inital day selection
 
         );
-        dpd.setMinDate(now);
-// If you're calling this from a support Fragment
-        dpd.show(getFragmentManager(), "Datepickerdialog");
+        Calendar[] days = new Calendar[13];
+        for (int i = -6; i < 7; i++) {
+            Calendar day = getInstance();
+            day.add(DAY_OF_MONTH, i * 2);
+            days[i + 6] = day;
+        }
+        datePickerDialog.setMinDate(min_date_c);
+        // Setting Max Date to next 2 years
+        Calendar max_date_c = getInstance();
+        max_date_c.set(YEAR, min_date_c.get(YEAR) + 4);
+        datePickerDialog.setMaxDate(max_date_c);
+        //Disable all SUNDAYS and SATURDAYS between Min and Max Dates
+        for (Calendar loopdate = min_date_c; min_date_c.before(max_date_c); min_date_c.add(Calendar.DATE, 1), loopdate = min_date_c) {
+            int dayOfWeek = loopdate.get(Calendar.DAY_OF_WEEK);
+            if ((dayOfWeek == FRIDAY && vendorData.getFriday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == THURSDAY && vendorData.getThursday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == WEDNESDAY && vendorData.getWednesday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == TUESDAY && vendorData.getTuesday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == MONDAY && vendorData.getMonday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == SUNDAY && vendorData.getSunday().equalsIgnoreCase("0")) ||
+                    (dayOfWeek == SATURDAY && vendorData.getSaturday().equalsIgnoreCase("0"))) {
+                Calendar[] disabledDays = new Calendar[1];
+                disabledDays[0] = loopdate;
+                datePickerDialog.setDisabledDays(disabledDays);
+            }
+//
+        }// If you're calling this from a support Fragment
+        datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
 // If you're calling this from an AppCompatActivity
 // dpd.show(getSupportFragmentManager(), "Datepickerdialog");
     }
@@ -217,25 +231,39 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
 
     private void showTime() {
 
-            Calendar now = Calendar.getInstance();
-            final Calendar c = Calendar.getInstance();
+        Calendar now = getInstance();
+        final Calendar c = getInstance();
 
-            TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this,
-                    now.get(Calendar.HOUR_OF_DAY), // Initial year selection
-                    now.get(Calendar.MINUTE), // Initial month selection
-                    DateFormat.is24HourFormat(getActivity()));
-            mTimePickerDialog.setMinTime(11,5,0);
-        mTimePickerDialog.setMaxTime(11,5,0);
+        TimePickerDialog mTimePickerDialog = TimePickerDialog.newInstance(this,
+                now.get(HOUR_OF_DAY), // Initial year selection
+                now.get(MINUTE), // Initial month selection
+                DateFormat.is24HourFormat(getActivity()));
+        String[] minTimeParts = vendorData.getStartHour().split(":");
+//        String startSec = minTimeParts[2];
+        String startMin = minTimeParts[1];
+        String startHour = minTimeParts[0];
+        String[] maxTimeParts = vendorData.getEndHour().split(":");
+//        String endSec = maxTimeParts[2];
+        String endMin = maxTimeParts[1];
+        String endHour = maxTimeParts[0];
+        if (Integer.parseInt(startHour) < Integer.parseInt(endHour)) {
+            mTimePickerDialog.setMinTime(Integer.parseInt(startHour), Integer.parseInt(startMin), 0);
+            mTimePickerDialog.setMaxTime(Integer.parseInt(endHour), Integer.parseInt(endMin), 0);
+        } else {
+            mTimePickerDialog.setMinTime(Integer.parseInt(endHour), Integer.parseInt(endMin), 0);
+            mTimePickerDialog.setMaxTime(Integer.parseInt(startHour), Integer.parseInt(startMin), 0);
+        }
 
 // If you're calling this from a support Fragment
 //            mTimePickerDialog.enableSeconds(true);
-            mTimePickerDialog.show(getFragmentManager(), "TimePickerDialog");// If you're calling this from an AppCompatActivity
+        mTimePickerDialog.show(getFragmentManager(), "TimePickerDialog");// If you're calling this from an AppCompatActivity
 // dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-        }
+    }
+
     private void onVaildate() {
 
-        allVendorServiceListSelected=getAllServicesAdapter.allVendorServiceListSelected;
-        ids=getAllServicesAdapter.ids;
+        allVendorServiceListSelected = getAllServicesAdapter.allVendorServiceListSelected;
+        ids = getAllServicesAdapter.ids;
 
         List<EditText> editTexts = new ArrayList<>();
         List<TextInputLayout> textInputLayouts = new ArrayList<>();
@@ -245,7 +273,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilTime);
         textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilAddress);
         cleanError(textInputLayouts);
-        if(ids.size()==0&&allVendorServiceListSelected.size()==0){
+        if (ids.size() == 0 && allVendorServiceListSelected.size() == 0) {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_services_required_field));
             return;
         }
@@ -294,16 +322,21 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
 
-
-
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-//        dateTextView.setText(date);
+//        String date = dayOfMonth+"-"+(monthOfYear+1)+"-"+year;
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat mFormat = new DecimalFormat("00", symbols);
+        String date = year + "-" + mFormat.format(Double.valueOf((monthOfYear + 1))) + "-" + mFormat.format(Double.valueOf(dayOfMonth));
+        fragmentHomeServicesEnterVendorData2TilDate.getEditText().setText(date);
     }
 
     @Override
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat mFormat = new DecimalFormat("00", symbols);
+        String time = mFormat.format(Double.valueOf((hourOfDay))) + ":" + mFormat.format(Double.valueOf(minute));
+        fragmentHomeServicesEnterVendorData2TilTime.getEditText().setText(time);
     }
+
 }

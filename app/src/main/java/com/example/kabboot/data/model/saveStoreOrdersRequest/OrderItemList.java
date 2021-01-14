@@ -4,7 +4,9 @@ package com.example.kabboot.data.model.saveStoreOrdersRequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OrderItemList {
+import java.io.Serializable;
+
+public class OrderItemList implements Serializable {
 
     @SerializedName("product_id")
     @Expose

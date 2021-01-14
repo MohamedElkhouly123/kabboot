@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class HomeOnSiteServicesFragment extends BaSeFragment {
@@ -76,13 +77,13 @@ public class HomeOnSiteServicesFragment extends BaSeFragment {
 
     private void init() {
         noResultErrorTitle.setVisibility(View.VISIBLE);
-        if (subCatDataList.size()!= 0) {
-            fragmentHomeOnSiteServicesMainCatNameTv.setText(mainServiceName+" Services");
+        if (subCatDataList.size() != 0) {
+            fragmentHomeOnSiteServicesMainCatNameTv.setText(mainServiceName + " Services");
 //        lLayout = new LinearLayoutManager(getActivity());
-        gLayout = new GridLayoutManager(getContext(), 2);
+            gLayout = new GridLayoutManager(getContext(), 2);
 
-        fragmentHomeOnSiteServicesRecyclerView.setLayoutManager(gLayout);
-            homeServicesSubCategoryVrRvAdapter = new HomeServicesSubCategoryVrRvAdapter(getContext(), getActivity(),subCatDataList, mainServiceName,navController);
+            fragmentHomeOnSiteServicesRecyclerView.setLayoutManager(gLayout);
+            homeServicesSubCategoryVrRvAdapter = new HomeServicesSubCategoryVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, navController);
             fragmentHomeOnSiteServicesRecyclerView.setAdapter(homeServicesSubCategoryVrRvAdapter);
             noResultErrorTitle.setVisibility(View.GONE);
 
@@ -115,6 +116,11 @@ public class HomeOnSiteServicesFragment extends BaSeFragment {
         navController.navigate(R.id.action_homeOnSiteServicesFragment_to_navigation_services);
         homeCycleActivity.setNavigation("v");
 
+    }
+
+    @OnClick(R.id.fragment_home_on_site_services_back_btn)
+    public void onClick() {
+        onBack();
     }
 
 

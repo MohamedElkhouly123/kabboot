@@ -83,21 +83,22 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/_45sdp"
         >
+
         <TextView
             android:id="@+id/fragment_home_complet_booking_services_vendor_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Nacita Autocar Care Providor"
             android:textColor="@color/black"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:textSize="@dimen/_13ssp" />
+            android:textSize="@dimen/_15ssp" />
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:cardCornerRadius="@dimen/_4sdp"
             app:cardBackgroundColor="@android:color/white"
             >
@@ -115,8 +116,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/services_booked"
-                    android:textColor="@color/gray2"
-                    android:textSize="@dimen/_11ssp" />
+                    android:textColor="@color/black2"
+                    android:textSize="@dimen/_12ssp" />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/fragment_home_complet_booking_services_recycler_view"
                     android:layout_width="match_parent"

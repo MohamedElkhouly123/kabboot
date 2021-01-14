@@ -178,9 +178,9 @@ public class ViewModelUser extends ViewModel {
                 @Override
                 public void onFailure(Call<GetUserDataResponce> call, Throwable t) {
                     dismissProgressDialog();
-                    showToast(activity, String.valueOf(t.getMessage()));
-                    Log.i(TAG,String.valueOf(t.getMessage()));
-                    Log.i(TAG,String.valueOf(t.getCause()));
+//                    showToast(activity, String.valueOf(t.getMessage()));
+//                    Log.i(TAG,String.valueOf(t.getMessage()));
+//                    Log.i(TAG,String.valueOf(t.getCause()));
                     onCreateErrorToast(activity, activity.getString(R.string.error));
                     generalRegisterationAndForgetPasswordAndBookingsResponse.postValue(null);
                 }

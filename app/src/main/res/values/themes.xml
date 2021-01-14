@@ -27,7 +27,7 @@
         <item name="android:textColor">@color/orange</item>
         <item name="android:paddingEnd">@dimen/_5ssp</item>
         <item name="android:paddingStart">@dimen/_5ssp</item>
-        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:background">@drawable/edit_text_gray_shape</item>
         <item name="colorControlNormal">@color/orange</item>
 <!--        <item name="backgroundTint">@color/orange</item>-->
@@ -41,7 +41,7 @@
         <item name="android:textColor">@color/orange</item>
         <item name="android:paddingEnd">@dimen/_5ssp</item>
         <item name="android:paddingStart">@dimen/_5ssp</item>
-        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:background">@drawable/edit_text_white_shape</item>
         <item name="colorControlNormal">@color/orange</item>
         <!--        <item name="backgroundTint">@color/orange</item>-->

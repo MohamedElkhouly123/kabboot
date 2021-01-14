@@ -23,12 +23,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.kabboot.utils.HelperMethod.showToast;
-
 public class GetAllServicesAdapter extends RecyclerView.Adapter<GetAllServicesAdapter.ViewHolder> {
 
 
     private final NavController navController;
+
     private Context context;
     private Activity activity;
     //    private List<String> oldBloodTypes = new ArrayList<>();
@@ -69,7 +68,8 @@ public class GetAllServicesAdapter extends RecyclerView.Adapter<GetAllServicesAd
             holder.fragmentHomeCompletBookingServicesItemCbRemember.setChecked(false);
 //            ids.add(getAmenity2s.get(position).getId());
             holder.fragmentHomeCompletBookingServicesItemCbRemember.setText(allVendorServiceList.get(position).getServiceName());
-            holder.fragmentHomeCompletBookingServicesItemPriceTv.setText(allVendorServiceList.get(position).getServicePrice()+" EGP");
+            holder.fragmentHomeCompletBookingServicesItemCbRememberedDescrTv.setText(allVendorServiceList.get(position).getDetails());
+            holder.fragmentHomeCompletBookingServicesItemPriceTv.setText(allVendorServiceList.get(position).getServicePrice() + " EGP");
 
         } catch (Exception e) {
 
@@ -83,7 +83,7 @@ public class GetAllServicesAdapter extends RecyclerView.Adapter<GetAllServicesAd
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        OrderServiceList orderServiceList=new OrderServiceList();
+                        OrderServiceList orderServiceList = new OrderServiceList();
                         orderServiceList.setServiceId(Integer.valueOf(allVendorServiceList.get(position).getServiceId()));
                         ids.add(orderServiceList);
                         allVendorServiceListSelected.add(allVendorServiceList.get(position));
@@ -116,6 +116,8 @@ public class GetAllServicesAdapter extends RecyclerView.Adapter<GetAllServicesAd
         CheckBox fragmentHomeCompletBookingServicesItemCbRemember;
         @BindView(R.id.fragment_home_complet_booking_services_item_price_tv)
         TextView fragmentHomeCompletBookingServicesItemPriceTv;
+        @BindView(R.id.fragment_home_complet_booking_services_item_cb_remembered_descr_tv)
+        TextView fragmentHomeCompletBookingServicesItemCbRememberedDescrTv;
         private View view;
 
         public ViewHolder(View itemView) {

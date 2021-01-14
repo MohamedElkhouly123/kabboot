@@ -20,7 +20,7 @@
         android:drawablePadding="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
-        android:textSize="@dimen/_11ssp"
+        android:textSize="@dimen/_12ssp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textStyle="normal"

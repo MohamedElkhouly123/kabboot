@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -27,12 +24,10 @@ import com.example.kabboot.data.model.DateTxt;
 import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllVendorsDataResponce;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
-import com.example.kabboot.utils.HelperMethod;
 import com.example.kabboot.utils.OnEndLess;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelGetLists;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,14 +39,11 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
-import static com.example.kabboot.utils.validation.Validation.cleanError;
-import static com.example.kabboot.utils.validation.Validation.validationAllEmpty;
-import static com.example.kabboot.utils.validation.Validation.validationLength;
 
 
 public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
-//    @BindView(R.id.fragment_home_services_enter_vendor_data_til_date)
+    //    @BindView(R.id.fragment_home_services_enter_vendor_data_til_date)
 //    TextInputLayout fragmentHomeServicesEnterVendorDataTilDate;
 //    @BindView(R.id.fragment_home_services_enter_vendor_data_til_time)
 //    TextInputLayout fragmentHomeServicesEnterVendorDataTilTime;
@@ -78,11 +70,12 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     public Integer maxPage = 0;
     private OnEndLess onEndLess;
     private String mainServiceName;
-    private List<SubCat> subCatDataList = new ArrayList<SubCat>();;
+    private List<SubCat> subCatDataList = new ArrayList<SubCat>();
+    ;
     private DateTxt checkinDate;
     private int myVendorId;
     private GetAllvendors vendorData;
-    private List<String> availableDaysList= new ArrayList<>();
+    private List<String> availableDaysList = new ArrayList<>();
 
     public HomeServicesEnterVenderDataFragment() {
         // Required empty public constructor
@@ -105,7 +98,6 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         init();
         return root;
     }
-
 
 
     private void initListener() {
@@ -173,11 +165,9 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         };
         fragmentHomeServicesEnterVendorDataRecyclerView.addOnScrollListener(onEndLess);
 
-        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, getAllvendorsList,navController);
+        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, getAllvendorsList, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
 //            showToast(getActivity(), "success adapter");
-
-
 
 
         if (getAllvendorsList.size() == 0) {
@@ -191,7 +181,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         fragmentHomeServicesEnterVendorDataSrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                maxPage=0;
+                maxPage = 0;
 
                 getAllvendorsList(0);
 
@@ -201,8 +191,9 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
     private void getAllvendorsList(int page) {
-        if(page == 0){
-            maxPage=0;}
+        if (page == 0) {
+            maxPage = 0;
+        }
         Call<GetAllVendorsDataResponce> getAllvendorsCall;
 
 //        startShimmer(page);
@@ -211,14 +202,11 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         getAllvendorsCall = getApiClient().clientGetAgetAllvendors();
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
-        viewModel.getAllvendorsResponce(getActivity(), errorSubView, getAllvendorsCall,fragmentHomeServicesEnterVendorDataSrRefresh, loadMore);
+        viewModel.getAllvendorsResponce(getActivity(), errorSubView, getAllvendorsCall, fragmentHomeServicesEnterVendorDataSrRefresh, loadMore);
 //            showToast(getActivity(), "success without fillter");
 
 
-
     }
-
-
 
 
     private void reInit() {
@@ -226,7 +214,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
         getAllvendorsList = new ArrayList<>();
-        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(),subCatDataList,mainServiceName, getAllvendorsList,navController);
+        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, getAllvendorsList, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
 
     }
@@ -238,7 +226,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
             public void onClick(View view) {
 
 
-                    getAllvendorsList(0);
+                getAllvendorsList(0);
 
 
             }
@@ -255,11 +243,11 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
-        navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeOnSiteServicesFragment,bundle);
+        navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeOnSiteServicesFragment, bundle);
     }
 
 
-    @OnClick({ R.id.fragment_home_services_enter_vendor_data_next_btn})
+    @OnClick({R.id.fragment_home_services_enter_vendor_data_next_btn,R.id.fragment_policy_and_conditions_back_img})
     public void onClick(View view) {
         switch (view.getId()) {
 //            case R.id.fragment_home_services_enter_vendor_data_date_etxt:
@@ -273,6 +261,9 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //                timePickerFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
 //
 //                break;
+            case R.id.fragment_policy_and_conditions_back_img:
+                onBack();
+                break;
             case R.id.fragment_home_services_enter_vendor_data_next_btn:
                 onVaildate();
                 break;
@@ -309,13 +300,13 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
 //            return;
 //        }
-        myVendorId= homeServicesVendorsVrRvAdapter.vindorId;
-        if(myVendorId != -1){
-            vendorData= getAllvendorsList.get(myVendorId);
-            availableDaysList=getAllAvailableDaysItemList(vendorData);
-            if(vendorData.getAllVendorServices().size()!=0) {
+        myVendorId = homeServicesVendorsVrRvAdapter.vindorId;
+        if (myVendorId != -1) {
+            vendorData = getAllvendorsList.get(myVendorId);
+            availableDaysList = getAllAvailableDaysItemList(vendorData);
+            if (vendorData.getAllVendorServices().size() != 0) {
 
-                if(availableDaysList.size()!=0) {
+                if (availableDaysList.size() != 0) {
 //            String date= fragmentHomeServicesEnterVendorDataTilDate.getEditText().getText().toString();
 //            String time= fragmentHomeServicesEnterVendorDataTilTime.getEditText().getText().toString();
 //            String address= fragmentHomeServicesEnterVendorDataTilAddress.getEditText().getText().toString();
@@ -328,15 +319,15 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
                     bundle.putSerializable("VendorDataObject", vendorData);
                     bundle.putSerializable("Object", (Serializable) subCatDataList);
                     navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeServicesEnterVenderData2Fragment, bundle);
-                }else {
+                } else {
                     ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_no_days));
                     return;
                 }
-            }else {
+            } else {
                 ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_no_services));
                 return;
             }
-        }else {
+        } else {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_vendor_required_field));
             return;
         }
@@ -369,5 +360,6 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         }
         return allDaysItems;
     }
+
 
 }

@@ -32,6 +32,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/services"
                             android:textColor="@color/black"
+                            android:textStyle="bold"
                             android:textSize="@dimen/_15ssp"
                             android:elevation="@dimen/_5sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="@string/how_can_help"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp" />
@@ -84,7 +86,7 @@
             android:id="@+id/fragment_home_services_rv_item_hz_sr_vw"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_205sdp"
-            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_2sdp"
             android:visibility="visible"
             android:layout_marginTop="@dimen/_12sdp"
             >
@@ -107,7 +109,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:paddingStart="@dimen/_4sdp"
                     tools:layoutManager="GridLayoutManager"
                     tools:spanCount="5"
                     />
@@ -128,6 +129,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginEnd="@dimen/_7sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:weightSum="2"
@@ -139,8 +142,8 @@
         card_view:cardCornerRadius="@dimen/_7sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
         android:elevation="@dimen/_8sdp"
         android:layout_weight="1"
         android:clickable="true"
@@ -148,7 +151,7 @@
         android:foreground="?selectableItemBackground"        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_105sdp"
+            android:layout_height="@dimen/_110sdp"
             android:orientation="vertical"
             android:gravity="center"
             >
@@ -168,7 +171,7 @@
                 android:text="@string/hot_deals"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:textColor="@color/black"
+                android:textColor="@color/black2"
                 android:textSize="@dimen/_12ssp" />
             <!--            android:ellipsize="end"-->
             <!--            android:maxLines="2"-->
@@ -181,8 +184,8 @@
             card_view:cardCornerRadius="@dimen/_7sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:elevation="@dimen/_8sdp"
             android:layout_weight="1"
             android:clickable="true"
@@ -190,7 +193,7 @@
             android:foreground="?selectableItemBackground"            >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_105sdp"
+                android:layout_height="@dimen/_110sdp"
                 android:orientation="vertical"
                 android:gravity="center"
                 >
@@ -205,10 +208,10 @@
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:text="@string/in_stock"
+                    android:text="@string/promo_codes"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black2"
                     android:textSize="@dimen/_12ssp" />
                 <!--            android:ellipsize="end"-->
                 <!--            android:maxLines="2"-->

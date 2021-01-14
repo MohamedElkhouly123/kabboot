@@ -12,21 +12,25 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/_35sdp"
         >
-    <ImageView
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_120sdp"
-        android:layout_gravity="center"
-        android:elevation="@dimen/_1sdp"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:src="@drawable/kabbot_logo"
-      />
+        <ImageView
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_gravity="center"
+            android:elevation="@dimen/_1sdp"
+            android:padding="@dimen/_5sdp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/kabbot_logo"
+            android:background="@drawable/gradient_btn_blue_black_shape"
+
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="-10dp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:gravity="center_horizontal"
             >
             <LinearLayout
@@ -43,12 +47,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:textColor="@color/blue_black"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:textStyle="bold"
                 />
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_2sdp"
+                    android:layout_height="@dimen/_3ssp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@color/blue_black"
                     />
@@ -59,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/login"
                 android:textColor="@color/gray2"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_18sdp"
                 android:gravity="top"
                 android:textStyle="bold"
                 android:layout_marginStart="@dimen/_8sdp"
@@ -79,7 +85,9 @@
             android:id="@+id/fragment_register_user_name"
             style="@style/EditTextLogin"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="@dimen/_10sdp"
+            android:layout_height="@dimen/_56sdp"
             android:hint="@string/user_name"
             android:ems="10"
             android:inputType="textAutoComplete" />
@@ -96,7 +104,9 @@
             android:id="@+id/fragment_register_phone_etxt"
             style="@style/EditTextLogin"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:drawableStart="@drawable/ic_baseline_phone_24"
+            android:drawablePadding="@dimen/_10sdp"
             android:hint="@string/phone"
             android:ems="10"
             android:inputType="phone" />
@@ -113,7 +123,9 @@
                 android:id="@+id/fragment_register_email_etxt"
                 style="@style/EditTextLogin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:drawablePadding="@dimen/_10sdp"
                 android:hint="@string/email"
                 android:ems="10"
                 android:inputType="textEmailAddress" />
@@ -129,7 +141,7 @@
                 style="@style/text_input_login"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_height="@dimen/_56sdp"
                 app:errorTextAppearance="@style/error_appearance"
                 >
 
@@ -137,6 +149,8 @@
                     style="@style/EditTextLogin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_baseline_location_city_24"
+                    android:drawablePadding="@dimen/_10sdp"
                     android:hint="@string/city"
 
                     android:inputType="textAutoComplete" />
@@ -147,7 +161,7 @@
             <Spinner
                 android:id="@+id/fragment_register_sp_city"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_46sdp"
                 android:elevation="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_19sdp"
@@ -172,8 +186,10 @@
                 android:id="@+id/fragment_register_password_etxt"
                 style="@style/EditTextLogin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="@dimen/_56sdp"
                 android:hint="@string/password"
+                android:drawableStart="@drawable/ic_baseline_https_24"
+                android:drawablePadding="@dimen/_10sdp"
                 android:ems="10"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +207,9 @@
                 android:id="@+id/fragment_register_confirm_password_etxt"
                 style="@style/EditTextLogin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_55sdp"
+                android:drawableStart="@drawable/ic_baseline_https_24"
+                android:drawablePadding="@dimen/_10sdp"
+                android:layout_height="@dimen/_56sdp"
                 android:hint="@string/confirm_password"
                 android:ems="10"
                 android:inputType="textPassword" />

@@ -60,7 +60,8 @@ public class AboutUsFragment extends BaSeFragment {
 
         ButterKnife.bind(this, root);
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
-
+        setUpActivity();
+        homeCycleActivity.setNavigation("g");
         setData();
 
         return root;
@@ -98,6 +99,7 @@ public class AboutUsFragment extends BaSeFragment {
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new ConfirmBookingFragment());
         navController.navigate(R.id.action_aboutUsFragment_to_navigation_profile);
+        homeCycleActivity.setNavigation("v");
 
     }
 

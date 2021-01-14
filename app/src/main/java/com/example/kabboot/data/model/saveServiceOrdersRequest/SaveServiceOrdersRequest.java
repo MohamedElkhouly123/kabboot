@@ -1,11 +1,12 @@
 
 package com.example.kabboot.data.model.saveServiceOrdersRequest;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SaveServiceOrdersRequest {
+public class SaveServiceOrdersRequest implements Serializable {
 
     @SerializedName("user_id")
     @Expose

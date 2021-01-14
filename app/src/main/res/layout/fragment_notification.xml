@@ -15,6 +15,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
             android:elevation="@dimen/_5sdp"
+            android:textStyle="bold"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

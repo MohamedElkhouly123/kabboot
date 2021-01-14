@@ -33,7 +33,7 @@
     <string name="working_days">Working Days</string>
     <string name="next">Next</string>
     <string name="in_stock">On Stock</string>
-    <string name="services_booked">Services Booked</string>
+    <string name="services_booked">Book a Service</string>
     <string name="time_and_date_of_visit">Time and date of visit</string>
     <string name="complete_order_book">Complete Order Booking</string>
     <string name="view_cart">View Cart</string>

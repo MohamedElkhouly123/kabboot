@@ -85,6 +85,9 @@ public class HomeServicesMainCategoryHzRvAdapter extends RecyclerView.Adapter<Ho
             holder.position = position;
 
             MainCat getAllServiceDataResponce = getAllServiceData.get(position);
+            if(position==0){
+                holder.cardViewFragmentHomeServicesMainRv2HzItemImg.setImageResource(R.drawable.on_road);
+            }
 //            showToast(activity, String.valueOf(position));
             if (getAllServiceDataResponce.getImage() != null) {
                 String categoryImage = "https://www.kabboot.com/uploads/cat/" + getAllServiceDataResponce.getImage().trim();

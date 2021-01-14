@@ -106,7 +106,7 @@ public class HomeServicesFragment extends BaSeFragment {
 
 //                        }
                     } else {
-                        showToast(getActivity(), "success1");
+//                        showToast(getActivity(), "success1");
 
                     }
 

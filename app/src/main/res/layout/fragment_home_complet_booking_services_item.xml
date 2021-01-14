@@ -1,53 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/_7sdp"
-    android:paddingBottom="@dimen/_7sdp"
+    android:layout_marginTop="@dimen/_10sdp"
+    app:cardCornerRadius="@dimen/_4sdp"
+    app:cardBackgroundColor="@android:color/white"
+    >  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_10sdp"
+    android:paddingBottom="@dimen/_30sdp"
     >
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/fragment_home_complet_booking_services_sub_cat_name_tv"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Inspection"-->
-    <!--            android:textColor="@color/black"-->
-    <!--            android:layout_gravity="start"-->
-    <!--            android:drawableStart="@drawable/ic_baseline_check_box_24"-->
-    <!--            android:drawablePadding="@dimen/_5sdp"-->
-    <!--            android:layout_marginStart="@dimen/_5sdp"-->
-    <!--            android:layout_marginEnd="@dimen/_5sdp"-->
-    <!--            android:textSize="@dimen/_12ssp" />-->
-    <CheckBox
-        android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/blue_black"
-        android:text="Inspectionjkhkjjjjj"
-        android:textColor="@color/black"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:textSize="@dimen/_11ssp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/fragment_home_complet_booking_services_item_price_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center"
-        android:text="100 EGP"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        >
+
+
+        <CheckBox
+            android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/blue_black"
+            android:text="Inspectionjkhkjjjjj"
+            android:textColor="@color/blue_black"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragment_home_complet_booking_services_item_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:text="100 EGP"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:textColor="@color/blue_black"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+          <TextView
+            android:id="@+id/fragment_home_complet_booking_services_item_cb_remembered_descr_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inspectionjkhkjjjjj"
+            android:textColor="@color/black"
+
+            android:layout_marginStart="@dimen/_31sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_10ssp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

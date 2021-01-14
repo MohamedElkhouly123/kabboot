@@ -1,5 +1,6 @@
 package com.example.kabboot.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ public class SplashCycleActivity extends BaseActivity {
 //    ProgressBar progressBar;
 
     //Boolean variable to mark if the transaction is safe
-    private boolean isTransactionSafe;
+    public static boolean isTransactionSafe;
     //Boolean variable to mark if there is any transaction pending
 //    private boolean isTransactionPending;
     @Override
@@ -42,6 +43,11 @@ public class SplashCycleActivity extends BaseActivity {
 //        super.onSaveInstanceState(outState, outPersistentState);
     }
 
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
 
     private void splashScreen() {
         Handler handler = new Handler();
@@ -55,8 +61,7 @@ public class SplashCycleActivity extends BaseActivity {
 //                            replaceFragment(getActivity().getSupportFragmentManager(), R.id.splash_activity_fram, new AboutAppAndIntroFragment());
 //                }
 //                fragmentLoadSplashAnimationImg.setAnimation(null);
-//                if(isTransactionSafe) {
-                if (!isFinishing() && !isDestroyed()) {
+                if(isTransactionSafe) {
                     replaceFragmentWithAnimation(getSupportFragmentManager(), R.id.splash_activity_fram, new SplashLoadFragment(), "b");
                 }
                     //                    startActivity(new Intent(SplashCycleActivity.this, AboutAppActivity.class));
@@ -79,6 +84,13 @@ public class SplashCycleActivity extends BaseActivity {
         super.onPause();
         isTransactionSafe=false;
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(isTransactionSafe||!isFinishing() && !isDestroyed()) {
+         splashScreen();
+        }
     }
 //    @Override
 //    public void onBackPressed() {

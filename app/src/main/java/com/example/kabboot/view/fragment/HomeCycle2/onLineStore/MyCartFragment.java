@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
 import com.example.kabboot.adapter.GetAllProductsItemsInMyCartAdapter;
-
 import com.example.kabboot.data.local.DataBase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
@@ -49,7 +48,7 @@ import static com.example.kabboot.data.local.SharedPreferencesManger.USER_TOKEN;
 public class MyCartFragment extends BaSeFragment {
 
     @BindView(R.id.fragment_my_cart_total_items_price)
-    TextView fragmentMyCartTotalItemsPrice;
+    TextView fragmentMyCartTotalItemsPriceTv;
     @BindView(R.id.fragment_my_cart_recycler_view)
     RecyclerView fragmentMyCartRecyclerView;
     @BindView(R.id.fragment_my_cart_phone3_tv)
@@ -59,15 +58,16 @@ public class MyCartFragment extends BaSeFragment {
     @BindView(R.id.fragment_my_cart_til_promo_code)
     TextInputLayout fragmentMyCartTilPromoCode;
     @BindView(R.id.fragment_my_cart_Subtotal)
-    TextView fragmentMyCartSubtotal;
+    TextView fragmentMyCartSubtotalTv;
     @BindView(R.id.fragment_my_cart_fees)
-    TextView fragmentMyCartFees;
+    TextView fragmentMyCartFeesTv;
     @BindView(R.id.fragment_my_cart_tax)
-    TextView fragmentMyCartTax;
+    TextView fragmentMyCartTaxTv;
     @BindView(R.id.fragment_my_discount)
-    TextView fragmentMyDiscount;
+    TextView fragmentMyDiscountTv;
     @BindView(R.id.fragment_my_cart_total_price)
-    TextView fragmentMyCartTotalPrice;
+    TextView fragmentMyCartTotalPriceTv;
+
     private NavController navController;
     private String onSoreOrAllProducts;
     private String dealOrPromo;
@@ -81,6 +81,8 @@ public class MyCartFragment extends BaSeFragment {
     private String userId, userPhone, userToken;
     private LinearLayoutManager lLayout;
     private GetAllProductsItemsInMyCartAdapter getAllProductsItemsInMyCartAdapter;
+    private int productTotalPrice = 0;
+    private int allProductsTotalPrice = 0;
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -115,11 +117,14 @@ public class MyCartFragment extends BaSeFragment {
 
     private void getOrderDataList() {
         for (int i = 0; i < items.size(); i++) {
-            OrderItemList orderItemList= new OrderItemList();
+            OrderItemList orderItemList = new OrderItemList();
             orderItemList.setProductId(items.get(i).getItemId());
             orderItemList.setProductQty(items.get(i).getQuantity());
             orderItemsList.add(orderItemList);
+            productTotalPrice = (int) ((int) Double.parseDouble(items.get(i).getProductPrice()) * Double.parseDouble(items.get(i).getQuantity()));
+            allProductsTotalPrice += productTotalPrice;
         }
+        fragmentMyCartTotalItemsPriceTv.setText("Subtotal : "+allProductsTotalPrice+" EGP");
 //        showToast(getActivity(), orderItemsList.get(1).getId() + "  " + orderItemsList.get(1).getProductQuantity());
 
     }
@@ -143,18 +148,17 @@ public class MyCartFragment extends BaSeFragment {
     }
 
     private void init() {
-        if (items.size()!= 0) {
-        lLayout = new LinearLayoutManager(getActivity());
+        if (items.size() != 0) {
+            lLayout = new LinearLayoutManager(getActivity());
             fragmentMyCartRecyclerView.setLayoutManager(lLayout);
 //            showToast(getActivity(), items.get(0).getProductId());
-            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(),navController,items);
+            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(), navController, items);
             fragmentMyCartRecyclerView.setAdapter(getAllProductsItemsInMyCartAdapter);
 
 //            noResultErrorTitle.setVisibility(View.GONE);
 
         }
     }
-
 
 
     private void roomClear() {
@@ -177,9 +181,11 @@ public class MyCartFragment extends BaSeFragment {
         userToken = LoadData(getActivity(), USER_TOKEN);
 //        showToast(getActivity(), userToken+" "+userPhone+" "+userId+" "+orderItemsList.get(0).getProductQuantity());
         Call<GetUserDataResponce> saveStoreOrdersCall = null;
-        SaveStoreOrdersRequest saveStoreOrdersRequest=new SaveStoreOrdersRequest();
+        SaveStoreOrdersRequest saveStoreOrdersRequest = new SaveStoreOrdersRequest();
         saveStoreOrdersRequest.setUserId(userId);
+        saveStoreOrdersRequest.setUserName(userData.getUserName());
         saveStoreOrdersRequest.setUserPhone(userPhone);
+        saveStoreOrdersRequest.setUserCity(userData.getUserCity());
         saveStoreOrdersRequest.setToken(userToken);
         saveStoreOrdersRequest.setOrderItemList(orderItemsList);
 

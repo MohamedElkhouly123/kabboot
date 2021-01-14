@@ -79,6 +79,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     private GetShowSelectedAllServicesAdapter getAllServicesSelectedAdapter;
     private ViewModelUser viewModelUser;
     private String userId,userPhone,userName,userCity,userToken;
+    private int totalPrice=0;
 
     public CompleteBookingServicesFragment() {
         // Required empty public constructor
@@ -110,12 +111,16 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     }
 
     private void setData() {
+
+        for(int i=0;i<allVendorServiceListSelected.size();i++){
+           totalPrice+= (int) Double.parseDouble(allVendorServiceListSelected.get(i).getServicePrice());
+        }
 //        fragmentHomeCompletBookingServicesBookCatNameTv.setText("Book " + mainServiceName);
         fragmentHomeCompletBookingServicesBookCatNameTv.setText("Book " + mainServiceName + " Service");
-        fragmentHomeCompletBookingServicesSubCatNameTv.setText(subCatDataList.get(0).getCategoryName() + " Services Booked");
+        fragmentHomeCompletBookingServicesSubCatNameTv.setText(" Services Booked");
         fragmentHomeCompletBookingServicesVendorNameTv.setText(vendorData.getVendorName());
 //        fragmentHomeCompletBookingServicesSubCatPriceTv.setText("11 $");
-        fragmentHomeCompletBookingServicesSubServTotalPriceTv.setText("11 $");
+        fragmentHomeCompletBookingServicesSubServTotalPriceTv.setText("Subtotal : "+totalPrice+" EGP");
         fragmentHomeCompletBookingServicesBookDateTv.setText(date);
         fragmentHomeCompletBookingServicesBookTimeTv.setText(time);
 
@@ -184,7 +189,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
         userPhone = userData.getUserPhone();
         userCity = userData.getUserCity();
         userToken = LoadData(getActivity(), USER_TOKEN);
-        showToast(getActivity(), userId+" "+userName+" "+servicesSelectedIds.get(0).getServiceId());
+//        showToast(getActivity(), userId+" "+userName+" "+servicesSelectedIds.get(0).getServiceId());
         Call<GetUserDataResponce> saveServiceOrdersCall = null;
 
         SaveServiceOrdersRequest saveServiceOrdersRequest =new SaveServiceOrdersRequest();

@@ -12,7 +12,7 @@
         android:id="@+id/card_view_fragment_home_services_main_rv2_hz_item_ly_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
         android:elevation="@dimen/_10sdp"
         app:cardElevation="0dp"
         android:clickable="true"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_17sdp"
+            android:paddingBottom="@dimen/_22sdp"
 
             >
         <FrameLayout
@@ -34,8 +34,8 @@
 
             <ImageView
                 android:id="@+id/card_view_fragment_home_services_main_rv2_hz_item_img"
-                android:layout_width="@dimen/_130sdp"
-                android:layout_height="@dimen/_145sdp"
+                android:layout_width="@dimen/_145sdp"
+                android:layout_height="@dimen/_140sdp"
                 android:background="@drawable/round_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/road" />
@@ -55,12 +55,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_17sdp"
                 android:gravity="center_vertical"
                 >
             <TextView
                 android:id="@+id/card_view_fragment_home_services_main_rv2_hz_item_name_tv"
-                android:layout_width="@dimen/_90sdp"
+                android:layout_width="@dimen/_93sdp"
                 android:layout_height="wrap_content"
                 android:text="@string/hot_deals"
                 android:ellipsize="end"
@@ -73,7 +73,7 @@
                     android:layout_width="@dimen/_15sdp"
                     android:layout_height="@dimen/_15sdp"
                     android:src="@drawable/ic_baseline_navigate_next_24"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:background="@drawable/continue_blue_black_shape"
                     />
             </LinearLayout>
