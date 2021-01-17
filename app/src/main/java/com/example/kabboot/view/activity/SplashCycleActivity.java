@@ -26,6 +26,8 @@ public class SplashCycleActivity extends BaseActivity {
 
     //Boolean variable to mark if the transaction is safe
     public static boolean isTransactionSafe;
+    private boolean first=true;
+
     //Boolean variable to mark if there is any transaction pending
 //    private boolean isTransactionPending;
     @Override
@@ -53,7 +55,7 @@ public class SplashCycleActivity extends BaseActivity {
         Handler handler = new Handler();
         Runnable r = new Runnable() {
             public void run() {
-
+                 first=false;
                 if (LoadUserData(SplashCycleActivity.this) != null && LoadBoolean(SplashCycleActivity.this, REMEMBER_ME)) {
                     startActivity(new Intent(SplashCycleActivity.this, HomeCycleActivity.class));
                     finish();
@@ -70,7 +72,7 @@ public class SplashCycleActivity extends BaseActivity {
                 }
             }
         };
-        handler.postDelayed(r, 2000);
+        handler.postDelayed(r, 3000);
 
     }
 
@@ -85,15 +87,24 @@ public class SplashCycleActivity extends BaseActivity {
         isTransactionSafe=false;
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(isTransactionSafe||!isFinishing() && !isDestroyed()) {
-         splashScreen();
+        if(isTransactionSafe||!isFinishing() && !isDestroyed()&& !first) {
+            if (!(LoadUserData(SplashCycleActivity.this) != null && LoadBoolean(SplashCycleActivity.this, REMEMBER_ME))) {
+
+                splashScreen();
+            }
         }
     }
-//    @Override
-//    public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
 //        finish();
-//    }
+    }
 }

@@ -60,6 +60,7 @@ public class VendorProfileFragment extends BaSeFragment {
     private ShowVendorDaysAvailableItemsAdapter showVendorDaysAvailableItemsAdapter;
     private List<ItemGeneralObjectModel> rowListItem;
     private LinearLayoutManager linearLayoutHorizental;
+    private String SubServiceName;
 
     public VendorProfileFragment() {
         // Required empty public constructor
@@ -70,7 +71,8 @@ public class VendorProfileFragment extends BaSeFragment {
         if (this.getArguments() != null) {
             mainServiceName = this.getArguments().getString("MainServiceName");
             subCatDataList = (List<SubCat>) this.getArguments().getSerializable("Object");
-            vendorDataList = (GetAllvendors) this.getArguments().getSerializable("VendorObject");
+            SubServiceName = this.getArguments().getString("SubServiceName");
+            vendorDataList = (GetAllvendors) this.getArguments().getSerializable("VendorDataObject");
         }
 
         View root = inflater.inflate(R.layout.fragment_vendor_profile, container, false);
@@ -146,9 +148,11 @@ public class VendorProfileFragment extends BaSeFragment {
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
         Bundle bundle = new Bundle();
+        bundle.putString("SubServiceName", SubServiceName);
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
-        navController.navigate(R.id.action_vendorProfileFragment_to_homeServicesEnterVenderDataFragment, bundle);
+        bundle.putSerializable("VendorDataObject", vendorDataList);
+        navController.navigate(R.id.action_vendorProfileFragment_to_homeServicesEnterVenderData2Fragment, bundle);
 
     }
 

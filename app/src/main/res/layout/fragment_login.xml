@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:textColor="@color/gray2"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="@dimen/_18ssp"
                 android:gravity="top"
                 android:textStyle="bold"
                 android:layout_marginStart="@dimen/_8sdp"
@@ -61,7 +61,7 @@
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_marginEnd="@dimen/_4sdp"
                     android:textColor="@color/blue_black"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_18ssp"
                     android:textStyle="bold"
                     />
                 <ImageView

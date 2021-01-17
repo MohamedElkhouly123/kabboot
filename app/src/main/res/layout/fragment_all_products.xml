@@ -24,10 +24,16 @@
 
         <TextView
             android:id="@+id/ffragment_all_products_title_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/all_products"
             android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_65sdp"
             android:textSize="@dimen/_15ssp"
             android:elevation="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,6 +111,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_above="@+id/load_more"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginEnd="@dimen/_7sdp"
                             android:scrollbars="vertical" />
 
                         <include

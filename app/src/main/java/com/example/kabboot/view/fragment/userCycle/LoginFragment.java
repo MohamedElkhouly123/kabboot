@@ -103,7 +103,7 @@ public class LoginFragment extends BaSeFragment {
 //                getActivity().finish();
                 break;
             case R.id.fragment_login_forget_password_btn:
-                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new ForgettPasswordFragment(),"b");
+//                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new ForgettPasswordFragment(),"b");
                 break;
         }
     }

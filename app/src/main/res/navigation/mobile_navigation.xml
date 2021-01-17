@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_vendorProfileFragment_to_homeServicesEnterVenderDataFragment"
             app:destination="@id/homeServicesEnterVenderDataFragment" />
+        <action
+            android:id="@+id/action_vendorProfileFragment_to_homeServicesEnterVenderData2Fragment"
+            app:destination="@id/homeServicesEnterVenderData2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/myCartFragment"
@@ -144,5 +147,8 @@
         <action
             android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_completeBookingServicesFragment"
             app:destination="@id/completeBookingServicesFragment" />
+        <action
+            android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_vendorProfileFragment"
+            app:destination="@id/vendorProfileFragment" />
     </fragment>
 </navigation>

@@ -80,8 +80,8 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     TextInputLayout fragmentHomeServicesEnterVendorData2TilDate;
     @BindView(R.id.fragment_home_services_enter_vendor_data2_til_time)
     TextInputLayout fragmentHomeServicesEnterVendorData2TilTime;
-    @BindView(R.id.fragment_home_services_enter_vendor_data2_sub_cat_name_tv)
-    TextView fragmentHomeServicesEnterVendorData2SubCatNameTv;
+//    @BindView(R.id.fragment_home_services_enter_vendor_data2_sub_cat_name_tv)
+//    TextView fragmentHomeServicesEnterVendorData2SubCatNameTv;
     @BindView(R.id.fragment_home_complet_booking_sub_cat2_name_tv)
     TextView fragmentHomeCompletBookingSubCat2NameTv;
     private NavController navController;
@@ -97,6 +97,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     private GetAllvendors vendorData;
     private GetAllServicesAdapter getAllServicesAdapter;
     private String startHour, endHour;
+    private String SubServiceName;
     //    private int myVendorId;
 //    private GetAllvendors vendorData;
 
@@ -108,6 +109,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
                              ViewGroup container, Bundle savedInstanceState) {
         if (this.getArguments() != null) {
             mainServiceName = this.getArguments().getString("MainServiceName");
+            SubServiceName = this.getArguments().getString("SubServiceName");
             subCatDataList = (List<SubCat>) this.getArguments().getSerializable("Object");
             vendorData = (GetAllvendors) this.getArguments().getSerializable("VendorDataObject");
 
@@ -125,11 +127,12 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
     private void setData() {
-//        availableDays[0]= Calendar.SUNDAY;
-
+        if(mainServiceName.equalsIgnoreCase("At Home")) {
+            fragmentHomeServicesEnterVendorData2TilAddress.setVisibility(View.VISIBLE);
+        }
         fragmentHomeServicesEnterVendorData2BookCatNameTv.setText("Book " + mainServiceName + " Service");
-        fragmentHomeServicesEnterVendorData2SubCatNameTv.setText("Services Booked");
-        fragmentHomeCompletBookingSubCat2NameTv.setText(subCatDataList.get(0).getCategoryName());
+//        fragmentHomeServicesEnterVendorData2SubCatNameTv.setText("Services Booked");
+        fragmentHomeCompletBookingSubCat2NameTv.setText(SubServiceName + " Services");
         fragmentHomeCompletBookingServicesVendorNameTv.setText(vendorData.getVendorName());
         startHour = vendorData.getStartHour();
         endHour = vendorData.getEndHour();
@@ -155,6 +158,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
         Bundle bundle = new Bundle();
+        bundle.putString("SubServiceName", SubServiceName);
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
         navController.navigate(R.id.action_homeServicesEnterVenderData2Fragment_to_homeServicesEnterVenderDataFragment, bundle);
@@ -162,11 +166,19 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
 
-    @OnClick({R.id.fragment_home_services_enter_vendor_data2_back_img, R.id.fragment_home_services_enter_vendor_data2_next_btn, R.id.fragment_home_services_enter_vendor_data2_date_etxt, R.id.fragment_home_services_enter_vendor_data2_time_etxt})
+    @OnClick({R.id.fragment_home_services_enter_vendor_data2_back_img, R.id.fragment_home_services_enter_vendor_data2_vendor_info_btn_tv, R.id.fragment_home_services_enter_vendor_data2_next_btn, R.id.fragment_home_services_enter_vendor_data2_date_etxt, R.id.fragment_home_services_enter_vendor_data2_time_etxt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_home_services_enter_vendor_data2_back_img:
                 onBack();
+                break;
+            case R.id.fragment_home_services_enter_vendor_data2_vendor_info_btn_tv:
+                Bundle bundle = new Bundle();
+                bundle.putString("SubServiceName", SubServiceName);
+                bundle.putString("MainServiceName", mainServiceName);
+                bundle.putSerializable("Object", (Serializable) subCatDataList);
+                bundle.putSerializable("VendorDataObject", vendorData);
+                navController.navigate(R.id.action_homeServicesEnterVenderData2Fragment_to_vendorProfileFragment, bundle);
                 break;
             case R.id.fragment_home_services_enter_vendor_data2_date_etxt:
                 //                checkinDate = new DateTxt("01", "01", "2021", "01-01-2021");
@@ -293,9 +305,11 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_time_required_field));
             return;
         }
+        if(mainServiceName.equalsIgnoreCase("At Home")){
         if (!validationLength(fragmentHomeServicesEnterVendorData2TilAddress, getString(R.string.invalid_address_required_field), 1)) {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
             return;
+        }
         }
 //        myVendorId = homeServicesVendorsVrRvAdapter.vindorId;
 //        if (myVendorId != -1) {
@@ -310,6 +324,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         bundle.putString("Time", time);
         bundle.putString("Address", address);
         bundle.putSerializable("VendorDataObject", vendorData);
+        bundle.putString("SubServiceName", SubServiceName);
         bundle.putSerializable("ServicesSelectedIds", (Serializable) ids);
         bundle.putSerializable("ServicesSelected", (Serializable) allVendorServiceListSelected);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
@@ -339,4 +354,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         fragmentHomeServicesEnterVendorData2TilTime.getEditText().setText(time);
     }
 
+//    @OnClick(R.id.fragment_home_services_enter_vendor_data2_vendor_info_btn_tv)
+//    public void onClick() {
+//    }
 }

@@ -117,7 +117,7 @@ public class ProductDetailsFragment extends BaSeFragment {
                 .setRadius((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()));
 //set the alignment
         ultraViewPager.getIndicator().setGravity(Gravity.CENTER | Gravity.BOTTOM);
-        ultraViewPager.getIndicator().setMargin(0, 300, 0, 0);
+        ultraViewPager.getIndicator().setMargin(0, 0, 0, 0);
 
 //construct built-in indicator, and add it to  UltraViewPager
         ultraViewPager.getIndicator().build();

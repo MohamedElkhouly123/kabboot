@@ -27,12 +27,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/fragment_home_services_enter_vendor_data_title_tv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_vendor"
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_65sdp"
             android:elevation="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,20 +72,7 @@
         <!--                android:background="@color/white"-->
         <!--                />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/fragment_home_services_enter_vendor_data_sr_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+
 <!--            <ImageView-->
 <!--                android:layout_width="@dimen/_130sdp"-->
 <!--                android:layout_height="@dimen/_120sdp"-->
@@ -213,21 +206,36 @@
             <!--                android:inputType="textAutoComplete" />-->
             <!--        </com.google.android.material.textfield.TextInputLayout>-->
             <TextView
+                android:id="@+id/fragment_home_services_enter_vendor_data_providers_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vendor"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:text=""
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:textSize="@dimen/_15ssp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 style="@style/text_input_login"
                 />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_home_services_enter_vendor_data_sr_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_3sdp"
                 >
 
                 <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -262,8 +270,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:paddingBottom="@dimen/_45sdp"
+                            android:paddingBottom="@dimen/_15sdp"
                             >
 
                             <androidx.recyclerview.widget.RecyclerView
@@ -301,6 +308,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         style="@style/button_style2"
+        android:visibility="gone"
         android:layout_gravity="bottom"
         android:background="@drawable/gradient_btn_blue_black_shape3"
         >

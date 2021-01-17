@@ -103,6 +103,7 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
+                bundle.putString("SubServiceName", subCats.get(position).getCategoryName());
                 bundle.putString("MainServiceName", mainServiceName);
                 bundle.putSerializable("Object", (Serializable) subCats);
                 navController.navigate(R.id.action_homeOnSiteServicesFragment_to_homeServicesEnterVenderDataFragment,bundle);

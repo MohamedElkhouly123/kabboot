@@ -124,7 +124,7 @@ public class MyCartFragment extends BaSeFragment {
             productTotalPrice = (int) ((int) Double.parseDouble(items.get(i).getProductPrice()) * Double.parseDouble(items.get(i).getQuantity()));
             allProductsTotalPrice += productTotalPrice;
         }
-        fragmentMyCartTotalItemsPriceTv.setText("Subtotal : "+allProductsTotalPrice+" EGP");
+        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
 //        showToast(getActivity(), orderItemsList.get(1).getId() + "  " + orderItemsList.get(1).getProductQuantity());
 
     }

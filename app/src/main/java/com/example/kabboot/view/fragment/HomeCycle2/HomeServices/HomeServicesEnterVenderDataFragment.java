@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.kabboot.R;
+import com.example.kabboot.adapter.HomeServicesVendors2VrRvAdapter;
 import com.example.kabboot.adapter.HomeServicesVendorsVrRvAdapter;
 import com.example.kabboot.data.model.DateTxt;
 import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
@@ -61,10 +62,14 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     TextView noResultErrorTitle;
     @BindView(R.id.fragment_home_services_enter_vendor_data_sr_refresh)
     SwipeRefreshLayout fragmentHomeServicesEnterVendorDataSrRefresh;
+    @BindView(R.id.fragment_home_services_enter_vendor_data_title_tv)
+    TextView fragmentHomeServicesEnterVendorDataTitleTv;
+    @BindView(R.id.fragment_home_services_enter_vendor_data_providers_num_tv)
+    TextView fragmentHomeServicesEnterVendorDataProvidersNumTv;
     private NavController navController;
     private List<GetAllvendors> getAllvendorsList = new ArrayList<GetAllvendors>();
     private ViewModelGetLists viewModel;
-    private HomeServicesVendorsVrRvAdapter homeServicesVendorsVrRvAdapter;
+    private HomeServicesVendors2VrRvAdapter homeServicesVendorsVrRvAdapter;
     private LinearLayoutManager lLayout;
     private LinearLayoutManager linearLayout;
     public Integer maxPage = 0;
@@ -76,6 +81,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     private int myVendorId;
     private GetAllvendors vendorData;
     private List<String> availableDaysList = new ArrayList<>();
+    private String subServiceName;
 
     public HomeServicesEnterVenderDataFragment() {
         // Required empty public constructor
@@ -85,6 +91,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
                              ViewGroup container, Bundle savedInstanceState) {
         if (this.getArguments() != null) {
             mainServiceName = this.getArguments().getString("MainServiceName");
+            subServiceName = this.getArguments().getString("SubServiceName");
             subCatDataList = (List<SubCat>) this.getArguments().getSerializable("Object");
 
         }
@@ -94,6 +101,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
         homeCycleActivity.setNavigation("g");
+        fragmentHomeServicesEnterVendorDataTitleTv.setText(mainServiceName + " Service");
         initListener();
         init();
         return root;
@@ -118,6 +126,8 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
                             getAllvendorsList.clear();
                             getAllvendorsList.addAll(response.getMainVendors());
+                            fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(response.getMainVendors().size() + " Providers nearby");
+
 //                                showToast(getActivity(), "list="+response.getGetTopHotels().get(1));
 
                             homeServicesVendorsVrRvAdapter.notifyDataSetChanged();
@@ -165,7 +175,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         };
         fragmentHomeServicesEnterVendorDataRecyclerView.addOnScrollListener(onEndLess);
 
-        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, getAllvendorsList, navController);
+        homeServicesVendorsVrRvAdapter = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName,subCatDataList, mainServiceName, getAllvendorsList, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
 //            showToast(getActivity(), "success adapter");
 
@@ -214,7 +224,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
         getAllvendorsList = new ArrayList<>();
-        homeServicesVendorsVrRvAdapter = new HomeServicesVendorsVrRvAdapter(getContext(), getActivity(), subCatDataList, mainServiceName, getAllvendorsList, navController);
+        homeServicesVendorsVrRvAdapter = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName,subCatDataList, mainServiceName, getAllvendorsList, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
 
     }
@@ -247,7 +257,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
 
-    @OnClick({R.id.fragment_home_services_enter_vendor_data_next_btn,R.id.fragment_policy_and_conditions_back_img})
+    @OnClick({R.id.fragment_home_services_enter_vendor_data_next_btn, R.id.fragment_policy_and_conditions_back_img})
     public void onClick(View view) {
         switch (view.getId()) {
 //            case R.id.fragment_home_services_enter_vendor_data_date_etxt:
@@ -316,6 +326,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //            bundle.putString("Date", date);
 //            bundle.putString("Time", time);
 //            bundle.putString("Address", address);
+                    bundle.putString("SubServiceName", subServiceName);
                     bundle.putSerializable("VendorDataObject", vendorData);
                     bundle.putSerializable("Object", (Serializable) subCatDataList);
                     navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeServicesEnterVenderData2Fragment, bundle);

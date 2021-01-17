@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/fragment_home_complet_booking_selected_services_item_cb_remembered_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_160sdp"
         android:layout_height="wrap_content"
         android:text="Inspectionjkhkjjjjj"
         android:textColor="@color/black"

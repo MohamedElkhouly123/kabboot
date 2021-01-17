@@ -28,9 +28,14 @@
 
         <TextView
             android:id="@+id/fragment_home_on_site_services_main_cat_name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="On Site Services"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_65sdp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"

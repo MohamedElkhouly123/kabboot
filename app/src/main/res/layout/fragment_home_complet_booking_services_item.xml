@@ -25,10 +25,10 @@
 
         <CheckBox
             android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:buttonTint="@color/blue_black"
-            android:text="Inspectionjkhkjjjjj"
+            android:text="Inspectionjkhk"
             android:textColor="@color/blue_black"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_5sdp"
@@ -62,7 +62,7 @@
             android:textColor="@color/black"
 
             android:layout_marginStart="@dimen/_31sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:textSize="@dimen/_10ssp"
             android:ellipsize="end"
             android:maxLines="2"

@@ -24,12 +24,17 @@
 
         <TextView
             android:id="@+id/fragment_faq_name_title_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/online_store"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="@dimen/_15ssp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="@dimen/_65sdp"
+            android:layout_marginEnd="@dimen/_65sdp"
             android:elevation="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +144,8 @@
                             android:id="@+id/ffragment_all_products_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_7sdp"
+                            android:layout_marginEnd="@dimen/_7sdp"
                             android:layout_above="@+id/load_more"
                             android:scrollbars="vertical" />
 

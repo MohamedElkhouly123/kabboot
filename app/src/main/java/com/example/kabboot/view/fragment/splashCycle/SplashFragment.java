@@ -34,6 +34,6 @@ public class SplashFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.splash_activity_fram, new LoginFragment());
-        getActivity().finish();
+//        getActivity().finish();
     }
 }

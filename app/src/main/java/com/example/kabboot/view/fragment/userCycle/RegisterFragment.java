@@ -193,7 +193,7 @@ public class RegisterFragment extends BaSeFragment {
         Call<GetUserDataResponce> clientCall;
 
 
-        clientCall = getApiClient().onSignUp(userName,phone , email,city, password);
+        clientCall = getApiClient().onSignUp(userName,phone , email,"cairo", password);
         viewModelUser.setAndMakeResetAndNewPasswordResponseAndSignUpAndBooking(getActivity(), clientCall, "Succes Register", true);
 
     }

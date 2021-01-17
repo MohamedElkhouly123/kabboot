@@ -80,6 +80,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     private ViewModelUser viewModelUser;
     private String userId,userPhone,userName,userCity,userToken;
     private int totalPrice=0;
+    private String SubServiceName;
 
     public CompleteBookingServicesFragment() {
         // Required empty public constructor
@@ -91,6 +92,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
             mainServiceName = this.getArguments().getString("MainServiceName");
             date = this.getArguments().getString("Date");
             time = this.getArguments().getString("Time");
+            SubServiceName = this.getArguments().getString("SubServiceName");
             addresss = this.getArguments().getString("Address");
             vendorData = (GetAllvendors) this.getArguments().getSerializable("VendorDataObject");
             allVendorServiceListSelected = (List<AllVendorService>) this.getArguments().getSerializable("ServicesSelected");
@@ -148,6 +150,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("VendorDataObject", vendorData);
+        bundle.putString("SubServiceName", SubServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
         navController.navigate(R.id.action_completeBookingServicesFragment_to_homeServicesEnterVenderData2Fragment, bundle);
 

@@ -4,7 +4,7 @@
     <string name="invalid_phone1">Phone number must be equal 11 numbers</string>
     <string name="invalid_confirm_password">Confirm password not match</string>
     <string name="invalid_phone2"> number</string>
-    <string name="All_your_car_needs">All your car needs.</string>
+    <string name="All_your_car_needs">ALL YOUR CAR NEEDS IN ONE PLACE</string>
     <string name="load">Loading..</string>
     <string name="services">Services</string>
     <string name="online_store">Online Store</string>
@@ -73,5 +73,6 @@
     <string name="all_products">All  Products</string>
     <string name="Specifications">Specifications</string>
     <string name="select_vendor">Select Vendor</string>
+    <string name="info">Info</string>
 
 </resources>
