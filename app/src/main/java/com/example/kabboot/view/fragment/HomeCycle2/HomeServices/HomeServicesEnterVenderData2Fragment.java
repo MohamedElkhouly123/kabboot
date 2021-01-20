@@ -1,5 +1,6 @@
 package com.example.kabboot.view.fragment.HomeCycle2.HomeServices;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.kabboot.data.model.getAllvendorsResponce.AllVendorService;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.OrderServiceList;
 import com.example.kabboot.utils.ToastCreator;
+import com.example.kabboot.view.activity.MapsActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -317,7 +319,8 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         String date = fragmentHomeServicesEnterVendorData2TilDate.getEditText().getText().toString();
         String time = fragmentHomeServicesEnterVendorData2TilTime.getEditText().getText().toString();
         String address = fragmentHomeServicesEnterVendorData2TilAddress.getEditText().getText().toString();
-
+        Intent intent = new Intent(getActivity(), MapsActivity.class);
+        getActivity().startActivity(intent);
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putString("Date", date);

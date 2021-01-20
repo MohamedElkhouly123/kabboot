@@ -20,6 +20,18 @@ public class SaveServiceOrdersRequest implements Serializable {
     @SerializedName("user_city")
     @Expose
     private String userCity;
+    @SerializedName("order_date")
+    @Expose
+    private String orderDate;
+    @SerializedName("order_time")
+    @Expose
+    private String orderTime;
+    @SerializedName("map_long")
+    @Expose
+    private String mapLong;
+    @SerializedName("map_lat")
+    @Expose
+    private String mapLat;
     @SerializedName("token")
     @Expose
     private String token;
@@ -57,6 +69,38 @@ public class SaveServiceOrdersRequest implements Serializable {
 
     public void setUserCity(String userCity) {
         this.userCity = userCity;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+    }
+
+    public String getMapLong() {
+        return mapLong;
+    }
+
+    public void setMapLong(String mapLong) {
+        this.mapLong = mapLong;
+    }
+
+    public String getMapLat() {
+        return mapLat;
+    }
+
+    public void setMapLat(String mapLat) {
+        this.mapLat = mapLat;
     }
 
     public String getToken() {

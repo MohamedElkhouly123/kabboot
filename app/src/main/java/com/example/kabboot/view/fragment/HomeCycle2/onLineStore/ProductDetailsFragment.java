@@ -208,11 +208,13 @@ public class ProductDetailsFragment extends BaSeFragment {
                     public void run() {
                 if(productItemsNum>0) {
 //                    dataBase.addNewOrderItemDao().deletAll();
+                    items.clear();
                     allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
                     dataBase.addNewOrderItemDao().insert(allProductForRom);
                     items = dataBase.addNewOrderItemDao().getAllItems();
                     Log.i(TAG,items.get(0).getQuantity() +"  mohamed");
                     Bundle bundle = new Bundle();
+                    bundle.putString("OnSoreOrAllProductsOrDetails", "details");
                     bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
                     bundle.putSerializable("Object", productData);
                     bundle.putSerializable("Object2", (Serializable) items);

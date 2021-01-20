@@ -83,6 +83,7 @@ public class MyCartFragment extends BaSeFragment {
     private GetAllProductsItemsInMyCartAdapter getAllProductsItemsInMyCartAdapter;
     private int productTotalPrice = 0;
     private int allProductsTotalPrice = 0;
+    private String OnSoreOrAllProductsOrDetails;
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -92,6 +93,7 @@ public class MyCartFragment extends BaSeFragment {
                              ViewGroup container, Bundle savedInstanceState) {
         if (this.getArguments() != null) {
             onSoreOrAllProducts = this.getArguments().getString("OnSoreOrAllProducts");
+            OnSoreOrAllProductsOrDetails = this.getArguments().getString("OnSoreOrAllProductsOrDetails");
             dealOrPromo = this.getArguments().getString("DealOrPromo");
             productData = (AllProduct) this.getArguments().getSerializable("Object");
             items = (List<AllProductForRom>) this.getArguments().getSerializable("Object2");
@@ -121,10 +123,10 @@ public class MyCartFragment extends BaSeFragment {
             orderItemList.setProductId(items.get(i).getItemId());
             orderItemList.setProductQty(items.get(i).getQuantity());
             orderItemsList.add(orderItemList);
-            productTotalPrice = (int) ((int) Double.parseDouble(items.get(i).getProductPrice()) * Double.parseDouble(items.get(i).getQuantity()));
-            allProductsTotalPrice += productTotalPrice;
+//            productTotalPrice = (int) ((int) Double.parseDouble(items.get(i).getProductPrice()) * Double.parseDouble(items.get(i).getQuantity()));
+//            allProductsTotalPrice += productTotalPrice;
         }
-        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+//        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
 //        showToast(getActivity(), orderItemsList.get(1).getId() + "  " + orderItemsList.get(1).getProductQuantity());
 
     }
@@ -151,8 +153,9 @@ public class MyCartFragment extends BaSeFragment {
         if (items.size() != 0) {
             lLayout = new LinearLayoutManager(getActivity());
             fragmentMyCartRecyclerView.setLayoutManager(lLayout);
+            fragmentMyCartRecyclerView.setItemAnimator(null);
 //            showToast(getActivity(), items.get(0).getProductId());
-            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(), navController, items);
+            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(),fragmentMyCartTotalItemsPriceTv, navController, items);
             fragmentMyCartRecyclerView.setAdapter(getAllProductsItemsInMyCartAdapter);
 
 //            noResultErrorTitle.setVisibility(View.GONE);
@@ -186,6 +189,10 @@ public class MyCartFragment extends BaSeFragment {
         saveStoreOrdersRequest.setUserName(userData.getUserName());
         saveStoreOrdersRequest.setUserPhone(userPhone);
         saveStoreOrdersRequest.setUserCity(userData.getUserCity());
+        saveStoreOrdersRequest.setOrderDate("");
+        saveStoreOrdersRequest.setOrderTime("");
+        saveStoreOrdersRequest.setMapLong(String.valueOf(""));
+        saveStoreOrdersRequest.setMapLat(String.valueOf(""));
         saveStoreOrdersRequest.setToken(userToken);
         saveStoreOrdersRequest.setOrderItemList(orderItemsList);
 
@@ -199,11 +206,16 @@ public class MyCartFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
-        Bundle bundle = new Bundle();
-        bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
-        bundle.putSerializable("Object", productData);
-        bundle.putString("DealOrPromo", dealOrPromo);
-        navController.navigate(R.id.action_myCartFragment_to_productDetailsFragment, bundle);
+        if(OnSoreOrAllProductsOrDetails.equalsIgnoreCase("onLineStore")){
+            navController.navigate(R.id.action_myCartFragment_to_navigation_online_store);
+        }
+        if(OnSoreOrAllProductsOrDetails.equalsIgnoreCase("details")) {
+            Bundle bundle = new Bundle();
+            bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
+            bundle.putSerializable("Object", productData);
+            bundle.putString("DealOrPromo", dealOrPromo);
+            navController.navigate(R.id.action_myCartFragment_to_productDetailsFragment, bundle);
+        }
 
     }
 

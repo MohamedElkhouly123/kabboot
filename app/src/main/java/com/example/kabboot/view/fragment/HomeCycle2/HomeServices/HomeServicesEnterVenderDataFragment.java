@@ -40,6 +40,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
+import static com.example.kabboot.utils.HelperMethod.showToast;
 
 
 public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
@@ -76,7 +77,6 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     private OnEndLess onEndLess;
     private String mainServiceName;
     private List<SubCat> subCatDataList = new ArrayList<SubCat>();
-    ;
     private DateTxt checkinDate;
     private int myVendorId;
     private GetAllvendors vendorData;
@@ -250,6 +250,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
+//        showToast(getActivity(), "lat="+myLat+" , "+myLang);
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);

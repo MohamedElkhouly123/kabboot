@@ -162,11 +162,11 @@ public class RegisterFragment extends BaSeFragment {
             return;
         }
 
-        if (!validationLength(fragmentRegisterTilCity, getString(R.string.invalid_city_required_field), 3)) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_city_required_field));
-
-            return;
-        }
+//        if (!validationLength(fragmentRegisterTilCity, getString(R.string.invalid_city_required_field), 3)) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_city_required_field));
+//
+//            return;
+//        }
 
         if (!validationPassword(fragmentRegisterTilPassword, 4, getString(R.string.invalid_password))) {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_password));

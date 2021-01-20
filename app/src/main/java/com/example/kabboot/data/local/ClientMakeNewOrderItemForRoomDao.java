@@ -29,9 +29,16 @@ public interface ClientMakeNewOrderItemForRoomDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(AllProductForRom... orderItem);
 
+    @Query("UPDATE clientNewOrder SET quantity=:quan WHERE itemId = :id")
+    void update(String quan, int id);
+
     @Delete
     void delete(AllProductForRom... orderItem);
 
+//    @Query("DELETE FROM database WHERE itemId = :id")
+//    void deleteById(int id);
+    @Query("DELETE FROM clientNewOrder WHERE itemId = :id")
+    int deleteById(int id);
     @Update
     void updateUserDate(AllProductForRom orderItem);
 

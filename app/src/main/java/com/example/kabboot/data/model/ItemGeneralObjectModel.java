@@ -23,6 +23,8 @@ public class ItemGeneralObjectModel {
     public ItemGeneralObjectModel(String name, String photoPath,int photo) {
         this.name = name;
         this.photoPath = photoPath;
+        this.photo = photo;
+
     }
 
     public ItemGeneralObjectModel(String name, int photo) {

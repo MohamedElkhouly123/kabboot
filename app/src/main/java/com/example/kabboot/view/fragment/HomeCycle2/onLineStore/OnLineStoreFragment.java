@@ -1,12 +1,14 @@
 package com.example.kabboot.view.fragment.HomeCycle2.onLineStore;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,20 +23,26 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.kabboot.R;
 import com.example.kabboot.adapter.GetAllProductsItemsAdapter;
+import com.example.kabboot.data.local.DataBase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
+import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
 import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsResponce;
 import com.example.kabboot.utils.OnEndLess;
+import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelGetLists;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
+import static android.content.ContentValues.TAG;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 
 
@@ -61,7 +69,10 @@ public class OnLineStoreFragment extends BaSeFragment {
     private GridLayoutManager gLayout;
     public Integer maxPage = 0;
     private OnEndLess onEndLess;
-    private boolean Filter =false;
+    private boolean Filter = false;
+    private List<AllProductForRom> items= new ArrayList<>();
+    private DataBase dataBase;
+
     public OnLineStoreFragment() {
         // Required empty public constructor
     }
@@ -74,6 +85,8 @@ public class OnLineStoreFragment extends BaSeFragment {
         ButterKnife.bind(this, root);
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
+        homeCycleActivity.setNavigation("v");
+        dataBase = DataBase.getInstance(getContext());
         initListener();
         init();
         return root;
@@ -92,7 +105,7 @@ public class OnLineStoreFragment extends BaSeFragment {
 
 //                                showToast(getActivity(), "max="+maxPage);
 
-                        if (response.getAllProducts() != null ) {
+                        if (response.getAllProducts() != null) {
                             allProductsList.clear();
                             allProductsList.addAll(response.getAllProducts());
 //                                showToast(getActivity(), "list="+clientrestaurantsListData.get(1));
@@ -153,8 +166,6 @@ public class OnLineStoreFragment extends BaSeFragment {
 //            showToast(getActivity(), "success adapter");
 
 
-
-
         if (allProductsList.size() == 0) {
             getallProductsList(0);
         }
@@ -166,7 +177,7 @@ public class OnLineStoreFragment extends BaSeFragment {
         fragmentAllProductsSrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                maxPage=0;
+                maxPage = 0;
 //                if (Filter) {
 //                    getHajjAndUmrahListByFilter(0);
 //                } else {
@@ -194,7 +205,9 @@ public class OnLineStoreFragment extends BaSeFragment {
 
     private void getallProductsList(int page) {
         Filter = false;
-        if(page == 0){ maxPage=0;}
+        if (page == 0) {
+            maxPage = 0;
+        }
         Call<GetAllproductsResponce> getAllproductsResponceCall;
 
 //        startShimmer(page);
@@ -203,14 +216,11 @@ public class OnLineStoreFragment extends BaSeFragment {
         getAllproductsResponceCall = getApiClient().getAllProductsData();
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
-        viewModel.getAllProductsDataList(getActivity(), errorSubView, getAllproductsResponceCall,fragmentAllProductsSrRefresh, loadMore);
+        viewModel.getAllProductsDataList(getActivity(), errorSubView, getAllproductsResponceCall, fragmentAllProductsSrRefresh, loadMore);
 //            showToast(getActivity(), "success without fillter");
 
 
-
     }
-
-
 
 
     private void reInit() {
@@ -251,7 +261,7 @@ public class OnLineStoreFragment extends BaSeFragment {
     }
 
 
-    @OnClick({R.id.fragment_on_line_store_my_care_filter_btn, R.id.fragment_on_line_store_filter_btn})
+    @OnClick({R.id.fragment_on_line_store_my_care_filter_btn, R.id.fragment_on_line_store_filter_btn, R.id.ffragment_all_products_floating_action_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_on_line_store_my_care_filter_btn:
@@ -260,6 +270,43 @@ public class OnLineStoreFragment extends BaSeFragment {
                 break;
             case R.id.fragment_on_line_store_filter_btn:
                 break;
+            case R.id.ffragment_all_products_floating_action_btn:
+                roomAddAndGetItem();
+                break;
         }
     }
+    private void roomAddAndGetItem() {
+        Executors.newSingleThreadExecutor().execute(
+
+                new Runnable() {
+                    @Override
+                    public void run() {
+//                    dataBase.addNewOrderItemDao().deletAll();
+                            items.clear();
+//                            allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
+//                            dataBase.addNewOrderItemDao().insert(allProductForRom);
+                            items = dataBase.addNewOrderItemDao().getAllItems();
+//                            Log.i(TAG,items.get(0).getQuantity() +"  mohamed");
+                        if(items.size()>0){
+                            Bundle bundle = new Bundle();
+                            bundle.putString("OnSoreOrAllProductsOrDetails", "onLineStore");
+//                            bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
+//                            bundle.putSerializable("Object", productData);
+                            bundle.putSerializable("Object2", (Serializable) items);
+//                            bundle.putString("DealOrPromo", dealOrPromo);
+                            navController.navigate(R.id.action_navigation_online_store_to_myCartFragment,bundle);
+                        }else {
+                            getActivity().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.no_data_in_your_cart));
+//                            Toast.makeText(getActivity(), getString(R.string.no_data_in_your_cart), Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                        }
+                    }
+
+                });
+    }
+
 }

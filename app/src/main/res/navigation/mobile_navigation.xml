@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_navigation_online_store_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_online_store_to_myCartFragment"
+            app:destination="@id/myCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_notification"
@@ -45,6 +48,15 @@
         <action
             android:id="@+id/action_navigation_profile_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_changeDetailsFragment"
+            app:destination="@id/changeDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_changeDetailsMoreFragment"
+            app:destination="@id/changeDetailsMoreFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_myAllBookingFragment"
+            app:destination="@id/myAllBookingFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeOnSiteServicesFragment"
@@ -125,6 +137,9 @@
         <action
             android:id="@+id/action_aboutUsFragment_to_navigation_profile"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_aboutUsFragment_to_changeDetailsMoreFragment"
+            app:destination="@id/changeDetailsMoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/allProductsFragment"
@@ -150,5 +165,43 @@
         <action
             android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_vendorProfileFragment"
             app:destination="@id/vendorProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeDetailsFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsFragment"
+        android:label="ChangeDetailsFragment" >
+        <action
+            android:id="@+id/action_changeDetailsFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeDetailsMoreFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsMoreFragment"
+        android:label="ChangeDetailsMoreFragment" >
+        <action
+            android:id="@+id/action_changeDetailsMoreFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_changeDetailsMoreFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAllBookingFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.MyAllBookingFragment"
+        android:label="MyAllBookingFragment" >
+        <action
+            android:id="@+id/action_myAllBookingFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_myAllBookingFragment_to_myBookingSubItemsFragment"
+            app:destination="@id/myBookingSubItemsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myBookingSubItemsFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.MyBookingSubItemsFragment"
+        android:label="MyBookingSubItemsFragment" >
+        <action
+            android:id="@+id/action_myBookingSubItemsFragment_to_myAllBookingFragment"
+            app:destination="@id/myAllBookingFragment" />
     </fragment>
 </navigation>

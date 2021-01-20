@@ -56,7 +56,9 @@ public class HomeCycleActivity extends BaseActivity
             case 1:
                 Intent intentHome2 = new Intent(HomeCycleActivity.this,HomeCycleActivity.class);
                 startActivity(intentHome2);
-                break;}}
+                break;
+        }
+    }
     public void setNavigation(String visibility) {
         bottomNavView = (BottomNavigationView) findViewById(R.id.nav_view);
         if (visibility.equals("v")) {

@@ -78,6 +78,9 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     private LinearLayoutManager lLayout;
     private GetShowSelectedAllServicesAdapter getAllServicesSelectedAdapter;
     private ViewModelUser viewModelUser;
+    public static double myLang=0;
+    public static double myLat=0;
+    public static boolean mabBack=false;
     private String userId,userPhone,userName,userCity,userToken;
     private int totalPrice=0;
     private String SubServiceName;
@@ -147,6 +150,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
+//        showToast(getActivity(), "lat="+myLat+" , "+myLang);
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("VendorDataObject", vendorData);
@@ -157,6 +161,15 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mabBack){
+            mabBack=false;
+            onBack();
+        }
+    }
+
     @OnClick({R.id.fragment_policy_and_conditions_back_img, R.id.fragment_home_complet_booking_services})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -164,8 +177,10 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
                 onBack();
                 break;
             case R.id.fragment_home_complet_booking_services:
+                if(myLang!=0&&myLat!=0){
                 initListener();
                 onCall();
+                }
                 break;
         }
     }
@@ -199,7 +214,11 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
         saveServiceOrdersRequest.setUserId(userId);
         saveServiceOrdersRequest.setUserName(userName);
         saveServiceOrdersRequest.setUserPhone(userPhone);
+        saveServiceOrdersRequest.setOrderDate(date);
+        saveServiceOrdersRequest.setOrderTime(time);
         saveServiceOrdersRequest.setUserCity(userCity);
+        saveServiceOrdersRequest.setMapLong(String.valueOf(myLang));
+        saveServiceOrdersRequest.setMapLat(String.valueOf(myLat));
         saveServiceOrdersRequest.setToken(userToken);
         saveServiceOrdersRequest.setOrderServiceList(servicesSelectedIds);
 //        saveServiceOrdersCall = getApiClient().saveServiceOrders(userId,userName,userPhone,userCity,userToken,servicesSelectedIds);

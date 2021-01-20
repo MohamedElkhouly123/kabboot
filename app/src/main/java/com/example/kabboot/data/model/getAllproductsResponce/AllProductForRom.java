@@ -17,7 +17,6 @@ public class AllProductForRom implements Serializable {
     //    @PrimaryKey(autoGenerate = true)
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "itemId")
-
     private int itemId;
 
     @SerializedName("product_id")

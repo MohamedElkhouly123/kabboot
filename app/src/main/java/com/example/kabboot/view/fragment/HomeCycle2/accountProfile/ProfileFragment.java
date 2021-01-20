@@ -16,15 +16,20 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
+import com.example.kabboot.adapter.AccountMyBookingsVrRvAdapter;
+import com.example.kabboot.data.model.ItemGeneralObjectModel;
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
 import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.example.kabboot.view.activity.SplashCycleActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +40,8 @@ import retrofit2.Call;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.clean;
+import static com.example.kabboot.utils.ToastCreator.onCreateErrorToast;
+import static com.example.kabboot.utils.network.InternetState.isConnected;
 
 
 public class ProfileFragment extends BaSeFragment {
@@ -51,10 +58,14 @@ public class ProfileFragment extends BaSeFragment {
     TextView fragmentProfileCityTv;
     @BindView(R.id.card_view_tool)
     CardView cardViewTool;
+    @BindView(R.id.fragment_home_account_profile_recycler_view)
+    RecyclerView fragmentHomeAccountProfileRecyclerView;
     private NavController navController;
     private UserData userData;
     private ViewModelUser viewModelUser;
-
+    private LinearLayoutManager lLayout;
+    private List<ItemGeneralObjectModel> rowListItem;
+    private AccountMyBookingsVrRvAdapter accountMyBookingsVrRvAdapter;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -69,16 +80,20 @@ public class ProfileFragment extends BaSeFragment {
         setUpActivity();
         homeCycleActivity.setNavigation("v");
         setData();
+        init();
+        if (!isConnected(getActivity())) {
+            onCreateErrorToast(getActivity(), getString(R.string.error_inter_net));
+        }
         return root;
     }
 
     private void setData() {
 
-            userData = LoadUserData(getActivity());
-            fragmentMyProfileNameTv.setText(userData.getUserName());
-            fragmentProfileEmailTv.setText(userData.getUserEmail());
-            fragmentProfilePhoneTv.setText(userData.getUserPhone());
-            fragmentProfileCityTv.setText(userData.getUserCity());
+        userData = LoadUserData(getActivity());
+        fragmentMyProfileNameTv.setText(userData.getUserName());
+        fragmentProfileEmailTv.setText(userData.getUserEmail());
+        fragmentProfilePhoneTv.setText(userData.getUserPhone());
+        fragmentProfileCityTv.setText(userData.getUserCity());
 //            if(userData.getImage()!=null){
 //                String personalImage = "https://www.barakatravel.net/"+userData.getImage().trim();
 //                onLoadCirImageFromUrl2(fragmentHomeAccountProfilePhotoCircularImageView,personalImage.trim(), getContext());
@@ -86,6 +101,28 @@ public class ProfileFragment extends BaSeFragment {
 
     }
 
+    private void init() {
+
+        lLayout = new LinearLayoutManager(getActivity());
+
+        fragmentHomeAccountProfileRecyclerView.setLayoutManager(lLayout);
+//        if(getHomeDisscoverGetUmrahDataItemsListData.size()!=0 || getHomeDisscoverGetHajjDataItemsListData.size()!=0 || getHomeDisscoverGetHotelsDataItemsListData.size()!=0) {
+        rowListItem = getAllItemList();
+//        }
+        accountMyBookingsVrRvAdapter = new AccountMyBookingsVrRvAdapter(getContext(), getActivity(), navController, rowListItem);
+        fragmentHomeAccountProfileRecyclerView.setAdapter(accountMyBookingsVrRvAdapter);
+
+
+    }
+
+    private List<ItemGeneralObjectModel> getAllItemList() {
+
+        List<ItemGeneralObjectModel> allItems = new ArrayList<ItemGeneralObjectModel>();
+        allItems.add(new ItemGeneralObjectModel(getString(R.string.My_service_Bookings),getString(R.string.My_service_Bookings),R.drawable.ic_baseline_servise_book_24));
+        allItems.add(new ItemGeneralObjectModel(getString(R.string.My_Products_Bookings),getString(R.string.My_Products_Bookings),R.drawable.ic_baseline_store_mall_directory_24));
+
+        return allItems;
+    }
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
@@ -94,55 +131,10 @@ public class ProfileFragment extends BaSeFragment {
     }
 
 
-    @OnClick({R.id.fragment_profile_more_img_btn, R.id.fragment_profile_logout_btn})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fragment_profile_more_img_btn:
-                initListener();
-                onCall();
-                break;
-            case R.id.fragment_profile_logout_btn:
-                showLogOutDialog();
-                break;
-        }
-    }
-
-    private void initListener() {
-        viewModelUser = ViewModelProviders.of(this).get(ViewModelUser.class);
-        viewModelUser.makeGetAppInfo().observe(getViewLifecycleOwner(), new Observer<GetAppInfoResponce>() {
-            @Override
-            public void onChanged(@Nullable GetAppInfoResponce response) {
-                if (response != null) {
-//                    if (response.getSuccess()==1) {
-//                        showToast(getActivity(),"success");
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("Object",  response);
-                    navController.navigate(R.id.action_navigation_profile_to_aboutUsFragment,bundle);
-
-//                    }
-                }
-            }
-        });
-    }
-
-    private void onCall() {
-
-        boolean remember = true;
-
-//        Call<ClientGeneralResponse> clientCall = getApiClient().clientLogin(email, password);
 
 
-        Call<GetAppInfoResponce> aboutAppCall = null;
 
-        aboutAppCall = getApiClient().getAppInfoData();
-
-        viewModelUser.getAppInfo(getActivity(), aboutAppCall);
-
-
-    }
-
-
-    private void showLogOutDialog(){
+    private void showLogOutDialog() {
         try {
 //                final View view = activity.getLayoutInflater().inflate(R.layout.dialog_restaurant_add_category, null);
 //            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
@@ -169,7 +161,7 @@ public class ProfileFragment extends BaSeFragment {
             alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    alertDialog.dismiss() ;
+                    alertDialog.dismiss();
                 }
             });
 
@@ -188,6 +180,24 @@ public class ProfileFragment extends BaSeFragment {
 
         } catch (Exception e) {
 
+        }
+    }
+
+    @OnClick({R.id.fragment_profile_more_img_btn, R.id.fragment_home_account_profile_photo_circularImageView, R.id.fragment_home_account_profile_photo_circularImageView_btn})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fragment_profile_more_img_btn:
+                navController.navigate(R.id.action_navigation_profile_to_changeDetailsMoreFragment);
+                break;
+            case R.id.fragment_home_account_profile_photo_circularImageView:
+                navController.navigate(R.id.action_navigation_profile_to_changeDetailsFragment);
+                break;
+            case R.id.fragment_home_account_profile_photo_circularImageView_btn:
+                navController.navigate(R.id.action_navigation_profile_to_changeDetailsFragment);
+                break;
+//            case R.id.fragment_profile_logout_btn:
+//                showLogOutDialog();
+//                break;
         }
     }
 }

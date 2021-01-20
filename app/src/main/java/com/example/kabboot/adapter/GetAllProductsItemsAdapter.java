@@ -69,13 +69,14 @@ public class GetAllProductsItemsAdapter extends RecyclerView.Adapter<GetAllProdu
     private void setData(ViewHolder holder, int position) {
 
         AllProduct getAllProducts = allProducts.get(position);
-//            holder.cardviewHzDiscoverItemRateImgHide.setVisibility(View.VISIBLE);
-        holder.cardViewFragmentOnLineStoreMainRv2HzItemProductNameTv.setText(getAllProducts.getProductName());
-        holder.cardViewFragmentOnLineStoreMainRv2HzItemProductPriceTv.setText(getAllProducts.getProductPrice() + " EGP");
         if (getAllProducts.getImage() != null) {
             String productImage = "https://www.kabboot.com/uploads/product/" + getAllProducts.getImage().trim();
             onLoadImageFromUrl2(holder.cardViewFragmentOnLineStoreMainRv2HzItemProductImg, productImage.trim(), context);
         }
+//            holder.cardviewHzDiscoverItemRateImgHide.setVisibility(View.VISIBLE);
+        holder.cardViewFragmentOnLineStoreMainRv2HzItemProductNameTv.setText(getAllProducts.getProductName());
+        holder.cardViewFragmentOnLineStoreMainRv2HzItemProductPriceTv.setText(getAllProducts.getProductPrice() + " EGP");
+
 //        showToast(activity, String.valueOf(getDisscoverGetHotelsItemsListData.size()+ "  " +String.valueOf(itemNum)));
 
     }

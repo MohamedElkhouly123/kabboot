@@ -98,7 +98,7 @@ public class AboutUsFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new ConfirmBookingFragment());
-        navController.navigate(R.id.action_aboutUsFragment_to_navigation_profile);
+        navController.navigate(R.id.action_aboutUsFragment_to_changeDetailsMoreFragment);
         homeCycleActivity.setNavigation("v");
 
     }

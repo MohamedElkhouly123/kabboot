@@ -2,6 +2,7 @@ package com.example.kabboot.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
+import com.example.kabboot.view.activity.HomeCycleActivity;
+import com.example.kabboot.view.activity.MapsActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,12 +85,13 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
             holder.position = position;
 
             SubCat subCat = subCats.get(position);
-            holder.cardViewFragmentHomeServicesRvVrItemNameTv.setText(subCat.getCategoryName());
-//            showToast(activity, String.valueOf(subCat.getImage()));
             if (subCat.getImage() != null) {
                 String categoryImage = "https://www.kabboot.com/uploads/cat/" + subCat.getImage().trim();
                 onLoadImageFromUrl2(holder.cardViewFragmentHomeServicesRvVrItemImg, categoryImage.trim(), context);
             }
+            holder.cardViewFragmentHomeServicesRvVrItemNameTv.setText(subCat.getCategoryName());
+//            showToast(activity, String.valueOf(subCat.getImage()));
+
 
         } catch (Exception e) {
 
@@ -101,12 +105,13 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle bundle = new Bundle();
                 bundle.putString("SubServiceName", subCats.get(position).getCategoryName());
                 bundle.putString("MainServiceName", mainServiceName);
                 bundle.putSerializable("Object", (Serializable) subCats);
                 navController.navigate(R.id.action_homeOnSiteServicesFragment_to_homeServicesEnterVenderDataFragment,bundle);
+
+
 //                HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
 //                navigationActivity.setNavigation("g");
             }
