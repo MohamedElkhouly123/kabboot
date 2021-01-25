@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:layout_marginBottom="@dimen/_20sdp"
+    android:layout_gravity="center"
+    >
+    <!--    app:cardCornerRadius="@dimen/_10sdp"-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_5sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/dialog_flight_search_category_close_btn"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_gravity="right"
+            android:layout_marginEnd="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:background="@drawable/red_shape_circle"
+            android:elevation="@dimen/_3sdp"
+            android:padding="@dimen/_1sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_clear_black_24dp"
+            />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:elevation="3dp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_18sdp"
+                    android:textColor="@color/black2"
+                    android:text="@string/store_filters"
+                    />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price_range"
+                        android:layout_gravity="start"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14ssp" />
+                    <TextView
+                        android:id="@+id/dialog_flight_search_category_close_btn_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5320 EGP"
+                        android:layout_gravity="end"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp" />
+                </FrameLayout>
+                <SeekBar
+                    android:id="@+id/dialog_flight_search_category_close_btn_seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MySeekBar"
+                    android:background="@color/white"
+                    android:maxHeight="@dimen/_3sdp"
+                    android:minHeight="@dimen/_3sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:max="200"
+                    android:scaleY="1.3"
+                    android:scaleX="1.3"
+                    android:progress="50"
+                    android:elevation="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    />
+<!--                android:thumb="@drawable/red_shape_circle"-->
+<!--                android:progressDrawable="@drawable/red_shape_circle"-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Condition"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    >
+                    <CheckBox
+                        android:id="@+id/fragment_home_complet_booking_services_item_cb_remember"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/blue_black"
+                        android:text="New"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/black"
+                        />
+                    <CheckBox
+                        android:id="@+id/fragment_home_complet_booking_services_item_used_cb_remember"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/blue_black"
+                        android:text="Used"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:layout_marginEnd="@dimen/_25sdp"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kabboot_offers"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:textSize="@dimen/_11ssp"
+                    android:checked="true"
+                    android:drawableBottom="@drawable/red_shape_circle"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="Only Items with Offers"
+                    android:track="@drawable/switch_track_selector"
+                    android:thumb="@drawable/switch_thumb_selector"
+                    />
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:id="@+id/chip5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/_8sdp"-->
+<!--                    android:textSize="@dimen/_11ssp"-->
+<!--                    android:layout_marginStart="@dimen/_10sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                    android:text="Switch" />-->
+                <LinearLayout
+                    android:id="@+id/fragment_login_save_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    style="@style/button_style"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_35sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/gradient_btn_blue_black_shape"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter"
+                        style="@style/button_text_style"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

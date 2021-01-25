@@ -40,6 +40,7 @@ import retrofit2.Call;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.clean;
+import static com.example.kabboot.utils.HelperMethod.onLoadCirImageFromUrl2;
 import static com.example.kabboot.utils.ToastCreator.onCreateErrorToast;
 import static com.example.kabboot.utils.network.InternetState.isConnected;
 
@@ -94,10 +95,10 @@ public class ProfileFragment extends BaSeFragment {
         fragmentProfileEmailTv.setText(userData.getUserEmail());
         fragmentProfilePhoneTv.setText(userData.getUserPhone());
         fragmentProfileCityTv.setText(userData.getUserCity());
-//            if(userData.getImage()!=null){
-//                String personalImage = "https://www.barakatravel.net/"+userData.getImage().trim();
-//                onLoadCirImageFromUrl2(fragmentHomeAccountProfilePhotoCircularImageView,personalImage.trim(), getContext());
-//            }
+            if(userData.getM_image()!=null){
+                String personalImage = "https://www.kabboot.com/uploads/user/"+userData.getM_image().trim();
+                onLoadCirImageFromUrl2(fragmentHomeAccountProfilePhotoCircularImageView,personalImage.trim(), getContext());
+            }
 
     }
 

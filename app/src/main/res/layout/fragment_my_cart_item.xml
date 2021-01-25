@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/fragment_my_cart_item_name_tv"
-            android:layout_width="@dimen/_145sdp"
+            android:layout_width="@dimen/_135sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/_10sdp"
@@ -115,7 +115,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_3sdp"
             android:text="100 EGP"
             android:textColor="@color/gray2"
             android:textSize="@dimen/_11ssp" />

@@ -26,7 +26,6 @@ import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.OrderServiceList;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.SaveServiceOrdersRequest;
 import com.example.kabboot.view.fragment.BaSeFragment;
-import com.example.kabboot.view.fragment.userCycle.LoginFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 
 import java.io.Serializable;
@@ -42,8 +41,6 @@ import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.USER_TOKEN;
-import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
-import static com.example.kabboot.utils.HelperMethod.showToast;
 
 
 public class CompleteBookingServicesFragment extends BaSeFragment {

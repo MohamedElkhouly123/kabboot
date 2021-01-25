@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/_7sdp"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirm_email_dialog_til_verify_code"
+        style="@style/text_input_login2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:errorTextAppearance="@style/error_appearance"
+        >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/confirm_email_dialog_verify_code_etxt"
+        style="@style/EditTextLogin3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56sdp"
+        android:hint="@string/enterCode"
+        android:ems="10"
+        android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/tv_confirmEmailDialog_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_13ssp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/ok"
+        android:textColor="@color/blue_black"
+        />
+
+
+</LinearLayout>

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class AllVendorService  implements Serializable {
+public class AllVendorService implements Serializable {
 
     @SerializedName("service_id")
     @Expose

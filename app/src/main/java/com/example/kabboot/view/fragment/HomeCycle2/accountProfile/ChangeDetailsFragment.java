@@ -23,7 +23,6 @@ import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 import com.google.android.material.textfield.TextInputLayout;
-import com.squareup.okhttp.RequestBody;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -35,8 +34,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
-
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
@@ -79,7 +78,7 @@ public class ChangeDetailsFragment extends BaSeFragment {
     private ViewModelUser viewModelUser;
     private static ArrayList<AlbumFile> alpom = new ArrayList<>();
     private static String mPath;
-    private static final String CLIENTPROFILEIMAGE = "image";
+    private static final String CLIENTPROFILEIMAGE = "m_image";
 
     public ChangeDetailsFragment() {
         // Required empty public constructor
@@ -121,10 +120,10 @@ public class ChangeDetailsFragment extends BaSeFragment {
     }
 
     private void setUserData() {
-//        if(userData.getImage()!=null){
-//            String personalImage = "https://www.barakatravel.net/"+userData.getImage().trim();
-//            onLoadCirImageFromUrl2(fragmentChangeDetailsMyProfilePhotoCircularImageView,personalImage.trim(), getContext());
-//        }
+        if(userData.getM_image()!=null){
+            String personalImage = "https://www.kabboot.com/uploads/user/"+userData.getM_image().trim();
+            onLoadCirImageFromUrl2(fragmentChangeDetailsMyProfilePhotoCircularImageView,personalImage.trim(), getContext());
+        }
         fragmentChangeDetailsMyProfileTilUserName.getEditText().setText(userData.getUserName());
         fragmentChangeDetailsMyProfileTilPhone.getEditText().setText(userData.getUserPhone());
         fragmentChangeDetailsMyProfileTilEmail.getEditText().setText(userData.getUserEmail());
@@ -285,19 +284,20 @@ public class ChangeDetailsFragment extends BaSeFragment {
     }
 
     private void onCall() {
-        String userId = String.valueOf(userData.getUserId());
-        String email = fragmentChangeDetailsMyProfileTilEmail.getEditText().getText().toString();
-        String name = fragmentChangeDetailsMyProfileTilUserName.getEditText().getText().toString();
-        String phone = fragmentChangeDetailsMyProfileTilPhone.getEditText().getText().toString();
-        String password = fragmentChangeDetailsMyProfileTilPassword.getEditText().getText().toString();
+//        String userId = String.valueOf(userData.getUserId());
+//        String email = fragmentChangeDetailsMyProfileTilEmail.getEditText().getText().toString();
+//        String name = fragmentChangeDetailsMyProfileTilUserName.getEditText().getText().toString();
+//        String phone = fragmentChangeDetailsMyProfileTilPhone.getEditText().getText().toString();
+//        String password = fragmentChangeDetailsMyProfileTilPassword.getEditText().getText().toString();
 //        String clientProfilePhoto = mPath;
 
-//        RequestBody userId = convertToRequestBody(String.valueOf(userData.getUserId()));
-//        RequestBody email = convertToRequestBody(fragmentChangeDetailsMyProfileTilEmail.getEditText().getText().toString());
-//        RequestBody name = convertToRequestBody(fragmentChangeDetailsMyProfileTilUserName.getEditText().getText().toString());
-//        RequestBody phone = convertToRequestBody(fragmentChangeDetailsMyProfileTilPhone.getEditText().getText().toString());
-//        RequestBody password = convertToRequestBody(fragmentChangeDetailsMyProfileTilPassword.getEditText().getText().toString());
-//        MultipartBody.Part clientProfilePhoto = convertFileToMultipart(mPath, CLIENTPROFILEIMAGE,getActivity());
+        RequestBody userId = convertToRequestBody(String.valueOf(userData.getUserId()));
+        RequestBody email = convertToRequestBody(fragmentChangeDetailsMyProfileTilEmail.getEditText().getText().toString());
+        RequestBody name = convertToRequestBody(fragmentChangeDetailsMyProfileTilUserName.getEditText().getText().toString());
+        RequestBody phone = convertToRequestBody(fragmentChangeDetailsMyProfileTilPhone.getEditText().getText().toString());
+        RequestBody password = convertToRequestBody(fragmentChangeDetailsMyProfileTilPassword.getEditText().getText().toString());
+        RequestBody city = convertToRequestBody("");
+        MultipartBody.Part clientProfilePhoto = convertFileToMultipart(mPath, CLIENTPROFILEIMAGE,getActivity());
 
 //        showToast(getActivity(), String.valueOf(clientProfilePhoto));
 
@@ -306,7 +306,7 @@ public class ChangeDetailsFragment extends BaSeFragment {
         Call<GetUserDataResponce> clientCall;
 
 
-        clientCall = getApiClient().editProfile(userId,name,phone , email,"cairo", password);
+        clientCall = getApiClient().editProfile(userId,name,email , phone,city, password,clientProfilePhoto);
         viewModelUser.setGeneralLoginAndUpdateProfile(getActivity(),clientCall, passwordSave, remember, false);
 
 

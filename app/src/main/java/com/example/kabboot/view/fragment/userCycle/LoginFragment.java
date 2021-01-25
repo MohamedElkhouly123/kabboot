@@ -1,22 +1,24 @@
 package com.example.kabboot.view.fragment.userCycle;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
 import com.example.kabboot.utils.ToastCreator;
-import com.example.kabboot.view.activity.HomeCycleActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 import com.google.android.material.textfield.TextInputLayout;
@@ -41,13 +43,21 @@ public class LoginFragment extends BaSeFragment {
 
 
     List<TextInputLayout> textInputLayoutList = new ArrayList<>();
+    List<TextInputLayout> textInputLayoutList2 = new ArrayList<>();
     @BindView(R.id.fragment_login_til_phone)
     TextInputLayout fragmentLoginTilPhone;
     @BindView(R.id.fragment_login_til_password)
     TextInputLayout fragmentLoginTilPassword;
+//    @BindView(R.id.tv_confirmEmailDialog_ok)
+    TextView tvConfirmEmailDialogOk;
+    //    @Nullable
+//    @BindView(R.id.confirm_email_dialog_til_verify_code)
+    private TextInputLayout confirmEmailDialogTilVerifyCode;
     private String phone;
     private String password;
     private ViewModelUser viewModelUser;
+    private AlertDialog alertDialog;
+
 //    private ViewModelUser viewModelUser;
 
     public LoginFragment() {
@@ -76,14 +86,39 @@ public class LoginFragment extends BaSeFragment {
         viewModelUser.setGeneralLoginAndUpdateProfile().observe(getViewLifecycleOwner(), new Observer<GetUserDataResponce>() {
             @Override
             public void onChanged(@Nullable GetUserDataResponce response) {
-                if(response!=null){
-                    if (response.getSuccess()==1) {
+                if (response != null) {
+                    if (response.getSuccess() == 0) {
 //                        showToast(getActivity(),"success");
+//                        if (response.getMember().getStatus().equalsIgnoreCase("0")) {
 
-                    }  }
+                            showVerifyDialog();
+//                        }
+                    }
+//                    if (response.getSuccess()==1) {
+//                        alertDialog.dismiss();
+//                    }
+                }else {
+
+                }
+            }
+        });
+
+        viewModelUser.makeResetAndNewPasswordResponseAndSignUpAndBooking().observe(getViewLifecycleOwner(), new Observer<GetUserDataResponce>() {
+            @Override
+            public void onChanged(@Nullable GetUserDataResponce response) {
+                if (response != null) {
+                    if (response.getSuccess() == 1) {
+
+                        alertDialog.dismiss();
+
+
+//                        }
+                    }
+                }
             }
         });
     }
+
 
     @Override
     public void onBack() {
@@ -95,7 +130,7 @@ public class LoginFragment extends BaSeFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_login_change_to_register_btn:
-                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RegisterFragment(),"l");
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RegisterFragment(), "l");
                 break;
             case R.id.fragment_login_login_btn:
                 onValidData();
@@ -103,7 +138,7 @@ public class LoginFragment extends BaSeFragment {
 //                getActivity().finish();
                 break;
             case R.id.fragment_login_forget_password_btn:
-//                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new ForgettPasswordFragment(),"b");
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new ForgettPasswordFragment(), "b");
                 break;
         }
     }
@@ -143,8 +178,95 @@ public class LoginFragment extends BaSeFragment {
 
         loginCall = getApiClient().userLogin(phone, password);
 
-        viewModelUser.setGeneralLoginAndUpdateProfile(getActivity(),loginCall, password, remember, true);
+        viewModelUser.setGeneralLoginAndUpdateProfile(getActivity(), loginCall, password, remember, true);
 
+
+    }
+
+    private void showVerifyDialog() {
+        try {
+            final View view = getActivity().getLayoutInflater().inflate(R.layout.confirm_email_dialog, null);
+//            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
+
+            alertDialog = new AlertDialog.Builder(getActivity()).create();
+//            alertDialog.setTitle("Delete");
+            alertDialog.setMessage("Please Check Your Email To enter Verification Code");
+            alertDialog.setCancelable(true);
+            confirmEmailDialogTilVerifyCode = (TextInputLayout) view.findViewById(R.id.confirm_email_dialog_til_verify_code);
+            tvConfirmEmailDialogOk = (TextView) view.findViewById(R.id.tv_confirmEmailDialog_ok);
+
+            textInputLayoutList2.add(confirmEmailDialogTilVerifyCode);
+            tvConfirmEmailDialogOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (TextUtils.isEmpty(confirmEmailDialogTilVerifyCode.getEditText().getText().toString())) {
+//                    if (code.equals(et_code.getText().toString())) {
+                    cleanError(textInputLayoutList2);
+
+                    if (!validationTextInputLayoutListEmpty(textInputLayoutList2, getString(R.string.empty))) {
+//                    ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.empty));
+                    return;
+                } else {
+
+                    virifyOnCall();
+                }
+
+            }
+        });
+//            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Ok", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//
+//                    if (TextUtils.isEmpty(confirmEmailDialogTilVerifyCode.getEditText().getText().toString())) {
+////                    if (code.equals(et_code.getText().toString())) {
+////                    cleanError(textInputLayoutList2);
+//
+////                    if (!validationTextInputLayoutListEmpty(textInputLayoutList2, getString(R.string.empty))) {
+//                        ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.empty));
+//                        return;
+//                    } else {
+//
+//                        virifyOnCall();
+//                    }
+//
+//
+//                }
+//            });
+
+
+//            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    alertDialog.dismiss() ;
+//                }
+//            });
+
+            alertDialog.setView(view);
+//            alertDialog.setOnShowListener( new DialogInterface.OnShowListener() {
+//                @SuppressLint("ResourceAsColor")
+//                @Override
+//                public void onShow(DialogInterface arg0) {
+//                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(R.color.pink);
+//                    alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(R.color.pink);
+//
+//                }
+//            });
+
+            alertDialog.show();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void virifyOnCall() {
+        String verifyCode = confirmEmailDialogTilVerifyCode.getEditText().getText().toString();
+//        String passwordSave = fragmentSignUpTilConfirmPassword.getEditText().getText().toString();
+        Call<GetUserDataResponce> verifyCall;
+
+
+        verifyCall = getApiClient().Verify(verifyCode);
+        viewModelUser.setAndMakeResetAndNewPasswordResponseAndSignUpAndBooking(getActivity(), verifyCall, "Success Verification Can Login Now", true);
 
     }
 }

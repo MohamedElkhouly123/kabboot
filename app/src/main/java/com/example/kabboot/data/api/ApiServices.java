@@ -2,6 +2,7 @@ package com.example.kabboot.data.api;
 
 
 import com.example.kabboot.data.model.getAllServiceDataResponce.GetAllServiceDataResponce;
+import com.example.kabboot.data.model.getAllcitiesResponce.GetAllcitiesResponce;
 import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsResponce;
 import com.example.kabboot.data.model.getAllservicesResponce.GetAllservicesResponce;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllVendorsDataResponce;
@@ -52,8 +53,13 @@ public interface ApiServices {
 
     );
 
-    @GET("customer_service_orders/12")
+    @GET("customer_service_orders/14")
     Call<List<GetBookingServiceOrdersResponce>> getAllBookingsServicesData(
+
+    );
+
+    @GET("getAllcities")
+    Call<GetAllcitiesResponce> getAllcities(
 
     );
 
@@ -67,6 +73,12 @@ public interface ApiServices {
     Call<GetUserDataResponce> userLogin(@Field("user_phone") String phone,
                                         @Field("user_pass") String password);
 
+    @POST("Verify")
+    @FormUrlEncoded
+    Call<GetUserDataResponce> Verify(
+            @Field("rand_key") String rand_key
+                                      );
+
     @POST("register")
     @FormUrlEncoded
     Call<GetUserDataResponce> onSignUp(@Field("user_name") String name,
@@ -74,29 +86,29 @@ public interface ApiServices {
                                             @Field("user_email") String email,
                                             @Field("user_city") String city,
                                             @Field("user_pass") String password);
-    @POST("edit_profile")
-    @FormUrlEncoded
-    Call<GetUserDataResponce> editProfile(
-            @Field("user_id") String user_id,
-            @Field("user_name") String name,
-                                       @Field("user_phone") String phone,
-                                       @Field("user_email") String email,
-                                       @Field("user_city") String city,
-                                       @Field("user_pass") String password);
-
-//    @Multipart
 //    @POST("edit_profile")
-//    Call<GetUserDataResponce> userChangeProfileDetails(
-//            @Part("user_id") RequestBody userId,
-//            @Part("user_name") RequestBody email,
-//            @Part("user_phone") RequestBody first_name,
-//            @Part("user_email") RequestBody last_name,
-//            @Part("user_city") RequestBody mobile,
-//            @Part("user_pass") RequestBody password,
-//            @Part() MultipartBody.Part profileImage
-//    );
+//    @FormUrlEncoded
+//    Call<GetUserDataResponce> editProfile(
+//            @Field("user_id") String user_id,
+//            @Field("user_name") String name,
+//                                       @Field("user_phone") String phone,
+//                                       @Field("user_email") String email,
+//                                       @Field("user_city") String city,
+//                                       @Field("user_pass") String password);
 
-    @POST("forgetPassword")
+    @Multipart
+    @POST("edit_profile")
+    Call<GetUserDataResponce> editProfile(
+            @Part("user_id") RequestBody userId,
+            @Part("user_name") RequestBody name,
+            @Part("user_email") RequestBody email,
+            @Part("user_phone") RequestBody phone,
+            @Part("user_city") RequestBody mobile,
+            @Part("user_pass") RequestBody password,
+            @Part() MultipartBody.Part profileImage
+    );
+
+    @POST("ForgetPass")
     @FormUrlEncoded
     Call<GetUserDataResponce> userResetPassword(@Field("user_email") String email);
 

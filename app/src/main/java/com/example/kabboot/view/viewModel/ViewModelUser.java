@@ -4,11 +4,15 @@ package com.example.kabboot.view.viewModel;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.kabboot.R;
+import com.example.kabboot.adapter.CitySpinnerAdapter;
+import com.example.kabboot.data.model.getAllcitiesResponce.GetAllcitiesResponce;
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
 import com.example.kabboot.utils.HelperMethod;
@@ -39,7 +43,7 @@ public class ViewModelUser extends ViewModel {
     private MutableLiveData<GetUserDataResponce> generalLoginAndUpdateProfileResponse = new MutableLiveData<>();
     private MutableLiveData<GetUserDataResponce> generalRegisterationAndForgetPasswordAndBookingsResponse = new MutableLiveData<>();
     private MutableLiveData<GetAppInfoResponce> getAppInfoResponse = new MutableLiveData<>();
-//    private MutableLiveData<AppSettingResponce> appSettingsResponse = new MutableLiveData<>();
+    private MutableLiveData<GetAllcitiesResponce> getSpinnerDataResponce = new MutableLiveData<>();
 
 
     private String token;
@@ -77,6 +81,7 @@ public class ViewModelUser extends ViewModel {
                                 SaveData(activity, USER_TOKEN, response.body().getToken());
                                 SaveData(activity, USER_DATA, response.body().getMember());
                                 SaveData(activity, REMEMBER_ME, remember);
+//                                && response.body().getMember().getStatus().equalsIgnoreCase("1")
                                 if (auth) {
 //                                    Call<UserLoginGeneralResponce> tokenCall = null;
 //                                    token=new ClientFireBaseToken().getToken();
@@ -89,7 +94,7 @@ public class ViewModelUser extends ViewModel {
 //                                        tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
 //                                    }
 //
-//
+                                ToastCreator.onCreateSuccessToast(activity, "Success Login");
 //                                    getAndMakeRegisterToken(activity,tokenCall);
                                     Intent intent = new Intent(activity, HomeCycleActivity.class);
                                     activity.startActivity(intent);
@@ -98,15 +103,22 @@ public class ViewModelUser extends ViewModel {
                                 }
 //                            }
 
+
+                                if (!auth){
+                                    ToastCreator.onCreateSuccessToast(activity, "Success Edit");
+
+                                }
                                 dismissProgressDialog();
                                 generalLoginAndUpdateProfileResponse.postValue(response.body());
 //                                if (response.body().getMessage()!=null) {
-                                ToastCreator.onCreateSuccessToast(activity, "Success");
 
 //                                }
 
                             } else {
                                 dismissProgressDialog();
+                                if (auth) {
+                                    generalLoginAndUpdateProfileResponse.postValue(response.body());
+                                }
 //                                showLongToast(activity, response.body().getMessage());
                                 onCreateErrorToast(activity, response.body().getMessage());
                             }
@@ -120,6 +132,8 @@ public class ViewModelUser extends ViewModel {
                 public void onFailure(Call<GetUserDataResponce> call, Throwable t) {
                     dismissProgressDialog();
 //                    showToast(activity, String.valueOf(t.getLocalizedMessage()));
+//                    Log.i(TAG,String.valueOf(t.getMessage()));
+//                    Log.i(TAG,String.valueOf(t.getCause()));
                     onCreateErrorToast(activity, activity.getString(R.string.error));
                     generalLoginAndUpdateProfileResponse.postValue(null);
                 }
@@ -254,6 +268,73 @@ public class ViewModelUser extends ViewModel {
         }
 
     }
+
+    public MutableLiveData<GetAllcitiesResponce> makegetSpinnerData() {
+        return getSpinnerDataResponce;
+    }
+
+    public void getSpinnerData(final Activity activity, final Spinner spinner, final CitySpinnerAdapter adapter, final String hint
+            , final Call<GetAllcitiesResponce> method, final int selectedId1, final AdapterView.OnItemSelectedListener listener) {
+        if (isConnected(activity)) {
+            if (progressDialog == null) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<GetAllcitiesResponce>() {
+                @Override
+                public void onResponse(Call<GetAllcitiesResponce> call, Response<GetAllcitiesResponce> response) {
+
+                    if (response.body() != null) {
+                        try {
+
+                            dismissProgressDialog();
+//                            if (response.body().getStatus() == 1) {
+//                            showToast(activity, "hereSpinner");
+
+                                adapter.setData(response.body().getAllCities(), hint);
+
+                                spinner.setAdapter(adapter);
+
+                                spinner.setSelection(selectedId1);
+
+                                if (listener != null) {
+                                    spinner.setOnItemSelectedListener(listener);
+                                }
+
+                                getSpinnerDataResponce.postValue(response.body());
+
+//                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+//                            } else {
+//                                onCreateErrorToast(activity, response.body().getMsg());
+//                            }
+
+                        } catch(Exception e){
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetAllcitiesResponce> call, Throwable t) {
+                    dismissProgressDialog();
+                    getSpinnerDataResponce.postValue(null);
+
+                }
+            });
+        } else {
+            try {
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
 //
 //    public MutableLiveData<AppSettingResponce> makeGetAppSettings() {
 //        return appSettingsResponse;

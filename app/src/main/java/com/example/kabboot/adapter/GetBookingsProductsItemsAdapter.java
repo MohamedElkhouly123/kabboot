@@ -113,7 +113,7 @@ public class GetBookingsProductsItemsAdapter extends RecyclerView.Adapter<GetBoo
             public void onClick(View v) {
                 if (productsOrderDetailsList.size() != 0) {
 
-                    showToast(activity, "list= success");
+//                    showToast(activity, "list= success");
                     Bundle bundle = new Bundle();
                     bundle.putString("BookingType", bookingType);
                     bundle.putSerializable("Object1",  getBookingProductsOrdersResponcesList.get(position));

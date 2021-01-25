@@ -32,6 +32,9 @@ public class GetAllvendors implements Serializable {
     @SerializedName("end_hour")
     @Expose
     private String endHour;
+    @SerializedName("city_id_fk")
+    @Expose
+    private String cityIdFk;
     @SerializedName("details")
     @Expose
     private String details;
@@ -80,6 +83,9 @@ public class GetAllvendors implements Serializable {
     @SerializedName("all_vendor_services")
     @Expose
     private List<AllVendorService> allVendorServices = null;
+    @SerializedName("vendor_city")
+    @Expose
+    private String vendorCity;
 
     public String getVendorId() {
         return vendorId;
@@ -143,6 +149,14 @@ public class GetAllvendors implements Serializable {
 
     public void setEndHour(String endHour) {
         this.endHour = endHour;
+    }
+
+    public String getCityIdFk() {
+        return cityIdFk;
+    }
+
+    public void setCityIdFk(String cityIdFk) {
+        this.cityIdFk = cityIdFk;
     }
 
     public String getDetails() {
@@ -271,6 +285,14 @@ public class GetAllvendors implements Serializable {
 
     public void setAllVendorServices(List<AllVendorService> allVendorServices) {
         this.allVendorServices = allVendorServices;
+    }
+
+    public String getVendorCity() {
+        return vendorCity;
+    }
+
+    public void setVendorCity(String vendorCity) {
+        this.vendorCity = vendorCity;
     }
 
 }

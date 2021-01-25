@@ -1,6 +1,7 @@
 package com.example.kabboot.view.fragment.HomeCycle2.onLineStore;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
 import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.example.kabboot.data.model.saveStoreOrdersRequest.OrderItemList;
 import com.example.kabboot.data.model.saveStoreOrdersRequest.SaveStoreOrdersRequest;
+import com.example.kabboot.utils.ToastCreator;
+import com.example.kabboot.view.activity.MapsActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 import com.google.android.material.textfield.TextInputEditText;
@@ -83,7 +86,11 @@ public class MyCartFragment extends BaSeFragment {
     private GetAllProductsItemsInMyCartAdapter getAllProductsItemsInMyCartAdapter;
     private int productTotalPrice = 0;
     private int allProductsTotalPrice = 0;
+    public static double myLang=0;
+    public static double myLat=0;
+    public static boolean mabBack=false;
     private String OnSoreOrAllProductsOrDetails;
+    private boolean first=true;
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -191,8 +198,8 @@ public class MyCartFragment extends BaSeFragment {
         saveStoreOrdersRequest.setUserCity(userData.getUserCity());
         saveStoreOrdersRequest.setOrderDate("");
         saveStoreOrdersRequest.setOrderTime("");
-        saveStoreOrdersRequest.setMapLong(String.valueOf(""));
-        saveStoreOrdersRequest.setMapLat(String.valueOf(""));
+        saveStoreOrdersRequest.setMapLong(String.valueOf(myLang));
+        saveStoreOrdersRequest.setMapLat(String.valueOf(myLat));
         saveStoreOrdersRequest.setToken(userToken);
         saveStoreOrdersRequest.setOrderItemList(orderItemsList);
 
@@ -220,6 +227,15 @@ public class MyCartFragment extends BaSeFragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mabBack){
+            mabBack=false;
+            onBack();
+        }
+    }
+
     @OnClick({R.id.fragment_my_cart_back_img, R.id.fragment_my_cart_apply_now_btn, R.id.fragment_home_complet_booking_order})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -229,7 +245,17 @@ public class MyCartFragment extends BaSeFragment {
             case R.id.fragment_my_cart_apply_now_btn:
                 break;
             case R.id.fragment_home_complet_booking_order:
-                onCall();
+                if(first||(myLang!=0&&myLat!=0)){
+                    first=false;
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("key","myCard");
+                    getActivity().startActivity(intent);
+                    ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.location_required));
+                }else {
+//                    if(myLang!=0&&myLat!=0) {
+                        onCall();
+//                    }
+                }
                 break;
         }
     }

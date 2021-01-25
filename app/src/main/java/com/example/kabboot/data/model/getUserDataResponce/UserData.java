@@ -24,6 +24,24 @@ public class UserData {
     @SerializedName("user_pass")
     @Expose
     private String userPass;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("rand_key")
+    @Expose
+    private String rand_key;
+    @SerializedName("m_image")
+    @Expose
+    private String m_image;
+
+    public String getRand_key() {
+        return rand_key;
+    }
+
+    public void setRand_key(String rand_key) {
+        this.rand_key = rand_key;
+    }
+
 
     public String getUserId() {
         return userId;
@@ -73,4 +91,19 @@ public class UserData {
         this.userPass = userPass;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getM_image() {
+        return m_image;
+    }
+
+    public void setM_image(String m_image) {
+        this.m_image = m_image;
+    }
 }

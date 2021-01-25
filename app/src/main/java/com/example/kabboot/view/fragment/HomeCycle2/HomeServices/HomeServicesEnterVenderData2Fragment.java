@@ -130,7 +130,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
 
     private void setData() {
         if(mainServiceName.equalsIgnoreCase("At Home")) {
-            fragmentHomeServicesEnterVendorData2TilAddress.setVisibility(View.VISIBLE);
+//            fragmentHomeServicesEnterVendorData2TilAddress.setVisibility(View.VISIBLE);
         }
         fragmentHomeServicesEnterVendorData2BookCatNameTv.setText("Book " + mainServiceName + " Service");
 //        fragmentHomeServicesEnterVendorData2SubCatNameTv.setText("Services Booked");
@@ -285,7 +285,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
 
         textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilDate);
         textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilTime);
-        textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilAddress);
+//        textInputLayouts.add(fragmentHomeServicesEnterVendorData2TilAddress);
         cleanError(textInputLayouts);
         if (ids.size() == 0 && allVendorServiceListSelected.size() == 0) {
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_services_required_field));
@@ -308,24 +308,25 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
             return;
         }
         if(mainServiceName.equalsIgnoreCase("At Home")){
-        if (!validationLength(fragmentHomeServicesEnterVendorData2TilAddress, getString(R.string.invalid_address_required_field), 1)) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
-            return;
-        }
+//        if (!validationLength(fragmentHomeServicesEnterVendorData2TilAddress, getString(R.string.invalid_address_required_field), 1)) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
+//            return;
+//        }
         }
 //        myVendorId = homeServicesVendorsVrRvAdapter.vindorId;
 //        if (myVendorId != -1) {
 //            vendorData = getAllvendorsList.get(myVendorId);
         String date = fragmentHomeServicesEnterVendorData2TilDate.getEditText().getText().toString();
         String time = fragmentHomeServicesEnterVendorData2TilTime.getEditText().getText().toString();
-        String address = fragmentHomeServicesEnterVendorData2TilAddress.getEditText().getText().toString();
+//        String address = fragmentHomeServicesEnterVendorData2TilAddress.getEditText().getText().toString();
         Intent intent = new Intent(getActivity(), MapsActivity.class);
+        intent.putExtra("key","myService");
         getActivity().startActivity(intent);
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putString("Date", date);
         bundle.putString("Time", time);
-        bundle.putString("Address", address);
+//        bundle.putString("Address", address);
         bundle.putSerializable("VendorDataObject", vendorData);
         bundle.putString("SubServiceName", SubServiceName);
         bundle.putSerializable("ServicesSelectedIds", (Serializable) ids);

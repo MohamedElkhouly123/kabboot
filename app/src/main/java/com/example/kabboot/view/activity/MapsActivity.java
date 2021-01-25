@@ -61,11 +61,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double lang=0;
     private double lat=0;
     private  CompleteBookingServicesFragment completeBookingServicesFragment;
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("key");
+            //The key argument here must match that used in the other activity
+        }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -290,7 +296,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // Setting the title for the marker.
                     // This will be displayed on taping the marker
                     markerOptions.title("Success Select "+latLng.latitude + " : " + latLng.longitude);
-                    ToastCreator.onCreateSuccessToast(MapsActivity.this, "Success Select Click Save to go to next step");
+                    ToastCreator.onCreateSuccessToast(MapsActivity.this, "Success Select Click Submit to go to next step");
                     lang = latLng.longitude;
                     lat = latLng.latitude;
                     markerOptions.icon(bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_baseline_directions_car_24));

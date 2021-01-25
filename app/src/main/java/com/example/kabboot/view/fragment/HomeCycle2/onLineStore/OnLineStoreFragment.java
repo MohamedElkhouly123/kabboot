@@ -28,6 +28,9 @@ import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
 import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsResponce;
 import com.example.kabboot.utils.OnEndLess;
+import com.example.kabboot.utils.OnLineStoteFilterSearchDialog;
+import com.example.kabboot.utils.OnLineStoteMyCarSearchDialog;
+import com.example.kabboot.utils.SearchDialogCallback;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelGetLists;
@@ -46,7 +49,7 @@ import static android.content.ContentValues.TAG;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 
 
-public class OnLineStoreFragment extends BaSeFragment {
+public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCallback {
 
 
     @BindView(R.id.ffragment_all_products_recycler_view)
@@ -267,8 +270,12 @@ public class OnLineStoreFragment extends BaSeFragment {
             case R.id.fragment_on_line_store_my_care_filter_btn:
 //                navController.navigate(R.id.action_navigation_online_store_to_allProductsFragment);
 //                homeCycleActivity.setNavigation("g");
+                final OnLineStoteMyCarSearchDialog dialog = new OnLineStoteMyCarSearchDialog(this::filterOnMethodCallback,"hotel");
+                dialog.show(getActivity().getSupportFragmentManager(), "example");
                 break;
             case R.id.fragment_on_line_store_filter_btn:
+                final OnLineStoteFilterSearchDialog dialog2 = new OnLineStoteFilterSearchDialog(this::filterOnMethodCallback,"hotel");
+                dialog2.show(getActivity().getSupportFragmentManager(), "example");
                 break;
             case R.id.ffragment_all_products_floating_action_btn:
                 roomAddAndGetItem();
@@ -309,4 +316,8 @@ public class OnLineStoreFragment extends BaSeFragment {
                 });
     }
 
+    @Override
+    public void filterOnMethodCallback() {
+
+    }
 }

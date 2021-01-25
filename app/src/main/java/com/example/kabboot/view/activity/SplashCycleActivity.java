@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 
 import com.example.kabboot.R;
+import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.example.kabboot.view.fragment.splashCycle.SplashFragment;
 import com.example.kabboot.view.fragment.splashCycle.SplashLoadFragment;
 
@@ -27,6 +28,7 @@ public class SplashCycleActivity extends BaseActivity {
     //Boolean variable to mark if the transaction is safe
     public static boolean isTransactionSafe;
     private boolean first=true;
+    private UserData userData;
 
     //Boolean variable to mark if there is any transaction pending
 //    private boolean isTransactionPending;
@@ -56,7 +58,9 @@ public class SplashCycleActivity extends BaseActivity {
         Runnable r = new Runnable() {
             public void run() {
                  first=false;
-                if (LoadUserData(SplashCycleActivity.this) != null && LoadBoolean(SplashCycleActivity.this, REMEMBER_ME)) {
+                userData = LoadUserData(SplashCycleActivity.this);
+
+                if (LoadUserData(SplashCycleActivity.this) != null && LoadBoolean(SplashCycleActivity.this, REMEMBER_ME)&&userData.getStatus().equalsIgnoreCase("1")) {
                     startActivity(new Intent(SplashCycleActivity.this, HomeCycleActivity.class));
                     finish();
                 }else {

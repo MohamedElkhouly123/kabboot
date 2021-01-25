@@ -10,7 +10,7 @@ public class SubCat implements Serializable {
 
     @SerializedName("category_id")
     @Expose
-    private String categoryId;
+    private int categoryId;
     @SerializedName("category_name")
     @Expose
     private String categoryName;
@@ -33,11 +33,16 @@ public class SubCat implements Serializable {
     @Expose
     private List<SubCategoryVendor> subCategoryVendors = null;
 
-    public String getCategoryId() {
+    public SubCat(int i, String hint) {
+        this.categoryId = i;
+        this.categoryName = hint;
+    }
+
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
