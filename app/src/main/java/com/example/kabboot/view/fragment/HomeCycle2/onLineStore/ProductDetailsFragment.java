@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.content.ContentValues.TAG;
-import static com.example.kabboot.utils.HelperMethod.showToast;
 
 
 public class ProductDetailsFragment extends BaSeFragment {
@@ -182,7 +181,7 @@ public class ProductDetailsFragment extends BaSeFragment {
         fragmentProductDetailsPriceTv.setText(productData.getProductPrice());
         fragmentProductDetailsDescriptionTv.setText(Html.fromHtml(productData.getProductDesc()));
         fragmentProductDetailsSpecificationsTv.setText(Html.fromHtml(productData.getProductSpecification()));
-
+//        showToast(getActivity(), productData.getProductId()+"");
     }
 
     @Override

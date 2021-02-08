@@ -20,6 +20,7 @@ import com.example.kabboot.utils.ToastCreator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,6 +28,16 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.kabboot.utils.HelperMethod.onLoadCirImageFromUrl;
+import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+import static java.util.Calendar.THURSDAY;
+import static java.util.Calendar.TUESDAY;
+import static java.util.Calendar.WEDNESDAY;
+import static java.util.Calendar.getInstance;
 
 
 public class HomeServicesVendors2VrRvAdapter extends RecyclerView.Adapter<HomeServicesVendors2VrRvAdapter.ViewHolder> {
@@ -48,6 +59,13 @@ public class HomeServicesVendors2VrRvAdapter extends RecyclerView.Adapter<HomeSe
     private String payload;
     public int vindorId = -1;
     private List<String> availableDaysList;
+    private Calendar currentDate;
+    private int currrendDateDay;
+    private boolean dayOpened;
+    private int currentMin;
+    private int currentHour;
+    private boolean hourOpened;
+    private String anyDayOpened;
 
     public HomeServicesVendors2VrRvAdapter(Context context, Activity activity,
                                            String subServiceName, List<SubCat> subCatDataList, String mainServiceName, List<GetAllvendors> getAllvendors,
@@ -103,13 +121,100 @@ public class HomeServicesVendors2VrRvAdapter extends RecyclerView.Adapter<HomeSe
             }
             holder.cardviewVendorDetailsItem2VendorNameTv.setText(getAllvendor.getVendorName());
             holder.cardviewVendorDetailsItem2SubCat2NameTv.setText(subServiceName + " Services");
+            availableDaysList = getAllAvailableDaysItemList(getAllvendors.get(position));
+            openOrClose(getAllvendor);
+            if(dayOpened&&hourOpened){
+                holder.cardviewVendorDetailsItem2OpenTv.setVisibility(View.VISIBLE);
 
+            }else {
+                holder.cardviewVendorDetailsItem2IsCloseTv.setVisibility(View.VISIBLE);
+                holder.cardviewVendorDetailsItem2IsOpenTv.setVisibility(View.VISIBLE);
+                whenOpened(getAllvendor);
+                holder.cardviewVendorDetailsItem2IsOpenTv.setText("Opens "+getAllvendor.getStartHour()+" In Opened Days");
 
-//            holder.cardviewVendorDetailsItemStartHourTv.setText("Start Hour : "+getAllvendors.getStartHour());
-//            holder.cardviewVendorDetailsItemEndHourTv.setText("End Hour : "+getAllvendors.getEndHour());
+            }
+
 
         } catch (Exception e) {
 
+        }
+
+    }
+
+    private void whenOpened(GetAllvendors getAllvendor) {
+        for(int i=1;i<8;i++){
+            currentDate.add(Calendar.DATE, 1);
+            currrendDateDay = currentDate.get(Calendar.DAY_OF_WEEK);
+            if (currrendDateDay == SATURDAY && getAllvendor.getSaturday().equalsIgnoreCase("1")){
+                anyDayOpened="Sut";
+                return;
+            }
+            if (currrendDateDay == SUNDAY && getAllvendor.getSunday().equalsIgnoreCase("1")){
+                anyDayOpened="Sun";
+                return;
+            }
+            if (currrendDateDay == MONDAY && getAllvendor.getMonday().equalsIgnoreCase("1")){
+                anyDayOpened="Mon";
+                return;
+            }
+            if (currrendDateDay == TUESDAY && getAllvendor.getTuesday().equalsIgnoreCase("1")){
+                anyDayOpened="Tues";
+                return;
+            }
+            if (currrendDateDay == WEDNESDAY && getAllvendor.getWednesday().equalsIgnoreCase("1")){
+                anyDayOpened="Wednes";
+                return;
+            }
+            if (currrendDateDay == THURSDAY && getAllvendor.getThursday().equalsIgnoreCase("1")){
+                anyDayOpened="Thurs";
+                return;
+            }
+            if (currrendDateDay == FRIDAY && getAllvendor.getFriday().equalsIgnoreCase("1")){
+                anyDayOpened="Fri";
+                return;
+            }
+
+
+
+        }
+    }
+
+    private void openOrClose(GetAllvendors getAllvendor) {
+        currentDate = getInstance();
+        currrendDateDay = currentDate.get(Calendar.DAY_OF_WEEK);
+        if ((currrendDateDay == FRIDAY && getAllvendor.getFriday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == THURSDAY && getAllvendor.getThursday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == WEDNESDAY && getAllvendor.getWednesday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == TUESDAY && getAllvendor.getTuesday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == MONDAY && getAllvendor.getMonday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == SUNDAY && getAllvendor.getSunday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == SATURDAY && getAllvendor.getSaturday().equalsIgnoreCase("1"))) {
+
+            dayOpened=true;
+
+        }else {
+            dayOpened=false;
+        }
+//        DateFormat.is24HourFormat(activity);
+        currentMin=currentDate.get(MINUTE);
+        currentHour =currentDate.get(HOUR_OF_DAY);
+        String[] minTimeParts = getAllvendor.getStartHour().split(":");
+//        String startSec = minTimeParts[2];
+        String startMin = minTimeParts[1];
+        String startHour = minTimeParts[0];
+        String[] maxTimeParts = getAllvendor.getEndHour().split(":");
+//        String endSec = maxTimeParts[2];
+        String endMin = maxTimeParts[1];
+        String endHour = maxTimeParts[0];
+//        showToast(activity, currentHour+" : "+currentMin);
+        if ((currentHour == Integer.parseInt(startHour) &&currentMin>=Integer.parseInt(startMin)) ||(currentHour > Integer.parseInt(startHour))) {
+            if((currentHour == Integer.parseInt(endHour)&&currentMin<=Integer.parseInt(endMin))||(currentHour < Integer.parseInt(endHour))) {
+                hourOpened=true;
+            }else {
+                hourOpened=false;
+            }
+        }else {
+            hourOpened=false;
         }
 
     }
@@ -173,25 +278,25 @@ public class HomeServicesVendors2VrRvAdapter extends RecyclerView.Adapter<HomeSe
 
         List<String> allDaysItems = new ArrayList<String>();
         if (vendorData2.getSaturday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Saturday");
+            allDaysItems.add("SATURDAY");
         }
         if (vendorData2.getSunday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Sunday");
+            allDaysItems.add("SUNDAY");
         }
         if (vendorData2.getMonday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Monday");
+            allDaysItems.add("MONDAY");
         }
         if (vendorData2.getTuesday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Tuesday");
+            allDaysItems.add("TUESDAY");
         }
         if (vendorData2.getWednesday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Wednesday");
+            allDaysItems.add("WEDNESDAY");
         }
         if (vendorData2.getThursday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Thursday");
+            allDaysItems.add("THURSDAY");
         }
         if (vendorData2.getFriday().equalsIgnoreCase("1")) {
-            allDaysItems.add("Friday");
+            allDaysItems.add("FRIDAY");
         }
         return allDaysItems;
     }

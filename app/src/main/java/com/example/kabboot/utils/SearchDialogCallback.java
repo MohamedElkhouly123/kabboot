@@ -1,9 +1,8 @@
 package com.example.kabboot.utils;
 
 
-import java.util.List;
-
 public interface SearchDialogCallback {
 
-       void filterOnMethodCallback();
+
+       void filterOnMethodCallback(String searchName, String searchprice, String vendorIdValue, String productCatIdValue);
 }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.local.DataBase;
-import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
 import com.example.kabboot.data.model.getAllproductsResponce.OrderProductsItemsListData;
 import com.example.kabboot.data.model.getBookingProductsOrdersRequest.ProductsOrderDetail;
 import com.example.kabboot.view.activity.BaseActivity;
@@ -25,13 +24,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.kabboot.utils.HelperMethod.onLoadImageFromUrl2;
-
 
 public class GetMyAllBookingProductsItemsAdapter extends RecyclerView.Adapter<GetMyAllBookingProductsItemsAdapter.ViewHolder> {
 
 
-//    private final TextView fragmentMyCartTotalItemsPriceTv;
+
+    //    private final TextView fragmentMyCartTotalItemsPriceTv;
     private BaseActivity activity;
     private Context context;
     private List<ProductsOrderDetail> productsOrderDetailList = new ArrayList<>();
@@ -71,8 +69,8 @@ public class GetMyAllBookingProductsItemsAdapter extends RecyclerView.Adapter<Ge
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            setData(holder, position);
-            setAction(holder, position);
+        setData(holder, position);
+        setAction(holder, position);
 
     }
 
@@ -94,6 +92,7 @@ public class GetMyAllBookingProductsItemsAdapter extends RecyclerView.Adapter<Ge
         holder.fragmentGetMyAllBookingProductsItemsNumTv.setText("(" + quan + ") Item");
         int totalPrice = (int) (Integer.parseInt(getAllProducts.getProductQty()) * Double.parseDouble(getAllProducts.getProductPrice()));
         holder.fragmentGetMyAllBookingProductsItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
+        holder.fragmentGetMyAllBookingProductsItemsVwndorNameTv.setText(getAllProducts.getVendorName());
 
 //        showToast(activity, orderItemsList.get(position).getId());
 
@@ -132,7 +131,8 @@ public class GetMyAllBookingProductsItemsAdapter extends RecyclerView.Adapter<Ge
         TextView fragmentGetMyAllBookingProductsItemsNumTv;
         @BindView(R.id.fragment_get_my_all_booking_products_items_price_tv)
         TextView fragmentGetMyAllBookingProductsItemsPriceTv;
-
+        @BindView(R.id.fragment_get_my_all_booking_products_items_vwndor_name_tv)
+        TextView fragmentGetMyAllBookingProductsItemsVwndorNameTv;
         private View view;
 
         public ViewHolder(View itemView) {

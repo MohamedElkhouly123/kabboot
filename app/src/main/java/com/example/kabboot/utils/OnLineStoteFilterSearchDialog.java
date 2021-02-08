@@ -4,9 +4,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,26 +14,43 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.kabboot.R;
+import com.example.kabboot.adapter.ProductCatSpinnerAdapter;
+import com.example.kabboot.adapter.VendorsSpinnerAdapter;
 import com.google.android.material.textfield.TextInputLayout;
+
+import static com.example.kabboot.data.api.ApiClient.getApiClient;
+import static com.example.kabboot.utils.GeneralRequest.getProductCategorySpinnerData;
+import static com.example.kabboot.utils.GeneralRequest.getVendorSpinnerData;
 
 
 public class OnLineStoteFilterSearchDialog extends DialogFragment {
 
     private String flightOrHotel;
     private SearchDialogCallback showSearchDialog;
-    private ImageView cancelBtn ;
+    private ImageView cancelBtn;
     private TextView showPaddingPart;
-    private Button filterBtn;
-//    private List<GeneralResposeData> pricingList = new ArrayList<GeneralResposeData>();
+    private LinearLayout filterBtn;
+    //    private List<GeneralResposeData> pricingList = new ArrayList<GeneralResposeData>();
 //    private List<GetAmenity2> amentiesList = new ArrayList<GetAmenity2>();
 //    private SpinnerAdapter priceSpinnerAdapter;
     private int priceSelectedId1 = 0;
     private AdapterView.OnItemSelectedListener priceListener;
 
-//    private GetAmentiesAdapter getAmentiesAdapter;
-    private TextInputLayout tdialogFlightSearchCategorySearchTil;
-    private TextInputLayout dialogFlightSearchCategorySearchPriceTil;
-    private Spinner dialogFlightSearchCategorySpPrice;
+    //    private GetAmentiesAdapter getAmentiesAdapter;
+    private TextInputLayout dialogSearchProductNameSearchTil;
+    private TextInputLayout dialogSearchProductCategoryNameSearchPriceTil, dialogSearchProductVendorNameSearchPriceTil;
+    private Spinner dialogSearchProductCategorySpId, dialogSearchProductVendorSpId;
+    private String searchprice = "";
+    private VendorsSpinnerAdapter vendorsSpinnerAdapter;
+    private int vendorSelectedId = 0;
+    private AdapterView.OnItemSelectedListener vendorSpinerListener;
+    private ProductCatSpinnerAdapter productCatSpinnerAdapter;
+    private int productNameSelectedId=0;
+    private String productNameFilterValue;
+    private String vendorNameFilterValue;
+    private AdapterView.OnItemSelectedListener productCatSpinerListener;
+    private String vendorIdValue="";
+    private String productCatIdValue="";
 
 
     public OnLineStoteFilterSearchDialog() {
@@ -42,8 +58,8 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
     }
 
     public OnLineStoteFilterSearchDialog(SearchDialogCallback showSearchDialog, String flightOrHotel) {
-        this.showSearchDialog=showSearchDialog;
-        this.flightOrHotel=flightOrHotel;
+        this.showSearchDialog = showSearchDialog;
+        this.flightOrHotel = flightOrHotel;
 
     }
 
@@ -59,25 +75,27 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // TODO Auto-generated method stub
-        View rootView= getActivity().getLayoutInflater().inflate(R.layout.dialog_store_filter_search_category, null);
+        View rootView = getActivity().getLayoutInflater().inflate(R.layout.dialog_store_filter_search_category, null);
 
         //SET TITLE DIALOG TITLE
 //        getDialog().setTitle("Best Players In The World");
 //        this.getDialog().setTitle("أختيار القسم العام");
 //        this.getDialog().setCancelable(true);
 
-        cancelBtn=(ImageView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn);
-//        filterBtn=(Button) rootView.findViewById(R.id.dialog_flight_search_category_filter_now_btn);
-//        tdialogFlightSearchCategorySearchTil=(TextInputLayout) rootView.findViewById(R.id.tdialog_flight_search_category_search_til);
-//        dialogFlightSearchCategorySearchPriceTil=(TextInputLayout) rootView.findViewById(R.id.dialog_flight_search_category_search_price_til);
-//        dialogFlightSearchCategorySpPrice=(Spinner) rootView.findViewById(R.id.dialog_flight_search_category_sp_price);
+        cancelBtn = (ImageView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn);
+        filterBtn = (LinearLayout) rootView.findViewById(R.id.dialog_store_filter_search_category_save_btn);
+        dialogSearchProductNameSearchTil = (TextInputLayout) rootView.findViewById(R.id.dialog_store_filter_search_category_til_product_name);
+        dialogSearchProductCategoryNameSearchPriceTil = (TextInputLayout) rootView.findViewById(R.id.dialog_store_filter_search_category_til_product_category_name);
+        dialogSearchProductCategorySpId = (Spinner) rootView.findViewById(R.id.dialog_store_filter_search_category_product_category_name_sp);
+        dialogSearchProductVendorNameSearchPriceTil = (TextInputLayout) rootView.findViewById(R.id.dialog_store_filter_search_category_til_vendor_name);
+        dialogSearchProductVendorSpId = (Spinner) rootView.findViewById(R.id.dialog_store_filter_search_category_vendor_name_sp);
 //        showPaddingPart=(TextView) rootView.findViewById(R.id.dialog_flight_search_category_padding_txt);
 
-        SeekBar seekBar = (SeekBar)rootView.findViewById(R.id.dialog_flight_search_category_close_btn_seekBar);
-        final TextView seekBarValue = (TextView)rootView.findViewById(R.id.dialog_flight_search_category_close_btn_price_tv);
-        String status="false";
-
-//////set the switch to ON
+        SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_seekBar);
+        final TextView seekBarValue = (TextView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_price_tv);
+        String status = "false";
+        setSpinner();
+        //////set the switch to ON
 //        mySwitch.setChecked(false);
 
 //////attach a listener to check for changes in state
@@ -92,13 +110,17 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
 //            }
 //        });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
-                seekBarValue.setText(String.valueOf(progress));
+                seekBarValue.setText(String.valueOf(progress + " EGP"));
+                searchprice = String.valueOf(progress);
+                if (progress == 0) {
+                    searchprice = String.valueOf("");
+                }
             }
 
             @Override
@@ -111,9 +133,6 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
                 // TODO Auto-generated method stub
             }
         });
-
-
-    setData();
 
 
 //        RecyclerView dialogCategoriesRvRecyclerView = (RecyclerView) rootView.findViewById(R.id.dialog_day_by_day_and_evisa_more_rv_recycler_view);
@@ -143,61 +162,9 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
 
-                String searchKey=tdialogFlightSearchCategorySearchTil.getEditText().getText().toString();
-                String typeSearch;
-                int priceFrom=0,priceTo=0;
-                if(priceSelectedId1==1){
-                    priceFrom=500;
-                }
-                if(priceSelectedId1==2){
-                    priceFrom=400;  priceTo=500;
-                }
-                if(priceSelectedId1==3){
-                    priceFrom=300;  priceTo=400;
-                }
-                if(priceSelectedId1==4){
-                    priceFrom=200;  priceTo=300;
-                }
-                if(priceSelectedId1==5){
-                    priceFrom=1;  priceTo=200;
-                }
+                String searchName = dialogSearchProductNameSearchTil.getEditText().getText().toString();
+                showSearchDialog.filterOnMethodCallback(searchName, searchprice,vendorIdValue,productCatIdValue);
 
-//                if(validationLengthZero(tdialogFlightSearchCategorySearchTil, getString(R.string.invalid_search), 0)){ // return searchKey = null
-//                    if (!validationLength(tdialogFlightSearchCategorySearchTil, getString(R.string.invalid_search), 3)) {
-//                        onCreateErrorToast(getActivity(), getString(R.string.invalid_search));
-//                        return;
-//                    }
-//                    if(priceSelectedId1==0){
-//                        typeSearch="nameOnly";
-//                    } else {
-//                        if(priceSelectedId1==1){
-//                            typeSearch="namePriceAbove";
-//                        }
-//                        else {
-//                            typeSearch="namePrice";
-//                        }
-//                    }
-//                }else {
-////                    !validationLengthZero(tdialogFlightSearchCategorySearchTil, getString(R.string.invalid_search), 0)&&
-//                    if (priceSelectedId1==0) {
-//                        typeSearch="noFilter";
-////                        onCreateErrorToast(getActivity(), getString(R.string.invalid_search2));
-////                        return;
-//                    } else  {
-//                        if(priceSelectedId1==1){
-//                            typeSearch="priceAbove";
-//                        }
-//                        else   {
-//                            typeSearch="price";
-//                        }
-//                    }
-//                }
-//                if(typeSearch!=null){
-//                showSearchDialog.filterOnMethodCallback(searchKey,priceFrom,priceTo,typeSearch, null);
-//                }else {
-//                    showToast(getActivity(), typeSearch);
-//
-//                }
                 dismiss();
 
             }
@@ -217,26 +184,32 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
     }
 
 
+    private void setSpinner() {
 
-
-    private void setData() {
-        showPaddingPart.setVisibility(View.VISIBLE);
-//        pricingList.add(new GeneralResposeData(0, " $500 - Above "));
-//        pricingList.add(new GeneralResposeData(1, " $400 - $500 "));
-//        pricingList.add(new GeneralResposeData(2, " $300 - $400 "));
-//        pricingList.add(new GeneralResposeData(3, " $200 - $300 "));
-//        pricingList.add(new GeneralResposeData(4, " $200 - Below "));
-//        priceSpinnerAdapter = new SpinnerAdapter(getActivity());
-//        priceSpinnerAdapter.setData(pricingList, "");
-//        dialogFlightSearchCategorySpPrice.setAdapter(priceSpinnerAdapter);
-        dialogFlightSearchCategorySpPrice.setSelection(priceSelectedId1);
-        priceListener = new AdapterView.OnItemSelectedListener() {
+        vendorsSpinnerAdapter = new VendorsSpinnerAdapter(getActivity());
+        getVendorSpinnerData(getApiClient().clientGetAgetAllvendors(), vendorsSpinnerAdapter, "", dialogSearchProductVendorSpId,
+                null);
+        vendorSpinerListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                priceSelectedId1 = i;
-//                dialogFlightSearchCategorySearchPriceTil.getEditText().setText(String.valueOf(priceSpinnerAdapter.getItem(priceSelectedId1)));
+                vendorSelectedId = i;
+
+
+//                fragmentHomeServicesEnterVendorDataCityTv.setText(getString(R.string.Filters));
+                if (vendorSelectedId > 0) {
+                    vendorNameFilterValue = String.valueOf(vendorsSpinnerAdapter.getItem(i));
+                    vendorIdValue =String.valueOf(vendorsSpinnerAdapter.getItemId(i));
+
+                    if(vendorSelectedId==1){
+                        vendorIdValue="";
+                    }
+
+                    dialogSearchProductVendorNameSearchPriceTil.getEditText().setText(vendorNameFilterValue);
+
+//                    }
 //                showToast(getActivity(), String.valueOf(priceSelectedId1));
+                }
             }
 
             @Override
@@ -244,11 +217,40 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
 
             }
         };
-        dialogFlightSearchCategorySpPrice.setOnItemSelectedListener(priceListener);
+        dialogSearchProductVendorSpId.setOnItemSelectedListener(vendorSpinerListener);
+
+        productCatSpinnerAdapter = new ProductCatSpinnerAdapter(getActivity());
+        getProductCategorySpinnerData(getApiClient().getAllproductCategory(), productCatSpinnerAdapter, "", dialogSearchProductCategorySpId,
+                null);
+        productCatSpinerListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                productNameSelectedId = i;
+
+
+//                fragmentHomeServicesEnterVendorDataCityTv.setText(getString(R.string.Filters));
+                if (productNameSelectedId > 0) {
+                    productNameFilterValue = String.valueOf(productCatSpinnerAdapter.getItem(i));
+                    productCatIdValue =String.valueOf(vendorsSpinnerAdapter.getItemId(i));
+
+                    if(productNameSelectedId==1){
+                        productCatIdValue="";
+                    }
+                    dialogSearchProductCategoryNameSearchPriceTil.getEditText().setText(productNameFilterValue);
+
+//                    }
+//                showToast(getActivity(), String.valueOf(priceSelectedId1));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+        dialogSearchProductCategorySpId.setOnItemSelectedListener(productCatSpinerListener);
+
     }
 
-
-
-
 }
-

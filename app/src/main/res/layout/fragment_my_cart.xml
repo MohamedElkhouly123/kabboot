@@ -132,11 +132,12 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
                   <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:cardCornerRadius="@dimen/_4sdp"
-                app:cardBackgroundColor="@android:color/white"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="@dimen/_5sdp"
+                      android:visibility="gone"
+                      app:cardCornerRadius="@dimen/_4sdp"
+                      app:cardBackgroundColor="@android:color/white"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -144,7 +145,6 @@
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_10sdp"
-                    android:visibility="visible"
                     android:paddingBottom="@dimen/_15sdp"
                     android:paddingStart="@dimen/_10sdp"
                     android:paddingEnd="@dimen/_10sdp"            >
@@ -204,53 +204,75 @@
                         android:layout_height="wrap_content"
                         android:visibility="visible"
                         android:orientation="horizontal"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:weightSum="7"
                         >
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="2"
+                            >
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/fragment_my_cart_til_promo_code"
                         style="@style/text_input_login"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/_1sdp"
-                        android:layout_marginStart="@dimen/_1sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_2sdp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+
                         app:errorTextAppearance="@style/error_appearance"
                         >
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fragment_login_phone_etxt"
+                            android:id="@+id/fragment_my_cart_phone_etxt"
                             style="@style/EditTextLogin"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_55sdp"
                             android:hint="@string/Enter_your_promocode"
                             android:drawablePadding="@dimen/_5sdp"
                             android:drawableStart="@drawable/ic_baseline_request_page_24"
-                            android:ems="10"
-                            android:inputType="phone" />
+                            android:focusable="false"
+                            android:editable="false"
+                            android:inputType="none" />
                     </com.google.android.material.textfield.TextInputLayout>
-                    <Button
-                        android:id="@+id/fragment_my_cart_apply_now_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_7sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_weight="5"
-                        android:background="@drawable/red_btn"
-                        android:text="@string/Apply"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
-                        android:textStyle="bold"
+                            <Spinner
+                                android:id="@+id/fragment_my_cart_promo_code_sp_promo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
 
-                        />
+                                android:layout_marginTop="@dimen/_1sdp"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_2sdp"
+                                android:elevation="@dimen/_2sdp"
+                                />
+                        </FrameLayout>
+<!--                    <Button-->
+<!--                        android:id="@+id/fragment_my_cart_apply_now_btn"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_marginStart="@dimen/_7sdp"-->
+<!--                        android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                        android:layout_marginTop="@dimen/_3sdp"-->
+<!--                        android:layout_weight="5"-->
+<!--                        android:background="@drawable/red_btn"-->
+<!--                        android:text="@string/Apply"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="@dimen/_10ssp"-->
+<!--                        android:textStyle="bold"-->
+
+<!--                        />-->
                     </LinearLayout>
                     <TextView
                         android:id="@+id/fragment_my_cart_Subtotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Subtotal 5320 EGP"
+                        android:text="Subtotal Before Discount  :  5320 EGP"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_20sdp"
@@ -258,38 +280,40 @@
                         android:maxLines="2"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/fragment_my_cart_fees"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Delivery Fees 30 EGP"-->
+<!--                        android:layout_marginStart="@dimen/_10sdp"-->
+<!--                        android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:maxLines="2"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="@dimen/_11ssp" />-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/fragment_my_cart_tax"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Tax 0"-->
+<!--                        android:layout_marginStart="@dimen/_10sdp"-->
+<!--                        android:layout_marginEnd="@dimen/_10sdp"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:maxLines="2"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="@dimen/_11ssp" />-->
                     <TextView
-                        android:id="@+id/fragment_my_cart_fees"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery Fees 30 EGP"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11ssp" />
-                    <TextView
-                        android:id="@+id/fragment_my_cart_tax"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tax 0"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11ssp" />
-                    <TextView
-                        android:id="@+id/fragment_my_discount"
+                        android:id="@+id/fragment_my_cart_discount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Discount: 0 EGP"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textColor="@color/black"

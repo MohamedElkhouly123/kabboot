@@ -32,6 +32,11 @@
             android:layout_height="@dimen/_40sdp"
             android:visibility="gone"
             android:src="@drawable/product" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/fragment_get_my_all_booking_products_items_name_tv"
@@ -44,6 +49,16 @@
             android:text="VITALTECH 5W540 Full Synthetic Motor Oil - 14L"
             android:textColor="@color/black"
             android:textSize="@dimen/_11ssp" />
+            <TextView
+                android:id="@+id/fragment_get_my_all_booking_products_items_vwndor_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/gray2"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
 
     </LinearLayout>
 

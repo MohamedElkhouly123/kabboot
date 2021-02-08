@@ -6,12 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-//@Entity(tableName = "clientNewOrder")
-public class AllProduct implements Serializable {
+public class DataFounded implements Serializable {
 
     @SerializedName("product_id")
     @Expose
-    private int productId;
+    private String productId;
     @SerializedName("product_name")
     @Expose
     private String productName;
@@ -52,11 +51,11 @@ public class AllProduct implements Serializable {
     @Expose
     private String vendorName;
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

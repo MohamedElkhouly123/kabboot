@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.example.kabboot.R;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment;
-import com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderDataFragment;
+import com.example.kabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,7 +61,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double lang=0;
     private double lat=0;
     private  CompleteBookingServicesFragment completeBookingServicesFragment;
+    private  MyCartFragment myCartFragment;
+
     private Bundle extras;
+    private String myCartOrMyService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         extras = getIntent().getExtras();
         if (extras != null) {
-            String value = extras.getString("key");
+             myCartOrMyService = extras.getString("key");
             //The key argument here must match that used in the other activity
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -78,6 +81,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         ButterKnife.bind(this);
         completeBookingServicesFragment=new CompleteBookingServicesFragment();
+        myCartFragment=new MyCartFragment();
+
 //        toolbarSubView.setVisibility(View.VISIBLE);
 //        toolbarTitle.setText(getString(R.string.title_activity_maps));
 //        backBtn.setOnClickListener(onBackPressed());
@@ -354,7 +359,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onBackPressed() {
-        completeBookingServicesFragment.mabBack=true;
+        if(myCartOrMyService.equalsIgnoreCase("myService")){
+            completeBookingServicesFragment.mabBack=true;
+        }
+        if(myCartOrMyService.equalsIgnoreCase("myCard")){
+            myCartFragment.mabBack=true;
+        }
+//        completeBookingServicesFragment.mabBack=true;
         super.onBackPressed();
     }
 
@@ -366,9 +377,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.map_save_location_btn:
                 if(lang!=0&&lat!=0){
+//                    showToast(this, myCartOrMyService);
+                    if(myCartOrMyService.equalsIgnoreCase("myService")){
                     completeBookingServicesFragment.myLang=lang;
                     completeBookingServicesFragment.myLat=lat;
+                    }
+                    if(myCartOrMyService.equalsIgnoreCase("myCard")){
+                        myCartFragment.myLang=lang;
+                        myCartFragment.myLat=lat;
+                    }
                     finish();
+                }else {
+                    ToastCreator.onCreateErrorToast(MapsActivity.this, getString(R.string.location_required));
+
                 }
                 break;
         }

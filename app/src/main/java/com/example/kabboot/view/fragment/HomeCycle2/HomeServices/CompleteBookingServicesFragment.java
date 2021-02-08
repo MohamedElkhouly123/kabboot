@@ -2,9 +2,12 @@ package com.example.kabboot.view.fragment.HomeCycle2.HomeServices;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,15 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
 import com.example.kabboot.adapter.GetShowSelectedAllServicesAdapter;
+import com.example.kabboot.adapter.PromoCodesSpinnerAdapter;
+import com.example.kabboot.data.model.customerPromoCodesResponce.CustomerPromoCodesResponce;
 import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
 import com.example.kabboot.data.model.getAllvendorsResponce.AllVendorService;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllvendors;
-import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
+import com.example.kabboot.data.model.getSaveOrdersResponce.GetSaveOrdersResponce;
 import com.example.kabboot.data.model.getUserDataResponce.UserData;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.OrderServiceList;
 import com.example.kabboot.data.model.saveServiceOrdersRequest.SaveServiceOrdersRequest;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,6 +44,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
+import static android.content.ContentValues.TAG;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
@@ -61,6 +69,18 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     TextView fragmentHomeCompletBookingServicesBookTimeTv;
     @BindView(R.id.fragment_home_complet_booking_services_recycler_view)
     RecyclerView fragmentHomeCompletBookingServicesRecyclerView;
+    @BindView(R.id.fragment_home_complet_booking_services_promo_code_sp_promo)
+    Spinner fragmentMyServicesPromoCodeSpPromo;
+    @BindView(R.id.fragment_home_complet_booking_services_phone_etxt)
+    TextInputEditText fragmentHomeCompletBookingServicesPhoneEtxt;
+    @BindView(R.id.fragment_home_complet_booking_services_til_promo_code)
+    TextInputLayout fragmentHomeCompletBookingServicesTilPromoCode;
+    @BindView(R.id.fragment_home_complet_booking_services_Subtotal)
+    TextView fragmentHomeCompletBookingServicesSubtotal;
+    @BindView(R.id.fragment_home_complet_booking_services_discount)
+    TextView fragmentHomeCompletBookingServicesDiscount;
+    @BindView(R.id.fragment_home_complet_booking_services_total_price)
+    TextView fragmentHomeCompletBookingServicesTotalPrice;
 
     //    @BindView(R.id.fragment_home_complet_booking_services_book_sub_cat_name_tv)
 //    TextView fragmentHomeCompletBookingServicesBookSubCatNameTv;
@@ -75,12 +95,20 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     private LinearLayoutManager lLayout;
     private GetShowSelectedAllServicesAdapter getAllServicesSelectedAdapter;
     private ViewModelUser viewModelUser;
-    public static double myLang=0;
-    public static double myLat=0;
-    public static boolean mabBack=false;
-    private String userId,userPhone,userName,userCity,userToken;
-    private int totalPrice=0;
+    public static double myLang = 0;
+    public static double myLat = 0;
+    public static boolean mabBack = false;
+    private String userId, userPhone, userName, userCity, userToken;
+    private int totalPrice = 0;
     private String SubServiceName;
+    private ViewModelUser viewMode2;
+    private AdapterView.OnItemSelectedListener promoCodeSpinerListener;
+    private PromoCodesSpinnerAdapter promoCodesSpinnerAdapter;
+    private int promoSelectedId =0;
+    private String promoFilterValue;
+    private String promoFilterValueId;
+    private double discountPrice;
+    private double finalTotalPrice;
 
     public CompleteBookingServicesFragment() {
         // Required empty public constructor
@@ -107,25 +135,96 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
         setUpActivity();
         userData = LoadUserData(getActivity());
         homeCycleActivity.setNavigation("g");
+        initListener2();
         setData();
         init();
         return root;
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
+    private void initListener2() {
+
+        viewMode2 = ViewModelProviders.of(this).get(ViewModelUser.class);
+
+        viewMode2.makeGetSpinnerPromoCodeData().observe(this, new Observer<CustomerPromoCodesResponce>() {
+            @Override
+            public void onChanged(@Nullable CustomerPromoCodesResponce response) {
+                if (response != null) {
+//                    if (response.getCustomerPromocodes().size()==0) {
+//                        showToast(getActivity(), "success2");
+//                        fragmentHomeCompletBookingServicesTilPromoCode.getEditText().setText("No Available Promo Codes Now");
+//
+//                    } else {
+////                        showToast(getActivity(), "error");
+//
+//                    }
+                }
+            }
+        });
+
+        setSpinner();
+    }
     private void setData() {
 
-        for(int i=0;i<allVendorServiceListSelected.size();i++){
-           totalPrice+= (int) Double.parseDouble(allVendorServiceListSelected.get(i).getServicePrice());
+        for (int i = 0; i < allVendorServiceListSelected.size(); i++) {
+            totalPrice += (int) Double.parseDouble(allVendorServiceListSelected.get(i).getServicePrice());
         }
 //        fragmentHomeCompletBookingServicesBookCatNameTv.setText("Book " + mainServiceName);
         fragmentHomeCompletBookingServicesBookCatNameTv.setText("Book " + mainServiceName + " Service");
         fragmentHomeCompletBookingServicesSubCatNameTv.setText(" Services Booked");
         fragmentHomeCompletBookingServicesVendorNameTv.setText(vendorData.getVendorName());
 //        fragmentHomeCompletBookingServicesSubCatPriceTv.setText("11 $");
-        fragmentHomeCompletBookingServicesSubServTotalPriceTv.setText("Subtotal : "+totalPrice+" EGP");
+        fragmentHomeCompletBookingServicesSubServTotalPriceTv.setText("Subtotal : " + totalPrice + " EGP");
+        fragmentHomeCompletBookingServicesSubtotal.setText("Subtotal Before Discount  :  " + totalPrice + " EGP");
+        fragmentHomeCompletBookingServicesTotalPrice.setText("Total :  " + totalPrice + " EGP");
         fragmentHomeCompletBookingServicesBookDateTv.setText(date);
         fragmentHomeCompletBookingServicesBookTimeTv.setText(time);
 
+
+    }
+
+    private void setSpinner() {
+
+        promoCodesSpinnerAdapter = new PromoCodesSpinnerAdapter(getActivity());
+        viewMode2.getSpinnerPromoCodeData(getActivity(), fragmentMyServicesPromoCodeSpPromo, promoCodesSpinnerAdapter, "",
+                getApiClient().customerPromoCodes(userData.getUserId()), promoSelectedId, null,fragmentHomeCompletBookingServicesTilPromoCode);
+        promoCodeSpinerListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                promoSelectedId = i;
+
+
+//                fragmentHomeServicesEnterVendorDataCityTv.setText(getString(R.string.Filters));
+                if(promoSelectedId >1) {
+                    promoFilterValue =String.valueOf(promoCodesSpinnerAdapter.getItem(i));
+                    promoFilterValueId =String.valueOf(promoCodesSpinnerAdapter.getItemId(i));
+                    discountPrice= (totalPrice / 100 ) * Integer.parseInt(promoFilterValue);
+                    finalTotalPrice=totalPrice-discountPrice;
+                    fragmentHomeCompletBookingServicesDiscount.setText("Discount ( " + promoFilterValue + " % ) : "+ discountPrice + " EGP");
+                    fragmentHomeCompletBookingServicesTotalPrice.setText("Total :  " + finalTotalPrice + " EGP");
+
+
+//                    fragmentHomeServicesEnterVendorDataCityTv.setText(cityFilterValue);
+//                    if (promoSelectedId == 1) {
+//
+//                    }
+//                    if (promoSelectedId > 1) {
+//                        showToast(getActivity(), cityFilterValue+ " yes");
+
+                    fragmentHomeCompletBookingServicesTilPromoCode.getEditText().setText("Promo Code "+promoFilterValueId+"   ( "+promoFilterValue+" % Discount )");
+
+//                    }
+//                showToast(getActivity(), String.valueOf(priceSelectedId1));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+        fragmentMyServicesPromoCodeSpPromo.setOnItemSelectedListener(promoCodeSpinerListener);
 
     }
 
@@ -161,8 +260,8 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(mabBack){
-            mabBack=false;
+        if (mabBack) {
+            mabBack = false;
             onBack();
         }
     }
@@ -174,21 +273,22 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
                 onBack();
                 break;
             case R.id.fragment_home_complet_booking_services:
-                if(myLang!=0&&myLat!=0){
-                initListener();
-                onCall();
+                if (myLang != 0 && myLat != 0) {
+                    initListener();
+                    onCall();
                 }
                 break;
         }
     }
+
     @SuppressLint("FragmentLiveDataObserve")
     private void initListener() {
         viewModelUser = ViewModelProviders.of(this).get(ViewModelUser.class);
-        viewModelUser.makeResetAndNewPasswordResponseAndSignUpAndBooking().observe(this, new Observer<GetUserDataResponce>() {
+        viewModelUser.makeSaveOrderBooking().observe(this, new Observer<GetSaveOrdersResponce>() {
             @Override
-            public void onChanged(@Nullable GetUserDataResponce response) {
-                if(response!=null) {
-                    if (response.getSuccess()==1) {
+            public void onChanged(@Nullable GetSaveOrdersResponce response) {
+                if (response != null) {
+                    if (response.getSuccess() == 1) {
                         navController.navigate(R.id.action_completeBookingServicesFragment_to_navigation_services);
                         homeCycleActivity.setNavigation("v");
 
@@ -196,6 +296,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
                 }
             }
         });
+
     }
 
     private void onCall() {
@@ -204,24 +305,35 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
         userPhone = userData.getUserPhone();
         userCity = userData.getUserCity();
         userToken = LoadData(getActivity(), USER_TOKEN);
-//        showToast(getActivity(), userId+" "+userName+" "+servicesSelectedIds.get(0).getServiceId());
-        Call<GetUserDataResponce> saveServiceOrdersCall = null;
+//        showToast(getActivity(), userId + " " + userName + " " + servicesSelectedIds.get(0).getServiceId());
+        Call<GetSaveOrdersResponce> saveServiceOrdersCall = null;
 
-        SaveServiceOrdersRequest saveServiceOrdersRequest =new SaveServiceOrdersRequest();
+        SaveServiceOrdersRequest saveServiceOrdersRequest = new SaveServiceOrdersRequest();
         saveServiceOrdersRequest.setUserId(userId);
         saveServiceOrdersRequest.setUserName(userName);
         saveServiceOrdersRequest.setUserPhone(userPhone);
         saveServiceOrdersRequest.setOrderDate(date);
         saveServiceOrdersRequest.setOrderTime(time);
-        saveServiceOrdersRequest.setUserCity(userCity);
+        saveServiceOrdersRequest.setUserCity("");
         saveServiceOrdersRequest.setMapLong(String.valueOf(myLang));
         saveServiceOrdersRequest.setMapLat(String.valueOf(myLat));
         saveServiceOrdersRequest.setToken(userToken);
+        if(promoSelectedId>1){
+        saveServiceOrdersRequest.setPromo_code(promoFilterValueId);
+        }else {
+            saveServiceOrdersRequest.setPromo_code("");
+
+        }
         saveServiceOrdersRequest.setOrderServiceList(servicesSelectedIds);
+        Log.i(TAG, String.valueOf(saveServiceOrdersRequest.getUserId() + " " + saveServiceOrdersRequest.getUserName() + " " + saveServiceOrdersRequest.getUserPhone() + " "
+                + saveServiceOrdersRequest.getUserCity() + " " + saveServiceOrdersRequest.getMapLong() + " " + saveServiceOrdersRequest.getMapLat() + " "
+                + saveServiceOrdersRequest.getToken() + " " + saveServiceOrdersRequest.getOrderServiceList().get(0).getServiceId() + " " + saveServiceOrdersRequest.getOrderTime() + "time"
+        +"promo "+promoFilterValueId));
+
 //        saveServiceOrdersCall = getApiClient().saveServiceOrders(userId,userName,userPhone,userCity,userToken,servicesSelectedIds);
         saveServiceOrdersCall = getApiClient().saveServiceOrders(saveServiceOrdersRequest);
 
-        viewModelUser.setAndMakeResetAndNewPasswordResponseAndSignUpAndBooking(getActivity(),saveServiceOrdersCall, "Success Service Order Booking", true);
+        viewModelUser.setAndMakeSaveOrderBooking(getActivity(), saveServiceOrdersCall, "Success Service Order Booking", true);
 
 
     }

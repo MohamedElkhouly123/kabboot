@@ -22,7 +22,7 @@
             android:id="@+id/cardview_vendor_details_item2_photo_circularImageView"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/road"
             android:elevation="8dp"
@@ -72,24 +72,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Closed"
+                android:visibility="gone"
                 android:textColor="@color/gray2"
                 android:textSize="@dimen/_11ssp" />
             <TextView
                 android:id="@+id/cardview_vendor_details_item2_open_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Closed"
+                android:text="Opened"
                 android:visibility="gone"
-                android:layout_marginStart="@dimen/_8sdp"
                 android:textColor="@color/green"
                 android:textSize="@dimen/_11ssp" />
             <TextView
                 android:id="@+id/cardview_vendor_details_item2_is_open_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Opens 12:30 Mon"
+                android:text="Opens 12:30 In Available Days"
                 android:textColor="@color/black2"
-                android:layout_marginEnd="@dimen/_25sdp"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:textSize="@dimen/_11ssp" />
         </LinearLayout>

@@ -100,34 +100,40 @@ public class MyBookingSubItemsFragment extends BaSeFragment {
     private void setData() {
         if (bookingType.equalsIgnoreCase(getString(R.string.My_Products_Bookings))) {
             productsOrderDetailList = getBookingProductsOrdersResponcesList.getOrderDetails();
-            for (int i = 0; i < productsOrderDetailList.size(); i++) {
+            if(productsOrderDetailList!=null) {
+                for (int i = 0; i < productsOrderDetailList.size(); i++) {
 
-                productTotalPrice = (int) ((int) Double.parseDouble(productsOrderDetailList.get(i).getProductPrice()) * Double.parseDouble(productsOrderDetailList.get(i).getProductQty()));
-                allProductsTotalPrice += productTotalPrice;
+                    productTotalPrice = (int) ((int) Double.parseDouble(productsOrderDetailList.get(i).getProductPrice()) * Double.parseDouble(productsOrderDetailList.get(i).getProductQty()));
+                    allProductsTotalPrice += productTotalPrice;
+                }
+                fragmentMyBookingSubItemsCatNameTv.setText(getString(R.string.My_Products_Bookings));
+
+                fragmentMyBookingSubItemsTotalItemsPriceLy.setVisibility(View.VISIBLE);
+                fragmentMyBookingSubItemsTotalItemsPrice.setText(allProductsTotalPrice + " EGP");
             }
-            fragmentMyBookingSubItemsCatNameTv.setText("My Booking Products");
-
-            fragmentMyBookingSubItemsTotalItemsPriceLy.setVisibility(View.VISIBLE);
-            fragmentMyBookingSubItemsTotalItemsPrice.setText(allProductsTotalPrice + " EGP");
         }
         if (bookingType.equalsIgnoreCase(getString(R.string.My_service_Bookings))) {
             serviceOrderDetailList = getBookingServiceOrdersResponcesList.getOrderDetails();
-            for (int i = 0; i < serviceOrderDetailList.size(); i++) {
-                totalPrice += (int) Double.parseDouble(serviceOrderDetailList.get(i).getServicePrice());
-            }
+            if (serviceOrderDetailList != null) {
+
+                for (int i = 0; i < serviceOrderDetailList.size(); i++) {
+                    totalPrice += (int) Double.parseDouble(serviceOrderDetailList.get(i).getServicePrice());
+                }
 //        fragmentHomeCompletBookingServicesBookCatNameTv.setText("Book " + mainServiceName);
-            fragmentMyBookingSubItemsCatNameTv.setText("My Booking Services");
+                fragmentMyBookingSubItemsCatNameTv.setText(getString(R.string.My_service_Bookings));
 //            fragmentHomeCompletBookingServicesSubCatNameTv.setText(" Services Booked");
-            fragmentMyBookingSubItemsNameTv.setVisibility(View.VISIBLE);
-            fragmentMyBookingSubItemsSubCatNameTv.setVisibility(View.VISIBLE);
-            fragmentMyBookingSubItemsNameTv.setText(serviceOrderDetailList.get(0).getVendorName());
+                fragmentMyBookingSubItemsNameTv.setVisibility(View.VISIBLE);
+                fragmentMyBookingSubItemsSubCatNameTv.setVisibility(View.VISIBLE);
+                fragmentMyBookingSubItemsNameTv.setText(serviceOrderDetailList.get(0).getVendorName());
 //        fragmentHomeCompletBookingServicesSubCatPriceTv.setText("11 $");
-            fragmentMyBookingSubItemsDateTimeShowLy.setVisibility(View.VISIBLE);
-            fragmentMyBookingSubItemsServTotalPriceTv.setVisibility(View.VISIBLE);
-            fragmentMyBookingSubItemsServTotalPriceTv.setText("Subtotal : " + totalPrice + " EGP");
-            fragmentMyBookingSubItemsDateTv.setText(getBookingServiceOrdersResponcesList.getOrderDate());
-            fragmentMyBookingSubItemsTimeTv.setText(getBookingServiceOrdersResponcesList.getOrderTime());
+                fragmentMyBookingSubItemsDateTimeShowLy.setVisibility(View.VISIBLE);
+                fragmentMyBookingSubItemsServTotalPriceTv.setVisibility(View.VISIBLE);
+                fragmentMyBookingSubItemsServTotalPriceTv.setText("Subtotal : " + totalPrice + " EGP");
+                fragmentMyBookingSubItemsDateTv.setText(getBookingServiceOrdersResponcesList.getOrderDate());
+                fragmentMyBookingSubItemsTimeTv.setText(getBookingServiceOrdersResponcesList.getOrderTime());
+            }
         }
+
 
 
     }

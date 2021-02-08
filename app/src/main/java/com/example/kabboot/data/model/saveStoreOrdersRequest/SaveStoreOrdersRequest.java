@@ -1,10 +1,11 @@
 
 package com.example.kabboot.data.model.saveStoreOrdersRequest;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class SaveStoreOrdersRequest implements Serializable {
 
@@ -35,6 +36,9 @@ public class SaveStoreOrdersRequest implements Serializable {
     @SerializedName("token")
     @Expose
     private String token;
+    @SerializedName("promo_code")
+    @Expose
+    private String promoCode;
     @SerializedName("orderItemList")
     @Expose
     private List<OrderItemList> orderItemList = null;
@@ -109,6 +113,14 @@ public class SaveStoreOrdersRequest implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
     }
 
     public List<OrderItemList> getOrderItemList() {

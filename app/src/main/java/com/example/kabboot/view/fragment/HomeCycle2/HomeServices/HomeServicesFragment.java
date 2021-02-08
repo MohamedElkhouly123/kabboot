@@ -170,9 +170,9 @@ public class HomeServicesFragment extends BaSeFragment {
                 homeCycleActivity.setNavigation("g");
                 break;
             case R.id.fragment_home_services_promo_codes_btn:
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("DealOrPromo", "onStock");
-                navController.navigate(R.id.action_navigation_services_to_allProductsFragment,bundle2);
+//                Bundle bundle2 = new Bundle();
+//                bundle2.putString("DealOrPromo", "onStock");
+                navController.navigate(R.id.action_navigation_services_to_promoCodeFragment);
                 homeCycleActivity.setNavigation("g");
                 break;
         }

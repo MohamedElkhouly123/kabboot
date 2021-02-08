@@ -44,7 +44,7 @@
     <string name="complete_payment">Complete Payment</string>
     <string name="Recipt">Recipt</string>
     <string name="Apply">Apply</string>
-    <string name="Enter_your_promocode">Enter your promocode</string>
+    <string name="Enter_your_promocode">Enter your promocode ( Optional )</string>
     <string name="Filters">City Filter</string>
     <string name="user_name">User Name</string>
     <string name="select_date">select date please</string>
@@ -83,9 +83,10 @@
     <string name="cancel">Cancel</string>
     <string name="save_location">Submit your Selected Location</string>
     <string name="no_data_in_your_cart">No Products In your Cart now Please Add Product first</string>
+    <string name="no_data">No Data Found</string>
     <string name="manage_bookings">Manage My Orders</string>
-    <string name="My_service_Bookings">My Services Bookings</string>
-    <string name="My_Products_Bookings">My Products Bookings</string>
+    <string name="My_service_Bookings">My services booking</string>
+    <string name="My_Products_Bookings">My product orders</string>
     <string name="check_your_internet_and_try">Check your Internet Connection and try agian</string>
     <string name="services_booked2">My Services Order</string>
     <string name="Items2">My Items Order</string>
@@ -103,5 +104,8 @@
     <string name="sub_cat">Select Sub Category</string>
     <string name="enterCode">Verification Code</string>
     <string name="ok">Ok</string>
-    <string name="location_required">Your Location Required First</string>
+    <string name="location_required">Select Your Location on Map First</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_category_name">Product Category Name</string>
+    <string name="vendor_name">Vendor Name</string>
 </resources>

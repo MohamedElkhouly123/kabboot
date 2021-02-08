@@ -18,6 +18,7 @@ import com.example.kabboot.R;
 import com.example.kabboot.data.local.DataBase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
 import com.example.kabboot.data.model.getAllproductsResponce.OrderProductsItemsListData;
+import com.example.kabboot.utils.MyCartAdapterCallback;
 import com.example.kabboot.view.activity.BaseActivity;
 
 import java.util.ArrayList;
@@ -46,13 +47,14 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
     private int itemId;
     private int productTotalPrice=0;
     private int allProductsTotalPrice=0;
+    private MyCartAdapterCallback myCartAdapterCallback;
 
-
-    public GetAllProductsItemsInMyCartAdapter(Context context, Activity activity, TextView fragmentMyCartTotalItemsPriceTv, NavController navController, List<AllProductForRom> allProducts) {
+    public GetAllProductsItemsInMyCartAdapter(Context context, Activity activity, MyCartAdapterCallback myCartAdapterCallback,TextView fragmentMyCartTotalItemsPriceTv, NavController navController, List<AllProductForRom> allProducts) {
         this.allProducts.clear();
         this.activity = (BaseActivity) activity;
         this.context = context;
         this.navController = navController;
+        this.myCartAdapterCallback = myCartAdapterCallback;
         this.fragmentMyCartTotalItemsPriceTv = fragmentMyCartTotalItemsPriceTv;
         this.allProducts = allProducts;
         dataBase = DataBase.getInstance(context);
@@ -124,6 +126,8 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
                     holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
                     allProductsTotalPrice += Double.parseDouble(getAllProducts.getProductPrice());
                     fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+                    myCartAdapterCallback.onMethodCallback(allProductsTotalPrice);
+
                 }
             }
         });
@@ -149,7 +153,8 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
                     holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
                         allProductsTotalPrice -= Double.parseDouble(getAllProducts.getProductPrice());
                         fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
-                }else {
+                        myCartAdapterCallback.onMethodCallback(allProductsTotalPrice);
+                    }else {
                         if (getItemCount() > position) {
                             showDeleteDialog(position);
                         }

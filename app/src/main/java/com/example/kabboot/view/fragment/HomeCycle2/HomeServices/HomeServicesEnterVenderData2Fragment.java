@@ -82,10 +82,16 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     TextInputLayout fragmentHomeServicesEnterVendorData2TilDate;
     @BindView(R.id.fragment_home_services_enter_vendor_data2_til_time)
     TextInputLayout fragmentHomeServicesEnterVendorData2TilTime;
-//    @BindView(R.id.fragment_home_services_enter_vendor_data2_sub_cat_name_tv)
+    //    @BindView(R.id.fragment_home_services_enter_vendor_data2_sub_cat_name_tv)
 //    TextView fragmentHomeServicesEnterVendorData2SubCatNameTv;
     @BindView(R.id.fragment_home_complet_booking_sub_cat2_name_tv)
     TextView fragmentHomeCompletBookingSubCat2NameTv;
+    @BindView(R.id.fragment_home_complet_booking_opened_tv)
+    TextView fragmentHomeCompletBookingOpenedTv;
+    @BindView(R.id.fragment_home_complet_booking_is_close_tv)
+    TextView fragmentHomeCompletBookingIsCloseTv;
+    @BindView(R.id.fragment_home_complet_booking_is_open_tv)
+    TextView fragmentHomeCompletBookingIsOpenTv;
     private NavController navController;
     private List<AllVendorService> allVendorServiceList = new ArrayList<AllVendorService>();
     private HomeServicesVendorsVrRvAdapter homeServicesVendorsVrRvAdapter;
@@ -100,6 +106,12 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     private GetAllServicesAdapter getAllServicesAdapter;
     private String startHour, endHour;
     private String SubServiceName;
+    private Calendar currentDate;
+    private int currrendDateDay;
+    private boolean dayOpened;
+    private int currentMin;
+    private int currentHour;
+    private boolean hourOpened;
     //    private int myVendorId;
 //    private GetAllvendors vendorData;
 
@@ -129,7 +141,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
     }
 
     private void setData() {
-        if(mainServiceName.equalsIgnoreCase("At Home")) {
+        if (mainServiceName.equalsIgnoreCase("At Home")) {
 //            fragmentHomeServicesEnterVendorData2TilAddress.setVisibility(View.VISIBLE);
         }
         fragmentHomeServicesEnterVendorData2BookCatNameTv.setText("Book " + mainServiceName + " Service");
@@ -139,6 +151,17 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         startHour = vendorData.getStartHour();
         endHour = vendorData.getEndHour();
         allVendorServiceList = vendorData.getAllVendorServices();
+        openOrClose();
+        if (dayOpened && hourOpened) {
+            fragmentHomeCompletBookingOpenedTv.setVisibility(View.VISIBLE);
+
+        } else {
+            fragmentHomeCompletBookingIsCloseTv.setVisibility(View.VISIBLE);
+            fragmentHomeCompletBookingIsOpenTv.setVisibility(View.VISIBLE);
+//            whenOpened(getAllvendor);
+            fragmentHomeCompletBookingIsOpenTv.setText("Opens " + vendorData.getStartHour() + " In Opened Days");
+
+        }
     }
 
     private void init() {
@@ -154,6 +177,46 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         } else {
 
         }
+    }
+
+    private void openOrClose() {
+        currentDate = getInstance();
+        currrendDateDay = currentDate.get(Calendar.DAY_OF_WEEK);
+        if ((currrendDateDay == FRIDAY && vendorData.getFriday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == THURSDAY && vendorData.getThursday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == WEDNESDAY && vendorData.getWednesday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == TUESDAY && vendorData.getTuesday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == MONDAY && vendorData.getMonday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == SUNDAY && vendorData.getSunday().equalsIgnoreCase("1")) ||
+                (currrendDateDay == SATURDAY && vendorData.getSaturday().equalsIgnoreCase("1"))) {
+
+            dayOpened = true;
+
+        } else {
+            dayOpened = false;
+        }
+//        DateFormat.is24HourFormat(activity);
+        currentMin = currentDate.get(MINUTE);
+        currentHour = currentDate.get(HOUR_OF_DAY);
+        String[] minTimeParts = vendorData.getStartHour().split(":");
+//        String startSec = minTimeParts[2];
+        String startMin = minTimeParts[1];
+        String startHour = minTimeParts[0];
+        String[] maxTimeParts = vendorData.getEndHour().split(":");
+//        String endSec = maxTimeParts[2];
+        String endMin = maxTimeParts[1];
+        String endHour = maxTimeParts[0];
+        if ((currentHour == Integer.parseInt(startHour) &&currentMin>=Integer.parseInt(startMin)) ||(currentHour > Integer.parseInt(startHour))) {
+            if((currentHour == Integer.parseInt(endHour)&&currentMin<=Integer.parseInt(endMin))||(currentHour < Integer.parseInt(endHour))) {
+                hourOpened = true;
+            } else {
+                hourOpened = false;
+
+            }
+        } else {
+            hourOpened = false;
+        }
+
     }
 
     @Override
@@ -196,7 +259,11 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
                 showTime();
                 break;
             case R.id.fragment_home_services_enter_vendor_data2_next_btn:
-                onVaildate();
+//                if (dayOpened && hourOpened) {
+                    onVaildate();
+//                }else {
+//                    ToastCreator.onCreateErrorToast(getActivity(), "Sorry This Vendor Closed Now");
+//                }
                 break;
         }
     }
@@ -307,7 +374,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
             ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_time_required_field));
             return;
         }
-        if(mainServiceName.equalsIgnoreCase("At Home")){
+        if (mainServiceName.equalsIgnoreCase("At Home")) {
 //        if (!validationLength(fragmentHomeServicesEnterVendorData2TilAddress, getString(R.string.invalid_address_required_field), 1)) {
 //            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_address_required_field));
 //            return;
@@ -320,7 +387,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         String time = fragmentHomeServicesEnterVendorData2TilTime.getEditText().getText().toString();
 //        String address = fragmentHomeServicesEnterVendorData2TilAddress.getEditText().getText().toString();
         Intent intent = new Intent(getActivity(), MapsActivity.class);
-        intent.putExtra("key","myService");
+        intent.putExtra("key", "myService");
         getActivity().startActivity(intent);
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);

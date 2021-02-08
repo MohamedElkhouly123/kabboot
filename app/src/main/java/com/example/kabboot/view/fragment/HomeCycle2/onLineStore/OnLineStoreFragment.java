@@ -1,14 +1,13 @@
 package com.example.kabboot.view.fragment.HomeCycle2.onLineStore;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +25,9 @@ import com.example.kabboot.adapter.GetAllProductsItemsAdapter;
 import com.example.kabboot.data.local.DataBase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
-import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsResponce;
+import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsBySearchResponce;
 import com.example.kabboot.utils.OnEndLess;
 import com.example.kabboot.utils.OnLineStoteFilterSearchDialog;
-import com.example.kabboot.utils.OnLineStoteMyCarSearchDialog;
 import com.example.kabboot.utils.SearchDialogCallback;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
@@ -45,7 +43,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-import static android.content.ContentValues.TAG;
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
 
 
@@ -75,6 +72,12 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
     private boolean Filter = false;
     private List<AllProductForRom> items= new ArrayList<>();
     private DataBase dataBase;
+    private String credentials;
+    private String cookie;
+    private String searchName;
+    private String searchprice;
+    private String vendorIdValue;
+    private String productCatIdValue;
 
     public OnLineStoreFragment() {
         // Required empty public constructor
@@ -99,18 +102,18 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
 
         viewModel = ViewModelProviders.of(this).get(ViewModelGetLists.class);
 
-        viewModel.makeGetAllProductsDataList().observe(getViewLifecycleOwner(), new Observer<GetAllproductsResponce>() {
+        viewModel.makeGetAllProductsBySearchDataList().observe(getViewLifecycleOwner(), new Observer<GetAllproductsBySearchResponce>() {
             @Override
-            public void onChanged(@Nullable GetAllproductsResponce response) {
+            public void onChanged(@Nullable GetAllproductsBySearchResponce response) {
                 try {
                     if (response != null) {
 //                        if (response.getStatus().equals("success")) {
 
 //                                showToast(getActivity(), "max="+maxPage);
 
-                        if (response.getAllProducts() != null) {
+                        if (response.getDataFounded() != null) {
                             allProductsList.clear();
-                            allProductsList.addAll(response.getAllProducts());
+                            allProductsList.addAll(response.getDataFounded());
 //                                showToast(getActivity(), "list="+clientrestaurantsListData.get(1));
 
                             getAllProductsItemsAdapter.notifyDataSetChanged();
@@ -126,7 +129,7 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
 
 //                        }
                     } else {
-
+//                        showToast(getActivity(), "success1");
                     }
 
                 } catch (Exception e) {
@@ -207,19 +210,26 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
 //    }
 
     private void getallProductsList(int page) {
-        Filter = false;
+//        Filter = false;
         if (page == 0) {
             maxPage = 0;
         }
-        Call<GetAllproductsResponce> getAllproductsResponceCall;
+        Call<GetAllproductsBySearchResponce> getAllproductsResponceCall;
 
 //        startShimmer(page);
 
         reInit();
-        getAllproductsResponceCall = getApiClient().getAllProductsData();
-
+        cookie="ci_session=90a7ccf8c0d9d2e3e58d978ccfdd3820c2c3ab40";
+        credentials="MDEwMDA3ODc2MTk6MTIz";
+        final String basic =
+                "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.DEFAULT);
+        if(Filter) {
+            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, searchName, searchprice, productCatIdValue, vendorIdValue);
+        }else {
+            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, "", "", "", "");
+        }
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
-        viewModel.getAllProductsDataList(getActivity(), errorSubView, getAllproductsResponceCall, fragmentAllProductsSrRefresh, loadMore);
+        viewModel.getAllProductsBySearchDataList(getActivity(), errorSubView, getAllproductsResponceCall, fragmentAllProductsSrRefresh, loadMore);
 //            showToast(getActivity(), "success without fillter");
 
 
@@ -270,8 +280,8 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
             case R.id.fragment_on_line_store_my_care_filter_btn:
 //                navController.navigate(R.id.action_navigation_online_store_to_allProductsFragment);
 //                homeCycleActivity.setNavigation("g");
-                final OnLineStoteMyCarSearchDialog dialog = new OnLineStoteMyCarSearchDialog(this::filterOnMethodCallback,"hotel");
-                dialog.show(getActivity().getSupportFragmentManager(), "example");
+//                final OnLineStoteMyCarSearchDialog dialog = new OnLineStoteMyCarSearchDialog(this::filterOnMethodCallback,"hotel");
+//                dialog.show(getActivity().getSupportFragmentManager(), "example");
                 break;
             case R.id.fragment_on_line_store_filter_btn:
                 final OnLineStoteFilterSearchDialog dialog2 = new OnLineStoteFilterSearchDialog(this::filterOnMethodCallback,"hotel");
@@ -316,8 +326,16 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
                 });
     }
 
-    @Override
-    public void filterOnMethodCallback() {
 
+    @Override
+    public void filterOnMethodCallback(String searchName, String searchprice, String vendorIdValue, String productCatIdValue) {
+        Filter=true;
+        allProductsList.clear();
+        this.searchName=searchName;
+        this.searchprice=searchprice;
+        this.vendorIdValue=vendorIdValue;
+        this.productCatIdValue=productCatIdValue;
+//        showToast(getActivity(), String.valueOf(searchName+"  "+searchprice+ "  "+ vendorIdValue+ "  "+productCatIdValue));
+        getallProductsList(0);
     }
 }

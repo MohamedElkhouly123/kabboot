@@ -1,16 +1,17 @@
 
 package com.example.kabboot.data.model.getAllvendorsResponce;
 
-import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class GetAllvendors implements Serializable {
 
     @SerializedName("vendor_id")
     @Expose
-    private String vendorId;
+    private int vendorId;
     @SerializedName("vendor_name")
     @Expose
     private String vendorName;
@@ -87,11 +88,16 @@ public class GetAllvendors implements Serializable {
     @Expose
     private String vendorCity;
 
-    public String getVendorId() {
+    public GetAllvendors(int i, String hint) {
+        this.vendorId=i;
+        this.vendorName=hint;
+    }
+
+    public int getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(String vendorId) {
+    public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
     }
 

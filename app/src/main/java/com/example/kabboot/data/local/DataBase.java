@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
 
 
-@Database(entities = {AllProductForRom.class,}, version = 1, exportSchema = false)
+@Database(entities = {AllProductForRom.class,}, version = 2, exportSchema = false)
 
 
 //@Database(entities = {Client.class, ClientData.class}, version = 1, exportSchema = false)  // more than ClientMakeNewOrderItem

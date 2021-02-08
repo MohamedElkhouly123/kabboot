@@ -18,9 +18,9 @@ import com.example.kabboot.R;
 import com.example.kabboot.data.model.getBookingServiceOrdersRequest.GetBookingServiceOrdersResponce;
 import com.example.kabboot.data.model.getBookingServiceOrdersRequest.ServiceOrderDetail;
 import com.example.kabboot.data.model.getUserDataResponce.UserData;
+import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.activity.BaseActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class GetBookingsServicesItemsAdapter extends RecyclerView.Adapter<GetBoo
     List<ServiceOrderDetail> serviceOrderDetailsList = new ArrayList<ServiceOrderDetail>();
     ;
     private NavController navController;
-    private int i=1;
+    private int i;
 
     public GetBookingsServicesItemsAdapter(Activity activity, Context context, String bookingType, List<GetBookingServiceOrdersResponce> getBookingServiceOrdersResponcesList,
                                            NavController navController) {
@@ -74,31 +74,30 @@ public class GetBookingsServicesItemsAdapter extends RecyclerView.Adapter<GetBoo
         holder.position = position;
         serviceOrderDetailsList = getBookingServiceOrdersResponcesList.get(position).getOrderDetails();
         ServiceOrderDetail serviceOrderDetails = serviceOrderDetailsList.get(0);
+        i=position+1;
         holder.cardviewBookServiceAndProductOrdersItemOrderNumTv.setText("Order " +i);
-        i++;
         holder.cardviewBookServiceAndProductOrdersItemUserNameTv.setText("Name : " +userData.getUserName());
         holder.cardviewBookServiceAndProductOrdersItemPhoneTv.setText("Contact Number : " +userData.getUserPhone());
         holder.cardviewBookServiceAndProductOrdersItemItemVendorNameTv.setVisibility(View.VISIBLE);
         holder.cardviewBookServiceAndProductOrdersItemTotalPriceTv.setText("Total Price : " + getBookingServiceOrdersResponcesList.get(position).getAllSum() + " EGP");
         holder.cardviewBookServiceAndProductOrdersItemItemVendorNameTv.setText("Vendor Name : " +serviceOrderDetails.getVendorName());
         String status =getBookingServiceOrdersResponcesList.get(position).getHaletTalab();
-        holder.cardviewBookServiceAndProductOrdersItemStatusTv.setText(status);
+        if (status.equalsIgnoreCase("neworder")){
+            holder.cardviewBookServiceAndProductOrdersItemStatusTv.setText("PENDING ORDER");
+        }
+        if (status.equalsIgnoreCase("inprogress")){
+            holder.cardviewBookServiceAndProductOrdersItemStatusTv.setText("INPROGRESS ORDER");
 
-//        if (status.equalsIgnoreCase("pending")){
-////            holder.cardviewBookEVisaOffersItemStatusLy.setBackgroundResource(R.drawable.circle_btn_yello_shape);
-//            holder.cardviewBookEVisaOffersItemCompletePaymentBtn.setVisibility(View.VISIBLE);
-//            holder.cardviewBookEVisaOffersItemStatusTv.setText("Pending");
-//
-//        }
-//        if (status.equalsIgnoreCase("complete")) {
-//            holder.cardviewBookEVisaOffersItemStatusTv.setText("Complete");
-//        }
-//        if (status.equalsIgnoreCase("cancel")) {
-//            holder.cardviewBookEVisaOffersItemStatusTv.setText("Cancel");
-//        }
-//        if (status.equalsIgnoreCase("in_process")) {
-//            holder.cardviewBookEVisaOffersItemStatusTv.setText("In Process");
-//        }
+        }
+        if (status.equalsIgnoreCase("completed")){
+            holder.cardviewBookServiceAndProductOrdersItemStatusTv.setText("COMPLETED ORDER");
+
+        }
+        if (status.equalsIgnoreCase("cancelled")){
+            holder.cardviewBookServiceAndProductOrdersItemStatusTv.setText("CANCELED ORDER");
+
+        }
+
     }
 
 
@@ -106,11 +105,15 @@ public class GetBookingsServicesItemsAdapter extends RecyclerView.Adapter<GetBoo
         holder.cardviewBookServiceAndProductOrdersItemCardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (serviceOrderDetailsList.size() != 0) {
+                serviceOrderDetailsList = getBookingServiceOrdersResponcesList.get(position).getOrderDetails();
+                if (serviceOrderDetailsList!=null) {
                     Bundle bundle = new Bundle();
                     bundle.putString("BookingType", bookingType);
                     bundle.putSerializable("Object2",  getBookingServiceOrdersResponcesList.get(position));
                     navController.navigate(R.id.action_myAllBookingFragment_to_myBookingSubItemsFragment, bundle);
+                }else {
+                    ToastCreator.onCreateErrorToast(activity, activity.getString(R.string.no_data));
+
                 }
             }
         });

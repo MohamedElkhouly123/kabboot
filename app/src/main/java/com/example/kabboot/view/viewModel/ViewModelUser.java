@@ -12,12 +12,16 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.kabboot.R;
 import com.example.kabboot.adapter.CitySpinnerAdapter;
+import com.example.kabboot.adapter.PromoCodesSpinnerAdapter;
+import com.example.kabboot.data.model.customerPromoCodesResponce.CustomerPromoCodesResponce;
 import com.example.kabboot.data.model.getAllcitiesResponce.GetAllcitiesResponce;
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
+import com.example.kabboot.data.model.getSaveOrdersResponce.GetSaveOrdersResponce;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
 import com.example.kabboot.utils.HelperMethod;
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.activity.HomeCycleActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +36,6 @@ import static com.example.kabboot.data.local.SharedPreferencesManger.USER_TOKEN;
 import static com.example.kabboot.data.local.SharedPreferencesManger.clean;
 import static com.example.kabboot.utils.HelperMethod.dismissProgressDialog;
 import static com.example.kabboot.utils.HelperMethod.progressDialog;
-import static com.example.kabboot.utils.HelperMethod.showToast;
 import static com.example.kabboot.utils.ToastCreator.onCreateErrorToast;
 import static com.example.kabboot.utils.network.InternetState.isConnected;
 
@@ -44,6 +47,8 @@ public class ViewModelUser extends ViewModel {
     private MutableLiveData<GetUserDataResponce> generalRegisterationAndForgetPasswordAndBookingsResponse = new MutableLiveData<>();
     private MutableLiveData<GetAppInfoResponce> getAppInfoResponse = new MutableLiveData<>();
     private MutableLiveData<GetAllcitiesResponce> getSpinnerDataResponce = new MutableLiveData<>();
+    private MutableLiveData<CustomerPromoCodesResponce> getSpinnerPromoCodeDataResponce = new MutableLiveData<>();
+    private MutableLiveData<GetSaveOrdersResponce> generalSaveOrderBookingsResponse = new MutableLiveData<>();
 
 
     private String token;
@@ -78,11 +83,12 @@ public class ViewModelUser extends ViewModel {
 //                                if (response.body().getMessage() != "the user is not vertified to login please visit your email") {
                                 clean(activity);
                                 SaveData(activity, USER_PASSWORD, password);
-                                SaveData(activity, USER_TOKEN, response.body().getToken());
                                 SaveData(activity, USER_DATA, response.body().getMember());
                                 SaveData(activity, REMEMBER_ME, remember);
-//                                && response.body().getMember().getStatus().equalsIgnoreCase("1")
-                                if (auth) {
+//
+                                if (auth&& response.body().getMember().getStatus().equalsIgnoreCase("1")) {
+                                    SaveData(activity, USER_TOKEN, response.body().getToken());
+
 //                                    Call<UserLoginGeneralResponce> tokenCall = null;
 //                                    token=new ClientFireBaseToken().getToken();
 //                                    apiToken=response.body().getData().getApiToken();
@@ -193,8 +199,8 @@ public class ViewModelUser extends ViewModel {
                 public void onFailure(Call<GetUserDataResponce> call, Throwable t) {
                     dismissProgressDialog();
 //                    showToast(activity, String.valueOf(t.getMessage()));
-//                    Log.i(TAG,String.valueOf(t.getMessage()));
-//                    Log.i(TAG,String.valueOf(t.getCause()));
+                    Log.i(TAG,String.valueOf(t.getMessage()));
+                    Log.i(TAG,String.valueOf(t.getCause()));
                     onCreateErrorToast(activity, activity.getString(R.string.error));
                     generalRegisterationAndForgetPasswordAndBookingsResponse.postValue(null);
                 }
@@ -333,6 +339,140 @@ public class ViewModelUser extends ViewModel {
             }
 
         }
+    }
+
+    public MutableLiveData<CustomerPromoCodesResponce> makeGetSpinnerPromoCodeData() {
+        return getSpinnerPromoCodeDataResponce;
+    }
+
+    public void getSpinnerPromoCodeData(final Activity activity, final Spinner spinner, final PromoCodesSpinnerAdapter adapter, final String hint
+            , final Call<CustomerPromoCodesResponce> method, final int selectedId1, final AdapterView.OnItemSelectedListener listener, TextInputLayout fragmentTilPromoCode) {
+        if (isConnected(activity)) {
+            if (progressDialog == null) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<CustomerPromoCodesResponce>() {
+                @Override
+                public void onResponse(Call<CustomerPromoCodesResponce> call, Response<CustomerPromoCodesResponce> response) {
+
+                    if (response.body() != null) {
+                        try {
+
+                            dismissProgressDialog();
+//                            if (response.body().getStatus() == 1) {
+//                            showToast(activity, "hereSpinner");
+                            if(response.body().getCustomerPromocodes()!=null) {
+                                adapter.setData(response.body().getCustomerPromocodes(), hint);
+
+                                spinner.setAdapter(adapter);
+
+                                spinner.setSelection(selectedId1);
+
+                                if (listener != null) {
+                                    spinner.setOnItemSelectedListener(listener);
+                                }
+                            }else {
+                                fragmentTilPromoCode.getEditText().setText("No Available Promo Codes Now");
+                            }
+
+                            getSpinnerPromoCodeDataResponce.postValue(response.body());
+
+//                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+//                            } else {
+//                                onCreateErrorToast(activity, response.body().getMsg());
+//                            }
+
+                        } catch(Exception e){
+
+                        }
+                    }else {
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CustomerPromoCodesResponce> call, Throwable t) {
+                    dismissProgressDialog();
+                    getSpinnerPromoCodeDataResponce.postValue(null);
+
+                }
+            });
+        } else {
+            try {
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
+
+
+    public MutableLiveData<GetSaveOrdersResponce> makeSaveOrderBooking() {
+        return generalSaveOrderBookingsResponse;
+    }
+
+    public void setAndMakeSaveOrderBooking(final Activity activity, final Call<GetSaveOrdersResponce> method, String succes_send, boolean book) {
+        if (isConnected(activity)) {
+
+            if (progressDialog == null) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<GetSaveOrdersResponce>() {
+                @Override
+                public void onResponse(Call<GetSaveOrdersResponce> call, Response<GetSaveOrdersResponce> response) {
+
+                    if (response.body() != null) {
+                        try {
+
+                            if (response.body().getSuccess()==1) {
+                                dismissProgressDialog();
+                                generalSaveOrderBookingsResponse.postValue(response.body());
+                                ToastCreator.onCreateSuccessToast(activity, succes_send);
+//                                if(!book){
+//                                    ToastCreator.onCreateSuccessToast(activity, response.body().getMessage());
+//                                }
+                            } else {
+                                dismissProgressDialog();
+                                onCreateErrorToast(activity, response.body().getMessage() );
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetSaveOrdersResponce> call, Throwable t) {
+                    dismissProgressDialog();
+//                    showToast(activity, String.valueOf(t.getMessage()));
+                    Log.i(TAG,String.valueOf(t.getMessage()));
+                    Log.i(TAG,String.valueOf(t.getCause()));
+                    onCreateErrorToast(activity, activity.getString(R.string.error));
+                    generalSaveOrderBookingsResponse.postValue(null);
+                }
+            });
+        } else {
+            try {
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+
     }
 
 //

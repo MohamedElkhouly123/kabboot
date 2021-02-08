@@ -1,9 +1,7 @@
 package com.example.kabboot.view.fragment.userCycle;
 
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getUserDataResponce.GetUserDataResponce;
-import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
 import com.google.android.material.textfield.TextInputLayout;
@@ -87,7 +84,7 @@ public class LoginFragment extends BaSeFragment {
             @Override
             public void onChanged(@Nullable GetUserDataResponce response) {
                 if (response != null) {
-                    if (response.getSuccess() == 0) {
+                    if (response.getSuccess() == 0&&response.getMessage().equalsIgnoreCase("الرجاء تفعيل الحساب ")) {
 //                        showToast(getActivity(),"success");
 //                        if (response.getMember().getStatus().equalsIgnoreCase("0")) {
 

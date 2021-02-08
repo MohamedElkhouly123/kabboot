@@ -286,7 +286,7 @@ public class MyAllBookingFragment extends BaSeFragment  {
 //        startShimmer(page);
 
         reInit();
-        getBookingProductsResponceCall = getApiClient().getAllBookingsProductsData();
+        getBookingProductsResponceCall = getApiClient().getAllBookingsProductsData(userData.getUserId());
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
         viewModel.getHBookingsProductsDataList(getActivity(), errorSubView, getBookingProductsResponceCall, fragmentMyAllBookingSrRefresh, loadMore);
@@ -302,7 +302,7 @@ public class MyAllBookingFragment extends BaSeFragment  {
 //        startShimmer(page);
 
         reInit();
-        getBookingServicesResponceCall = getApiClient().getAllBookingsServicesData();
+        getBookingServicesResponceCall = getApiClient().getAllBookingsServicesData(userData.getUserId());
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
         viewModel.getBookingsServicesDataList(getActivity(), errorSubView, getBookingServicesResponceCall,fragmentMyAllBookingSrRefresh, loadMore);

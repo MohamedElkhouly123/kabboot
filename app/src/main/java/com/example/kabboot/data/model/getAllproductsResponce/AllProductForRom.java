@@ -21,7 +21,7 @@ public class AllProductForRom implements Serializable {
 
     @SerializedName("product_id")
     @Expose
-    private String productId;
+    private Integer productId;
     @SerializedName("product_name")
     @Expose
     private String productName;
@@ -64,7 +64,7 @@ public class AllProductForRom implements Serializable {
     @SerializedName("product_qty")
     @Expose
     private String quantity;
-    public AllProductForRom(String productId, String productName, String productPrice, String productCat, String vendorIdFk, String productSpecification, String productDesc, String image, String inStock, String hotdeals, String mainCategoryName, String vendorName, String quantity) {
+    public AllProductForRom(Integer productId, String productName, String productPrice, String productCat, String vendorIdFk, String productSpecification, String productDesc, String image, String inStock, String hotdeals, String mainCategoryName, String vendorName, String quantity) {
 //        this.itemId = itemId;
         this.productId = productId;
         this.productName = productName;
@@ -90,11 +90,11 @@ public class AllProductForRom implements Serializable {
         this.itemId = itemId;
     }
 
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
