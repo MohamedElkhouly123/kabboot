@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kabboot.R;
 import com.example.kabboot.data.model.getAllServiceDataResponce.SubCat;
+import com.example.kabboot.data.model.getAllcitiesResponce.AllCity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.kabboot.utils.HelperMethod.onLoadImageFromUrl2;
 
-
-public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<HomeServicesSubCategoryVrRvAdapter.ViewHolder> {
+public class AllCitiesVrRvAdapter extends RecyclerView.Adapter<AllCitiesVrRvAdapter.ViewHolder> {
     private final NavController navController;
     private final String mainServiceName;
+    private final String subServiceName;
+    private final List<SubCat> subCatDataList;
 
 
 //    private final DialogAdapterCallback dialogAdapterCallback;
@@ -38,17 +39,22 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
     private Activity activity;
     private LinearLayoutManager lLayout;
     private int itemNum;
-    private List<SubCat> subCats = new ArrayList<>();
+    private List<AllCity> cityArrayList = new ArrayList<>();
+    private boolean filter =true;
 
 
-    public HomeServicesSubCategoryVrRvAdapter(Context context, Activity activity,
-                                              List<SubCat> subCats,
-                                              String mainServiceName, NavController navController) {
+    public AllCitiesVrRvAdapter(Context context, Activity activity,
+                                List<AllCity> cityArrayList,
+                                String subServiceName, List<SubCat> subCatDataList, String mainServiceName, NavController navController) {
         this.context = context;
         this.activity = activity;
 //        this.clientRestaurantsDataList.clear();
-        this.subCats = subCats;
+        this.cityArrayList = cityArrayList;
+//        this.cityArrayList.add(new AllCity( "All Cities"));
+//        this.cityArrayList.addAll(cityArrayList);
         this.mainServiceName = mainServiceName;
+        this.subCatDataList = subCatDataList;
+        this.subServiceName = subServiceName;
         this.navController = navController;
 //        this.dialogAdapterCallback = dialogAdapterCallback;
 //        showToast(activity, "list=" + getHomeDisscoverGetHotelsDataItemsListData.get(0).getCity());
@@ -61,7 +67,7 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.card_view_fragment_home_services_rv_vr_item,
+        View view = LayoutInflater.from(context).inflate(R.layout.card_view_fragment_all_cities_rv_vr_item,
                 parent, false);
 
         return new ViewHolder(view);
@@ -81,13 +87,13 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
 //            final int itemType = getItemViewType(position);
             holder.position = position;
 
-            SubCat subCat = subCats.get(position);
-            if (subCat.getImage() != null) {
-                String categoryImage = "https://www.kabboot.com/uploads/cat/" + subCat.getImage().trim();
-                onLoadImageFromUrl2(holder.cardViewFragmentHomeServicesRvVrItemImg, categoryImage.trim(), context);
-            }
-            holder.cardViewFragmentHomeServicesRvVrItemNameTv.setText(subCat.getCategoryName());
-//            showToast(activity, String.valueOf(subCat.getImage()));
+            AllCity allCity = cityArrayList.get(position);
+//            if (allCity.getImage() != null) {
+//                String categoryImage = "https://www.kabboot.com/uploads/cat/" + allCity.getImage().trim();
+//                onLoadImageFromUrl2(holder.cardViewFragmentHomeServicesRvVrItemImg, categoryImage.trim(), context);
+//            }
+            holder.cardViewFragmentAllCitiesRvVrItemNameTv.setText(allCity.getCityName());
+//            showToast(activity, String.valueOf(allCity.getImage()));
 
 
         } catch (Exception e) {
@@ -102,11 +108,18 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if(position==0){
+//                    filter=false;
+//                }else {
+//                    filter=true;
+//                }
                 Bundle bundle = new Bundle();
-                bundle.putString("SubServiceName", subCats.get(position).getCategoryName());
+                bundle.putString("CityName", cityArrayList.get(position).getCityName());
+                bundle.putBoolean("Filter", filter);
+                bundle.putString("SubServiceName",subServiceName );
                 bundle.putString("MainServiceName", mainServiceName);
-                bundle.putSerializable("Object", (Serializable) subCats);
-                navController.navigate(R.id.action_homeOnSiteServicesFragment_to_vendorsCityListFragment,bundle);
+                bundle.putSerializable("Object", (Serializable) subCatDataList);
+                navController.navigate(R.id.action_vendorsCityListFragment_to_homeServicesEnterVenderDataFragment, bundle);
 
 
 //                HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
@@ -120,16 +133,16 @@ public class HomeServicesSubCategoryVrRvAdapter extends RecyclerView.Adapter<Hom
     @Override
     public int getItemCount() {
 
-        return subCats.size();
+        return cityArrayList.size();
 
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.card_view_fragment_home_services_rv_vr_item_img)
-        ImageView cardViewFragmentHomeServicesRvVrItemImg;
-        @BindView(R.id.card_view_fragment_home_services_rv_vr_item_name_tv)
-        TextView cardViewFragmentHomeServicesRvVrItemNameTv;
+        @BindView(R.id.card_view_fragment_all_cities_rv_vr_item_img)
+        ImageView cardViewFragmentAllCitiesRvVrItemImg;
+        @BindView(R.id.card_view_fragment_all_cities_rv_vr_item_name_tv)
+        TextView cardViewFragmentAllCitiesRvVrItemNameTv;
         private View view;
         private int position;
 

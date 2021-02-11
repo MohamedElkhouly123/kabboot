@@ -235,38 +235,35 @@
                             android:hint="@string/Enter_your_promocode"
                             android:drawablePadding="@dimen/_5sdp"
                             android:drawableStart="@drawable/ic_baseline_request_page_24"
-                            android:focusable="false"
-                            android:editable="false"
-                            android:inputType="none" />
+                            android:inputType="textAutoComplete" />
                     </com.google.android.material.textfield.TextInputLayout>
                             <Spinner
                                 android:id="@+id/fragment_my_cart_promo_code_sp_promo"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
-
+                                android:visibility="gone"
                                 android:layout_marginTop="@dimen/_1sdp"
                                 android:layout_marginStart="@dimen/_2sdp"
                                 android:layout_marginEnd="@dimen/_2sdp"
                                 android:elevation="@dimen/_2sdp"
                                 />
                         </FrameLayout>
-<!--                    <Button-->
-<!--                        android:id="@+id/fragment_my_cart_apply_now_btn"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="@dimen/_7sdp"-->
-<!--                        android:layout_marginEnd="@dimen/_5sdp"-->
-<!--                        android:layout_marginTop="@dimen/_3sdp"-->
-<!--                        android:layout_weight="5"-->
-<!--                        android:background="@drawable/red_btn"-->
-<!--                        android:text="@string/Apply"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:textSize="@dimen/_10ssp"-->
-<!--                        android:textStyle="bold"-->
+                    <Button
+                        android:id="@+id/fragment_my_cart_apply_now_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_weight="5"
+                        android:background="@drawable/blue_black_btn"
+                        android:text="@string/Apply"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_9ssp"
+                        android:textStyle="bold"
 
-<!--                        />-->
+                        />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/fragment_my_cart_Subtotal"

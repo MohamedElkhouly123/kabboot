@@ -18,6 +18,10 @@ public class AllCity {
         this.cityName = hint;
     }
 
+    public AllCity(String cityName) {
+        this.cityName = cityName;
+    }
+
     public int getCityId() {
         return cityId;
     }

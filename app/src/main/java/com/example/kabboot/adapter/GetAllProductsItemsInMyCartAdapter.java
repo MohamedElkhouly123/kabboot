@@ -34,28 +34,33 @@ import static com.example.kabboot.utils.HelperMethod.onLoadImageFromUrl2;
 public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<GetAllProductsItemsInMyCartAdapter.ViewHolder> {
 
 
-    private final TextView fragmentMyCartTotalItemsPriceTv;
+//    private final TextView fragmentMyCartTotalItemsPriceTv;
     private BaseActivity activity;
     private Context context;
     private List<AllProductForRom> allProducts = new ArrayList<>();
     private NavController navController;
-    private static boolean show = false;
+//    private static boolean show = false;
     private List<OrderProductsItemsListData> orderItemsList = new ArrayList<>();
     private DataBase dataBase;
     private int i;
-    private int quan;
+    private List<Integer> quan = new ArrayList<>();
+    private List<Integer> productTotalPrice = new ArrayList<>();
+    //    private int quan;
     private int itemId;
-    private int productTotalPrice=0;
-    private int allProductsTotalPrice=0;
+//    private int productTotalPrice=0;
+    private int allProductsTotalPrice;
     private MyCartAdapterCallback myCartAdapterCallback;
+    private int quan2;
+    private boolean first=true;
+    private double total;
 
-    public GetAllProductsItemsInMyCartAdapter(Context context, Activity activity, MyCartAdapterCallback myCartAdapterCallback,TextView fragmentMyCartTotalItemsPriceTv, NavController navController, List<AllProductForRom> allProducts) {
+    public GetAllProductsItemsInMyCartAdapter(Context context, Activity activity, MyCartAdapterCallback myCartAdapterCallback, int allProductsTotalPrice, NavController navController, List<AllProductForRom> allProducts) {
         this.allProducts.clear();
         this.activity = (BaseActivity) activity;
         this.context = context;
         this.navController = navController;
         this.myCartAdapterCallback = myCartAdapterCallback;
-        this.fragmentMyCartTotalItemsPriceTv = fragmentMyCartTotalItemsPriceTv;
+        this.allProductsTotalPrice = allProductsTotalPrice;
         this.allProducts = allProducts;
         dataBase = DataBase.getInstance(context);
 
@@ -91,17 +96,28 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
             onLoadImageFromUrl2(holder.fragmentMyCartItemImg, productImage.trim(), context);
         }
 //            holder.cardviewHzDiscoverItemRateImgHide.setVisibility(View.VISIBLE);
-        productTotalPrice = (int) ((int) Double.parseDouble(allProducts.get(position).getProductPrice()) * Double.parseDouble(allProducts.get(position).getQuantity()));
-        allProductsTotalPrice += productTotalPrice;
-        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+        productTotalPrice.add((int) ((int) Double.parseDouble(allProducts.get(position).getProductPrice()) * Double.parseDouble(allProducts.get(position).getQuantity())));
+//        if(first) {
+//            first=false;
+//            calculatePrice(position);
+//            fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice + " EGP");
+//        }
         holder.fragmentMyCartItemNameTv.setText(getAllProducts.getProductName());
-        quan= Integer.parseInt(allProducts.get(position).getQuantity());
-        holder.fragmentMyCartItemItemsNumTv.setText("(" + quan + ") Item");
-        int totalPrice = (int) (Integer.parseInt(getAllProducts.getQuantity()) * Double.parseDouble(getAllProducts.getProductPrice()));
+        quan.add(Integer.parseInt(allProducts.get(position).getQuantity()));
+        holder.fragmentMyCartItemItemsNumTv.setText("(" + quan.get(position) + ") Item");
+        int totalPrice = (int) (quan.get(position) * Double.parseDouble(getAllProducts.getProductPrice()));
         holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
 
 //        showToast(activity, orderItemsList.get(position).getId());
 
+    }
+
+    private void calculatePrice(int position) {
+        for(int i=0;i<orderItemsList.size();i++){
+            total=Double.parseDouble(allProducts.get(i).getProductPrice()) * Double.parseDouble(allProducts.get(i).getQuantity());
+            allProductsTotalPrice += total;
+
+        }
     }
 
     private void setAction(ViewHolder holder, int position) {
@@ -110,22 +126,25 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
             @Override
             public void onClick(View view) {
                 if (position >= 0 && allProducts.size() > 0) {
+                    quan2=quan.get(position);
+                    quan2++;
                     Executors.newSingleThreadExecutor().execute(
                             new Runnable() {
                         @Override
                         public void run() {
 //                                        dataBase.addNewOrderItemDao().delete(allProducts.get(position).getItemId());
-                            dataBase.addNewOrderItemDao().update(String.valueOf(quan),allProducts.get(position).getItemId());
+                            dataBase.addNewOrderItemDao().update(String.valueOf(quan2),allProducts.get(position).getItemId());
 
                         }
 
                     });
-                    quan++;
-                    holder.fragmentMyCartItemItemsNumTv.setText("(" + quan + ") Item");
-                    int totalPrice = (int) (quan * Double.parseDouble(getAllProducts.getProductPrice()));
+
+                    quan.set(position, quan2);
+                    holder.fragmentMyCartItemItemsNumTv.setText("(" + quan2 + ") Item");
+                    int totalPrice = (int) (quan2 * Double.parseDouble(getAllProducts.getProductPrice()));
                     holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
                     allProductsTotalPrice += Double.parseDouble(getAllProducts.getProductPrice());
-                    fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+//                    fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
                     myCartAdapterCallback.onMethodCallback(allProductsTotalPrice);
 
                 }
@@ -135,24 +154,26 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
             @Override
             public void onClick(View view) {
                 if (position >= 0 && allProducts.size() > 0) {
-                    if(quan>1){
+                    quan2=quan.get(position);
+                    if(quan2>1){
+                        quan2--;
                         Executors.newSingleThreadExecutor().execute(
 
                                 new Runnable() {
                                     @Override
                                     public void run() {
 //                                        dataBase.addNewOrderItemDao().delete(allProducts.get(position).getItemId());
-                                        dataBase.addNewOrderItemDao().update(String.valueOf(quan),allProducts.get(position).getItemId());
+                                        dataBase.addNewOrderItemDao().update(String.valueOf(quan2),allProducts.get(position).getItemId());
 
                                     }
 
                                 });
-                        quan--;
-                    holder.fragmentMyCartItemItemsNumTv.setText("(" + quan + ") Item");
-                    int totalPrice = (int) (quan * Double.parseDouble(getAllProducts.getProductPrice()));
+                        quan.set(position, quan2);
+                    holder.fragmentMyCartItemItemsNumTv.setText("(" + quan2 + ") Item");
+                    int totalPrice = (int) (quan2 * Double.parseDouble(getAllProducts.getProductPrice()));
                     holder.fragmentMyCartItemItemsPriceTv.setText(String.valueOf(totalPrice) + " EGP");
                         allProductsTotalPrice -= Double.parseDouble(getAllProducts.getProductPrice());
-                        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+//                        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
                         myCartAdapterCallback.onMethodCallback(allProductsTotalPrice);
                     }else {
                         if (getItemCount() > position) {
@@ -229,13 +250,21 @@ public class GetAllProductsItemsInMyCartAdapter extends RecyclerView.Adapter<Get
                     itemId=allProducts.get(position).getItemId();
                     if (allProducts.size() > 0) {
                         if (getItemCount() > position) {
+                            quan2=quan.get(position);
+                            AllProductForRom getAllProducts = allProducts.get(position);
+//                           int productTotalPrice = (int) ((int) Double.parseDouble(allProducts.get(position).getProductPrice()) * quan.get(position));
+                            int totalPrice = (int) (quan2 * Double.parseDouble(getAllProducts.getProductPrice()));
+                             allProductsTotalPrice -= totalPrice;
+//                            fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
+                            quan.remove(position);
+                            myCartAdapterCallback.onMethodCallback(allProductsTotalPrice);
 //                            notifyItemChanged(position);
                             allProducts.remove(position);
                             notifyItemRemoved(position);
 
-
                             notifyItemRangeChanged(position, allProducts.size());
                             notifyDataSetChanged();
+
                             Executors.newSingleThreadExecutor().execute(
 
                                     new Runnable() {

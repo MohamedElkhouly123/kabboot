@@ -1,11 +1,7 @@
 package com.example.kabboot.view.fragment.HomeCycle2.accountProfile;
 
-import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.kabboot.R;
-
 import com.example.kabboot.data.model.getAppInfoResponce.GetAppInfoResponce;
-import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.activity.SplashCycleActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;

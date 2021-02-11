@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_homeOnSiteServicesFragment_to_homeServicesEnterVenderDataFragment"
             app:destination="@id/homeServicesEnterVenderDataFragment" />
+        <action
+            android:id="@+id/action_homeOnSiteServicesFragment_to_vendorsCityListFragment"
+            app:destination="@id/vendorsCityListFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeServicesEnterVenderDataFragment"
@@ -85,6 +88,9 @@
         <action
             android:id="@+id/action_homeServicesEnterVenderDataFragment_to_homeServicesEnterVenderData2Fragment"
             app:destination="@id/homeServicesEnterVenderData2Fragment" />
+        <action
+            android:id="@+id/action_homeServicesEnterVenderDataFragment_to_vendorsCityListFragment"
+            app:destination="@id/vendorsCityListFragment" />
     </fragment>
     <fragment
         android:id="@+id/completeBookingServicesFragment"
@@ -168,6 +174,9 @@
         <action
             android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_vendorProfileFragment"
             app:destination="@id/vendorProfileFragment" />
+        <action
+            android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_vendorsCityListFragment"
+            app:destination="@id/vendorsCityListFragment" />
     </fragment>
     <fragment
         android:id="@+id/changeDetailsFragment"
@@ -214,5 +223,16 @@
         <action
             android:id="@+id/action_promoCodeFragment_to_navigation_services"
             app:destination="@id/navigation_services" />
+    </fragment>
+    <fragment
+        android:id="@+id/vendorsCityListFragment"
+        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.VendorsCityListFragment"
+        android:label="VendorsCityListFragment" >
+        <action
+            android:id="@+id/action_vendorsCityListFragment_to_homeOnSiteServicesFragment"
+            app:destination="@id/homeOnSiteServicesFragment" />
+        <action
+            android:id="@+id/action_vendorsCityListFragment_to_homeServicesEnterVenderDataFragment"
+            app:destination="@id/homeServicesEnterVenderDataFragment" />
     </fragment>
 </navigation>

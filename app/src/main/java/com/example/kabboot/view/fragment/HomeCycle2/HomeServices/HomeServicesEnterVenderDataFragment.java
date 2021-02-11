@@ -107,6 +107,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //    private List<GetAllvendors> getAllvendorsListByFilter = new ArrayList<GetAllvendors>();
     private List<GetAllvendors> getAllvendorsListByFilter = new ArrayList<GetAllvendors>();
     private boolean filter=false;
+    private String city;
 
     public HomeServicesEnterVenderDataFragment() {
         // Required empty public constructor
@@ -117,8 +118,9 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         if (this.getArguments() != null) {
             mainServiceName = this.getArguments().getString("MainServiceName");
             subServiceName = this.getArguments().getString("SubServiceName");
+            city = this.getArguments().getString("CityName");
+            filter = this.getArguments().getBoolean("Filter");
             subCatDataList = (List<SubCat>) this.getArguments().getSerializable("Object");
-
         }
         View root = inflater.inflate(R.layout.fragment_home_services_enter_vendor_data, container, false);
 
@@ -128,7 +130,8 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         homeCycleActivity.setNavigation("g");
         fragmentHomeServicesEnterVendorDataTitleTv.setText(mainServiceName + " Service");
         initListener();
-        setData();
+        filter=false;
+//        setData();
         init();
         return root;
     }
@@ -155,7 +158,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
             }
         });
 
-        setSpinner();
+//        setSpinner();
 
 
         viewModel.makeGetAllvendorsResponce().observe(getViewLifecycleOwner(), new Observer<GetAllVendorsDataResponce>() {
@@ -169,15 +172,17 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
                         if (response.getMainVendors() != null) {
 
-
                             getAllvendorsList.clear();
                             getAllvendorsList.addAll(response.getMainVendors());
-                            fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(response.getMainVendors().size() + " Providers nearby");
+                            getVendorDataListByFilter(0);
+
+//                                fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(response.getMainVendors().size() + " Providers nearby");
 
 //                                showToast(getActivity(), "list="+response.getGetTopHotels().get(1));
 
-                            homeServicesVendorsVrRvAdapter.notifyDataSetChanged();
-                            noResultErrorTitle.setVisibility(View.GONE);
+//                                homeServicesVendorsVrRvAdapter2.notifyDataSetChanged();
+                                noResultErrorTitle.setVisibility(View.GONE);
+//
 
                         } else {
                             noResultErrorTitle.setVisibility(View.VISIBLE);
@@ -235,27 +240,30 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
     private void getVendorDataListByFilter(int page) {
+        fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(true);
+
         if (page == 0) {
             maxPage = 0;
         }
 
 
-//                    filter=true;
+                    filter=true;
                     getAllvendorsListByFilter.clear();
 //                    getVendorDataListByFilter(0);
 //        showToast(getActivity(),""+ getAllvendorsList.size());
         for(int i=0;i<getAllvendorsList.size();i++) {
-            if (getAllvendorsList.get(i).getVendorCity().equalsIgnoreCase(cityFilterValue)) {
+            if (getAllvendorsList.get(i).getVendorCity().equalsIgnoreCase(city)) {
                 getAllvendorsListByFilter.add(getAllvendorsList.get(i));
-//                            showToast(getActivity(), getAllvendorsList.get(i).getVendorCity()+" "+cityFilterValue);
+//                            showToast(getActivity(), getAllvendorsList.get(i).getVendorCity()+" "+city);
 
             }
         }
-                    if (getAllvendorsListByFilter.size() != 0) {
+                    if (getAllvendorsListByFilter.size() != 0||getAllvendorsListByFilter!=null) {
                         noResultErrorTitle.setVisibility(View.GONE);
                         reInit2();
                     } else {
                         noResultErrorTitle.setVisibility(View.VISIBLE);
+                        showToast(getActivity(), "success1");
                         reInit2();
                     }
 
@@ -317,8 +325,8 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         };
         fragmentHomeServicesEnterVendorDataRecyclerView.addOnScrollListener(onEndLess);
 
-        homeServicesVendorsVrRvAdapter = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsList, navController);
-        fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
+//        homeServicesVendorsVrRvAdapter = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsList, navController);
+//        fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter);
 //            showToast(getActivity(), "success adapter");
 
         if(filter){
@@ -358,14 +366,18 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
 //        startShimmer(page);
 
-        reInit();
+//        reInit();
         getAllvendorsCall = getApiClient().clientGetAgetAllvendors();
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
         viewModel.getAllvendorsResponce(getActivity(), errorSubView, getAllvendorsCall, fragmentHomeServicesEnterVendorDataSrRefresh, loadMore);
 //            showToast(getActivity(), "success without fillter");
 
-
+        getAllvendorsListByFilter = new ArrayList<>();
+//        fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(getAllvendorsListByFilter.size() + " Providers nearby");
+        homeServicesVendorsVrRvAdapter2 = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsListByFilter, navController);
+        fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter2);
+        getVendorDataListByFilter(0);
     }
 
 
@@ -380,11 +392,12 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     }
 
     private void reInit2() {
-        fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(true);
         onEndLess.previousTotal = 0;
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
-        fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(getAllvendorsListByFilter.size() + " Providers nearby");
+        if(getAllvendorsListByFilter!=null&&getAllvendorsListByFilter.size()!=0) {
+            fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(getAllvendorsListByFilter.size() + " Providers nearby");
+        }
 //        showToast(getActivity(),  ""+getAllvendorsListByFilter.size());
         homeServicesVendorsVrRvAdapter2 = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsListByFilter, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter2);
@@ -392,7 +405,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
 //                                showToast(getActivity(), "list="+response.getGetTopHotels().get(1));
 
-        homeServicesVendorsVrRvAdapter.notifyDataSetChanged();
+        homeServicesVendorsVrRvAdapter2.notifyDataSetChanged();
         fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
 
     }
@@ -421,9 +434,10 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
 //        showToast(getActivity(), "lat="+myLat+" , "+myLang);
         Bundle bundle = new Bundle();
+        bundle.putString("SubServiceName", subServiceName);
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
-        navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_homeOnSiteServicesFragment, bundle);
+        navController.navigate(R.id.action_homeServicesEnterVenderDataFragment_to_vendorsCityListFragment, bundle);
     }
 
 

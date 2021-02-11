@@ -90,7 +90,8 @@ public class HomePromoCodeVrRvAdapter extends RecyclerView.Adapter<HomePromoCode
 //                onLoadCirImageFromUrl(holder.cardviewVendorDetailsItem2PhotoCircularImageView, vindorImage.trim(), context);
 //            }
             holder.cardviewPromoCodesNamTv.setText(getPromocode.getPromoCodePercent()+" % Discount");
-            holder.cardviewPromoCodesItem2NumeTv.setText("Promo Code "+getPromocode.getPromoIdFk());
+//            holder.cardviewPromoCodesItem2NumeTv.setText("Promo Code "+getPromocode.getPromoIdFk());
+            holder.cardviewPromoCodesItem2NumeTv.setText("Promo Code : "+getPromocode.getPromoCodeName());
 
 
         } catch (Exception e) {

@@ -11,8 +11,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.kabboot.R;
 import com.example.kabboot.data.model.customerPromoCodesResponce.CustomerPromoCodesResponce;
 import com.example.kabboot.data.model.getAllServiceDataResponce.GetAllServiceDataResponce;
+import com.example.kabboot.data.model.getAllcitiesResponce.GetAllcitiesResponce;
 import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsBySearchResponce;
 import com.example.kabboot.data.model.getAllproductsResponce.GetAllproductsResponce;
 import com.example.kabboot.data.model.getAllvendorsResponce.GetAllVendorsDataResponce;
@@ -23,6 +25,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
+import static com.example.kabboot.utils.HelperMethod.dismissProgressDialog;
+import static com.example.kabboot.utils.ToastCreator.onCreateErrorToast;
 import static com.example.kabboot.utils.network.InternetState.isConnected;
 
 
@@ -34,6 +38,8 @@ public class ViewModelGetLists extends ViewModel {
     private MutableLiveData<GetAllproductsResponce> getAllProductsResponce = new MutableLiveData<>();
     private MutableLiveData<GetAllproductsBySearchResponce> getAllProductsBySearchResponce = new MutableLiveData<>();
     private MutableLiveData<CustomerPromoCodesResponce> getCustomerPromoCodesResponce = new MutableLiveData<>();
+    private MutableLiveData<GetAllcitiesResponce> getCityDataResponce = new MutableLiveData<>();
+
 //    private MutableLiveData<GetFaqResponce> getFaqResponce = new MutableLiveData<>();
 
 
@@ -379,5 +385,64 @@ public class ViewModelGetLists extends ViewModel {
 
         }
     }
+
+    public MutableLiveData<GetAllcitiesResponce> makegetCityData() {
+        return getCityDataResponce;
+    }
+
+    public void getCityData(final Activity activity, final LinearLayout errorSubView, final Call<GetAllcitiesResponce> method, final SwipeRefreshLayout FragmentSrRefreshRv, final RelativeLayout loadMore) {
+
+        if (isConnected(activity)) {
+            FragmentSrRefreshRv.setRefreshing(true);
+            errorSubView.setVisibility(View.GONE);
+
+            method.enqueue(new Callback<GetAllcitiesResponce>() {
+                @Override
+                public void onResponse(Call<GetAllcitiesResponce> call, Response<GetAllcitiesResponce> response) {
+
+                    if (response.body() != null) {
+                        try {
+
+                            dismissProgressDialog();
+//                            if (response.body().getStatus() == 1) {
+//                            showToast(activity, "hereSpinner");
+
+                            loadMore.setVisibility(View.GONE);
+                            FragmentSrRefreshRv.setRefreshing(false);
+
+                            getCityDataResponce.postValue(response.body());
+
+                            ToastCreator.onCreateSuccessToast(activity, "Success");
+//                            } else {
+//                                onCreateErrorToast(activity, response.body().getMsg());
+//                            }
+
+                        } catch(Exception e){
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetAllcitiesResponce> call, Throwable t) {
+                    loadMore.setVisibility(View.GONE);
+                    FragmentSrRefreshRv.setRefreshing(false);
+                    getCityDataResponce.postValue(null);
+
+                }
+            });
+        } else {
+            try {
+                loadMore.setVisibility(View.GONE);
+                FragmentSrRefreshRv.setRefreshing(false);
+                errorSubView.setVisibility(View.VISIBLE);
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
 
 }

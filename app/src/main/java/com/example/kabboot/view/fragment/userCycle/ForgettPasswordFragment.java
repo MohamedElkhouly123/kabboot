@@ -30,7 +30,6 @@ import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
 import static com.example.kabboot.utils.validation.Validation.cleanError;
 import static com.example.kabboot.utils.validation.Validation.validationEmail;
-import static com.example.kabboot.utils.validation.Validation.validationPhone;
 import static com.example.kabboot.utils.validation.Validation.validationTextInputLayoutListEmpty;
 
 

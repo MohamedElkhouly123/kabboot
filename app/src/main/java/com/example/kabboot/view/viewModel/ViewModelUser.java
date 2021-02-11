@@ -3,6 +3,7 @@ package com.example.kabboot.view.viewModel;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.InputType;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -275,6 +276,7 @@ public class ViewModelUser extends ViewModel {
 
     }
 
+
     public MutableLiveData<GetAllcitiesResponce> makegetSpinnerData() {
         return getSpinnerDataResponce;
     }
@@ -378,6 +380,9 @@ public class ViewModelUser extends ViewModel {
                                 }
                             }else {
                                 fragmentTilPromoCode.getEditText().setText("No Available Promo Codes Now");
+                                fragmentTilPromoCode.getEditText().setFocusable(true);
+                                fragmentTilPromoCode.getEditText().setClickable(false);
+                                fragmentTilPromoCode.getEditText().setInputType(InputType.TYPE_NULL);
                             }
 
                             getSpinnerPromoCodeDataResponce.postValue(response.body());

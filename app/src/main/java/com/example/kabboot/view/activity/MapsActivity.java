@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.kabboot.R;
-import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment;
 import com.example.kabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -25,8 +24,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -34,9 +33,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.kabboot.utils.HelperMethod.TimePickerFragment.bitmapDescriptorFromVector;
+import static com.example.kabboot.utils.HelperMethod.showToast;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
     private static final String TAG = "MapActivity";
 
@@ -58,13 +57,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private MapView mapView;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private double lang=0;
-    private double lat=0;
+
+    private LatLng langlat;
     private  CompleteBookingServicesFragment completeBookingServicesFragment;
     private  MyCartFragment myCartFragment;
 
     private Bundle extras;
     private String myCartOrMyService;
+    private LatLng langlat2;
+    private double lang=0;
+    private double lat=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -276,7 +278,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if (mLocationPermissionsGranted) {
-
             getDeviceLocation();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -285,37 +286,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return;
             }
             mMap.setMyLocationEnabled(true);
-//            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-// Setting a click event handler for the map
-            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
+            googleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
                 @Override
-                public void onMapClick(LatLng latLng) {
+                public void onCameraChange(CameraPosition cameraPosition) {
 
-                    // Creating a marker
-                    MarkerOptions markerOptions = new MarkerOptions();
+                    Log.i("centerLat", String.valueOf(cameraPosition.target.latitude));
 
-                    // Setting the position for the marker
-                    markerOptions.position(latLng);
+                    Log.i("centerLong", String.valueOf(cameraPosition.target.longitude));
+                    langlat2 = cameraPosition.target;
 
-                    // Setting the title for the marker.
-                    // This will be displayed on taping the marker
-                    markerOptions.title("Success Select "+latLng.latitude + " : " + latLng.longitude);
-                    ToastCreator.onCreateSuccessToast(MapsActivity.this, "Success Select Click Submit to go to next step");
-                    lang = latLng.longitude;
-                    lat = latLng.latitude;
-                    markerOptions.icon(bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_baseline_directions_car_24));
-
-                    // Clears the previously touched position
-                    googleMap.clear();
-
-                    // Animating to the touched position
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                    // Placing a marker on the touched position
-                    googleMap.addMarker(markerOptions);
+                    lang  = langlat2.longitude;
+                    lat= langlat2.latitude;
                 }
             });
+//            LatLng centerLatLang = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter();
+
+//            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+// Setting a click event handler for the map
+//            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//
+//                @Override
+//                public void onMapClick(LatLng latLng) {
+//
+//                    // Creating a marker
+//                    MarkerOptions markerOptions = new MarkerOptions();
+//
+//                    // Setting the position for the marker
+//                    markerOptions.position(latLng);
+//
+//                    // Setting the title for the marker.
+//                    // This will be displayed on taping the marker
+//                    markerOptions.title("Success Select "+latLng.latitude + " : " + latLng.longitude);
+//                    ToastCreator.onCreateSuccessToast(MapsActivity.this, "Success Select Click Submit to go to next step");
+//                    lang = latLng.longitude;
+//                    lat = latLng.latitude;
+//                    markerOptions.icon(bitmapDescriptorFromVector(MapsActivity.this, R.drawable.ic_baseline_directions_car_24));
+//
+//                    // Clears the previously touched position
+//                    googleMap.clear();
+//
+//                    // Animating to the touched position
+//                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+//
+//                    // Placing a marker on the touched position
+//                    googleMap.addMarker(markerOptions);
+//                }
+//            });
 
         }
     }
@@ -336,6 +352,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
                             if (currentLocation != null) {
+//                                showToast(MapsActivity.this, " yes ");
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                         DEFAULT_ZOOM);
                             }
@@ -377,7 +394,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.map_save_location_btn:
                 if(lang!=0&&lat!=0){
-//                    showToast(this, myCartOrMyService);
+//                    showToast(this, lang+"  "+lat);
                     if(myCartOrMyService.equalsIgnoreCase("myService")){
                     completeBookingServicesFragment.myLang=lang;
                     completeBookingServicesFragment.myLat=lat;
@@ -387,13 +404,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         myCartFragment.myLat=lat;
                     }
                     finish();
-                }else {
-                    ToastCreator.onCreateErrorToast(MapsActivity.this, getString(R.string.location_required));
-
                 }
+//                else {
+//                    ToastCreator.onCreateErrorToast(MapsActivity.this, getString(R.string.location_required));
+//
+//                }
                 break;
         }
     }
+
+//    @Override
+//    public void onLocationChanged(@NonNull Location location) {
+//        lat = location.getLatitude();
+//
+//        // Getting longitude of the current location
+//        lang = location.getLongitude();
+//
+//        // Creating a LatLng object for the current location
+//        LatLng latLng = new LatLng(lat, lang);
+//
+//        // Showing the current location in Google Map
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//
+//        // Zoom in the Google Map
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//
+//        // Setting latitude and longitude in the TextView tv_location
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(@NonNull String provider) {
+//
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(@NonNull String provider) {
+//
+//    }
+//
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//
+//    }
+
+//    @Override
+//    public void onCameraChange(CameraPosition cameraPosition) {
+//        langlat2 = cameraPosition.target;
+//
+//        lang  = langlat2.longitude;
+//        lat= langlat2.latitude;
+//        // Getting longitude of the current location
+//    }
 }
 
 

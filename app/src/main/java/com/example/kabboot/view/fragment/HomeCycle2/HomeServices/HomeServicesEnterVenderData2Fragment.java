@@ -226,7 +226,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
         bundle.putString("SubServiceName", SubServiceName);
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("Object", (Serializable) subCatDataList);
-        navController.navigate(R.id.action_homeServicesEnterVenderData2Fragment_to_homeServicesEnterVenderDataFragment, bundle);
+        navController.navigate(R.id.action_homeServicesEnterVenderData2Fragment_to_vendorsCityListFragment, bundle);
 
     }
 

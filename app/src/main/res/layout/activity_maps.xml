@@ -91,6 +91,15 @@
 <!--                app:bmb_piecePlaceEnum="piecePlace_ham_2"-->
 <!--                app:bmb_shareLine1Color="#fff" />-->
 <!--        </LinearLayout>-->
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:elevation="@dimen/_5sdp"
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintEnd_toEndOf="parent" />
         <LinearLayout
             android:id="@+id/map_save_location_btn"
             style="@style/button_style3"
