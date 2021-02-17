@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.kabboot.R;
+import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment;
 import com.example.kabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,8 +33,6 @@ import com.google.android.gms.tasks.Task;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.example.kabboot.utils.HelperMethod.showToast;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
@@ -84,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ButterKnife.bind(this);
         completeBookingServicesFragment=new CompleteBookingServicesFragment();
         myCartFragment=new MyCartFragment();
+        ToastCreator.onCreateErrorToast(MapsActivity.this, getString(R.string.location_required));
 
 //        toolbarSubView.setVisibility(View.VISIBLE);
 //        toolbarTitle.setText(getString(R.string.title_activity_maps));

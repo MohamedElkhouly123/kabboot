@@ -23,7 +23,9 @@ import com.example.kabboot.adapter.ProductDetailsUltraPagerAdapter;
 import com.example.kabboot.data.local.DataBase;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProduct;
 import com.example.kabboot.data.model.getAllproductsResponce.AllProductForRom;
+import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tmall.ultraviewpager.UltraViewPager;
 
 import java.io.Serializable;
@@ -62,20 +64,22 @@ public class ProductDetailsFragment extends BaSeFragment {
     TextView fragmentProductDetailsItemsRoomsNumTv;
     @BindView(R.id.fragment_product_details_view_cart_btn)
     FrameLayout fragmentProductDetailsViewCartBtn;
+    @BindView(R.id.fragment_product_details_floating_action_btn)
+    FloatingActionButton fragmentProductDetailsFloatingActionBtn;
     private NavController navController;
     @BindView(R.id.fragment_product_details_ultra_viewpager)
     UltraViewPager ultraViewPager;
-    private int productItemsNum=0;
+    private int productItemsNum = 0;
     private DataBase dataBase;
-    private boolean first =true;
-    private int productItemsPrice=0;
-    private AllProduct productData ;
-    private List<AllProductForRom> items= new ArrayList<>();
+    private boolean first = true;
+    private int productItemsPrice = 0;
+    private AllProduct productData;
+    private List<AllProductForRom> items = new ArrayList<>();
     private List<String> allProductImages = new ArrayList<>();
     private AllProductForRom allProductForRom;
     private String onSoreOrAllProducts;
     private String dealOrPromo;
-    private boolean firstPress=true;
+    private boolean firstPress = true;
 
     public ProductDetailsFragment() {
         // Required empty public constructor
@@ -93,7 +97,7 @@ public class ProductDetailsFragment extends BaSeFragment {
         ButterKnife.bind(this, root);
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
-         dataBase = DataBase.getInstance(getContext());
+        dataBase = DataBase.getInstance(getContext());
         setData();
         homeCycleActivity.setNavigation("g");
         // init all widgets in this activity
@@ -101,9 +105,9 @@ public class ProductDetailsFragment extends BaSeFragment {
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
 //initialize ProductDetailsUltraPagerAdapter，and add child view to UltraViewPager
         allProductImages.add(productData.getImage());
-        if(allProductImages.size()!=0){
-        PagerAdapter adapter = new ProductDetailsUltraPagerAdapter(false,allProductImages,getContext());
-        ultraViewPager.setAdapter(adapter);
+        if (allProductImages.size() != 0) {
+            PagerAdapter adapter = new ProductDetailsUltraPagerAdapter(false, allProductImages, getContext());
+            ultraViewPager.setAdapter(adapter);
         }
 
 //initialize built-in indicator
@@ -145,7 +149,7 @@ public class ProductDetailsFragment extends BaSeFragment {
 //                                    quantity, "ahmed", note, item.getPhotoUrl(),
 //                                    item.getName());
 //                            roomDao.addItem(orderItem);
-                         allProductForRom = new AllProductForRom(productData.getProductId(),productData.getProductName(),productData.getProductPrice(),productData.getProductCat(),productData.getVendorIdFk(),productData.getProductSpecification(),productData.getProductDesc(),productData.getImage(),productData.getInStock(),productData.getHotdeals(),productData.getMainCategoryName(), productData.getVendorName(),String.valueOf(productItemsNum));
+                        allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
                         dataBase.addNewOrderItemDao().deletAll();
 
 //                                clientMakeNewOrderItemForRoo z z  s m.setCategoryId("2");
@@ -170,12 +174,11 @@ public class ProductDetailsFragment extends BaSeFragment {
                 });
 
 
-
 //        showToast(getActivity(), name[0] );
     }
 
     private void setData() {
-        fragmentProductDetailsTitleNameTv.setText(productData.getMainCategoryName()+productData.getProductName());
+        fragmentProductDetailsTitleNameTv.setText(productData.getMainCategoryName() + productData.getProductName());
         fragmentProductDetailsSubCategoryNameTv.setText(productData.getMainCategoryName());
         fragmentProductDetailsProductNameTv.setText(productData.getProductName());
         fragmentProductDetailsPriceTv.setText(productData.getProductPrice());
@@ -187,12 +190,12 @@ public class ProductDetailsFragment extends BaSeFragment {
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
-        if(onSoreOrAllProducts.equalsIgnoreCase("AllProduct")){
+        if (onSoreOrAllProducts.equalsIgnoreCase("AllProduct")) {
             Bundle bundle = new Bundle();
             bundle.putString("DealOrPromo", dealOrPromo);
-            navController.navigate(R.id.action_productDetailsFragment_to_allProductsFragment,bundle);
+            navController.navigate(R.id.action_productDetailsFragment_to_allProductsFragment, bundle);
         }
-        if(onSoreOrAllProducts.equalsIgnoreCase("onStore")){
+        if (onSoreOrAllProducts.equalsIgnoreCase("onStore")) {
             navController.navigate(R.id.action_productDetailsFragment_to_navigation_online_store);
             homeCycleActivity.setNavigation("v");
         }
@@ -205,27 +208,27 @@ public class ProductDetailsFragment extends BaSeFragment {
                 new Runnable() {
                     @Override
                     public void run() {
-                if(productItemsNum>0) {
+                        if (productItemsNum > 0) {
 //                    dataBase.addNewOrderItemDao().deletAll();
-                    items.clear();
-                    allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
-                    dataBase.addNewOrderItemDao().insert(allProductForRom);
-                    items = dataBase.addNewOrderItemDao().getAllItems();
-                    Log.i(TAG,items.get(0).getQuantity() +"  mohamed");
-                    Bundle bundle = new Bundle();
-                    bundle.putString("OnSoreOrAllProductsOrDetails", "details");
-                    bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
-                    bundle.putSerializable("Object", productData);
-                    bundle.putSerializable("Object2", (Serializable) items);
-                    bundle.putString("DealOrPromo", dealOrPromo);
-                    navController.navigate(R.id.action_productDetailsFragment_to_myCartFragment,bundle);
-                }
+                            items.clear();
+                            allProductForRom = new AllProductForRom(productData.getProductId(), productData.getProductName(), productData.getProductPrice(), productData.getProductCat(), productData.getVendorIdFk(), productData.getProductSpecification(), productData.getProductDesc(), productData.getImage(), productData.getInStock(), productData.getHotdeals(), productData.getMainCategoryName(), productData.getVendorName(), String.valueOf(productItemsNum));
+                            dataBase.addNewOrderItemDao().insert(allProductForRom);
+                            items = dataBase.addNewOrderItemDao().getAllItems();
+                            Log.i(TAG, items.get(0).getQuantity() + "  mohamed");
+                            Bundle bundle = new Bundle();
+                            bundle.putString("OnSoreOrAllProductsOrDetails", "details");
+                            bundle.putString("OnSoreOrAllProducts", onSoreOrAllProducts);
+                            bundle.putSerializable("Object", productData);
+                            bundle.putSerializable("Object2", (Serializable) items);
+                            bundle.putString("DealOrPromo", dealOrPromo);
+                            navController.navigate(R.id.action_productDetailsFragment_to_myCartFragment, bundle);
+                        }
                     }
                 });
     }
 
     private void roomAddItem() {
-        if(productItemsNum>0) {
+        if (productItemsNum > 0) {
 
             Executors.newSingleThreadExecutor().execute(
 
@@ -249,52 +252,64 @@ public class ProductDetailsFragment extends BaSeFragment {
                 onBack();
                 break;
             case R.id.fragment_product_details_view_cart_btn:
-                if(firstPress) {
+                if (firstPress) {
                     roomAddAndGetItem();
-                    firstPress=false;
+                    firstPress = false;
                 }
                 break;
             case R.id.fragment_product_details_items_minus_item_btn:
-                if(productItemsNum>=0){
+                if (productItemsNum >= 0) {
                     productItemsNum--;
-                    productItemsPrice= (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
-                    fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP "+String.valueOf(productItemsPrice));
-                    fragmentProductDetailsItemsNumberTv.setText("("+productItemsNum+") Item");
+                    productItemsPrice = (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
+                    fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP " + String.valueOf(productItemsPrice));
+                    fragmentProductDetailsItemsNumberTv.setText("(" + productItemsNum + ") Item");
                     fragmentProductDetailsItemsRoomsNumTv.setText(String.valueOf(productItemsNum));
-                    if(productItemsNum==0){
-                        first=true;
+                    if (productItemsNum == 0) {
+                        first = true;
                         fragmentProductDetailsViewCartBtn.setVisibility(View.GONE);
+                        fragmentProductDetailsFloatingActionBtn.setVisibility(View.GONE);
                         fragmentProductDetailsPaddingTv.setVisibility(View.GONE);
                     }
 
                 }
                 break;
             case R.id.fragment_product_details_items_plus_item_btn:
-                if(productItemsNum==0){
-                    first=false;
+                if (productItemsNum == 0) {
+                    first = false;
                 }
-                    productItemsNum++;
-                productItemsPrice= (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
-                fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP "+String.valueOf(productItemsPrice));
+                productItemsNum++;
+                productItemsPrice = (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
+                fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP " + String.valueOf(productItemsPrice));
                 fragmentProductDetailsViewCartBtn.setVisibility(View.VISIBLE);
+                fragmentProductDetailsFloatingActionBtn.setVisibility(View.VISIBLE);
                 fragmentProductDetailsPaddingTv.setVisibility(View.VISIBLE);
-                fragmentProductDetailsItemsNumberTv.setText("("+productItemsNum+") Item");
+                fragmentProductDetailsItemsNumberTv.setText("(" + productItemsNum + ") Item");
                 fragmentProductDetailsItemsRoomsNumTv.setText(String.valueOf(productItemsNum));
                 break;
             case R.id.fragment_product_details_items_add_to_card_tv:
-                if(first){
+                if (first) {
                     productItemsNum++;
-                    productItemsPrice= (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
-                    fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP "+String.valueOf(productItemsPrice));
+                    productItemsPrice = (int) (productItemsNum * Double.parseDouble(productData.getProductPrice()));
+                    fragmentProductDetailsItemsNumberTotalPriceTv.setText("EGP " + String.valueOf(productItemsPrice));
                     fragmentProductDetailsViewCartBtn.setVisibility(View.VISIBLE);
+                    fragmentProductDetailsFloatingActionBtn.setVisibility(View.VISIBLE);
                     fragmentProductDetailsPaddingTv.setVisibility(View.VISIBLE);
-                    fragmentProductDetailsItemsNumberTv.setText("("+productItemsNum+") Item");
+                    fragmentProductDetailsItemsNumberTv.setText("(" + productItemsNum + ") Item");
                     fragmentProductDetailsItemsRoomsNumTv.setText(String.valueOf(productItemsNum));
-                    first=false;
+                    first = false;
+                } else {
+                    ToastCreator.onCreateSuccessToast(getActivity(), "Success add to Cart");
                 }
                 break;
         }
     }
 
 
+    @OnClick(R.id.fragment_product_details_floating_action_btn)
+    public void onClick() {
+        if (firstPress) {
+            roomAddAndGetItem();
+            firstPress = false;
+        }
+    }
 }

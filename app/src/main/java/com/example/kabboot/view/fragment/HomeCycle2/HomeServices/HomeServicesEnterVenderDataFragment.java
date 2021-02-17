@@ -46,7 +46,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.kabboot.data.api.ApiClient.getApiClient;
-import static com.example.kabboot.utils.HelperMethod.showToast;
 
 
 public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
@@ -108,6 +107,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
     private List<GetAllvendors> getAllvendorsListByFilter = new ArrayList<GetAllvendors>();
     private boolean filter=false;
     private String city;
+    private boolean successAdd=false;
 
     public HomeServicesEnterVenderDataFragment() {
         // Required empty public constructor
@@ -128,7 +128,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
         homeCycleActivity.setNavigation("g");
-        fragmentHomeServicesEnterVendorDataTitleTv.setText(mainServiceName + " Service");
+//        fragmentHomeServicesEnterVendorDataTitleTv.setText(mainServiceName + " Service");
         initListener();
         filter=false;
 //        setData();
@@ -181,11 +181,11 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //                                showToast(getActivity(), "list="+response.getGetTopHotels().get(1));
 
 //                                homeServicesVendorsVrRvAdapter2.notifyDataSetChanged();
-                                noResultErrorTitle.setVisibility(View.GONE);
+//                                noResultErrorTitle.setVisibility(View.GONE);
 //
 
                         } else {
-                            noResultErrorTitle.setVisibility(View.VISIBLE);
+//                            noResultErrorTitle.setVisibility(View.VISIBLE);
                         }
 //                                showToast(getActivity(), "success1");
 
@@ -222,7 +222,6 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
                     if (citiesSelectedId > 1) {
 //                        showToast(getActivity(), cityFilterValue+ " yes");
 
-                        filter=true;
                         getAllvendorsListByFilter = new ArrayList<>();
                         getVendorDataListByFilter(0);
                     }
@@ -249,24 +248,26 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 
                     filter=true;
                     getAllvendorsListByFilter.clear();
+        getAllvendorsListByFilter = new ArrayList<>();
 //                    getVendorDataListByFilter(0);
 //        showToast(getActivity(),""+ getAllvendorsList.size());
         for(int i=0;i<getAllvendorsList.size();i++) {
-            if (getAllvendorsList.get(i).getVendorCity().equalsIgnoreCase(city)) {
+            if (getAllvendorsList.get(i).getVendorCity().equalsIgnoreCase(city)&&getAllvendorsList.get(i).getMainCategoryName().equalsIgnoreCase(mainServiceName)&&getAllvendorsList.get(i).getSubCategoryName().equalsIgnoreCase(subServiceName)) {
                 getAllvendorsListByFilter.add(getAllvendorsList.get(i));
+                successAdd=true;
 //                            showToast(getActivity(), getAllvendorsList.get(i).getVendorCity()+" "+city);
 
             }
         }
-                    if (getAllvendorsListByFilter.size() != 0||getAllvendorsListByFilter!=null) {
-                        noResultErrorTitle.setVisibility(View.GONE);
-                        reInit2();
-                    } else {
-                        noResultErrorTitle.setVisibility(View.VISIBLE);
-                        showToast(getActivity(), "success1");
-                        reInit2();
-                    }
 
+        if(successAdd) {
+                noResultErrorTitle.setVisibility(View.GONE);
+                reInit2();
+            }else {
+                noResultErrorTitle.setVisibility(View.VISIBLE);
+                fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
+
+            }
 
 
 
@@ -377,7 +378,7 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
 //        fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(getAllvendorsListByFilter.size() + " Providers nearby");
         homeServicesVendorsVrRvAdapter2 = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsListByFilter, navController);
         fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter2);
-        getVendorDataListByFilter(0);
+//        getVendorDataListByFilter(0);
     }
 
 
@@ -395,19 +396,42 @@ public class HomeServicesEnterVenderDataFragment extends BaSeFragment {
         onEndLess.previousTotal = 0;
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
-        if(getAllvendorsListByFilter!=null&&getAllvendorsListByFilter.size()!=0) {
+//        if (getAllvendorsListByFilter.size() != 0) {
             fragmentHomeServicesEnterVendorDataProvidersNumTv.setText(getAllvendorsListByFilter.size() + " Providers nearby");
-        }
+
 //        showToast(getActivity(),  ""+getAllvendorsListByFilter.size());
-        homeServicesVendorsVrRvAdapter2 = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsListByFilter, navController);
-        fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter2);
+            homeServicesVendorsVrRvAdapter2 = new HomeServicesVendors2VrRvAdapter(getContext(), getActivity(), subServiceName, subCatDataList, mainServiceName, getAllvendorsListByFilter, navController);
+            fragmentHomeServicesEnterVendorDataRecyclerView.setAdapter(homeServicesVendorsVrRvAdapter2);
 //        getAllvendorsList.addAll(response.getMainVendors());
 
 //                                showToast(getActivity(), "list="+response.getGetTopHotels().get(1));
 
-        homeServicesVendorsVrRvAdapter2.notifyDataSetChanged();
-        fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
+            homeServicesVendorsVrRvAdapter2.notifyDataSetChanged();
+            fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
+            filter=true;
 
+//        }else {
+//            fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
+//            if (getAllvendorsListByFilter != null&&getAllvendorsListByFilter.size() != 0) {
+//                noResultErrorTitle.setVisibility(View.GONE);
+//            }else {
+//                noResultErrorTitle.setVisibility(View.VISIBLE);
+//
+//            }
+//        }
+
+//        if (getAllvendorsListByFilter == null) {
+////            fragmentHomeServicesEnterVendorDataSrRefresh.setRefreshing(false);
+//            noResultErrorTitle.setVisibility(View.VISIBLE);
+//
+//        } else {
+//            if (getAllvendorsListByFilter.size() == 0) {
+////                noResultErrorTitle.setVisibility(View.VISIBLE);
+//
+//            }else {
+//
+//        }
+//    }
     }
 
     public void setError(String errorTitleTxt) {

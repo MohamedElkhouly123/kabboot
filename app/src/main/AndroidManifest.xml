@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kabboot"
     >
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -29,7 +30,12 @@
         android:roundIcon="@drawable/kabbot_logo3"
         android:supportsRtl="false"
         android:hardwareAccelerated="true"
-        android:theme="@style/Theme.Kabboot.NoActionBar">
+        android:theme="@style/Theme.Kabboot.NoActionBar"
+
+       >
+<!--        android:testOnly="false"-->
+<!--        android:debuggable="true"-->
+<!--        tools:ignore="HardcodedDebugMode"-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

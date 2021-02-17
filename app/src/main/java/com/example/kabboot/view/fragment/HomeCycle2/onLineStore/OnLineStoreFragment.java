@@ -224,9 +224,9 @@ public class OnLineStoreFragment extends BaSeFragment implements SearchDialogCal
         final String basic =
                 "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.DEFAULT);
         if(Filter) {
-            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, searchName, searchprice, productCatIdValue, vendorIdValue);
+            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, searchName, "","0",searchprice, productCatIdValue, vendorIdValue);
         }else {
-            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, "", "", "", "");
+            getAllproductsResponceCall = getApiClient().getAllProductsData(cookie, credentials, "", "", "", "","","");
         }
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
         viewModel.getAllProductsBySearchDataList(getActivity(), errorSubView, getAllproductsResponceCall, fragmentAllProductsSrRefresh, loadMore);

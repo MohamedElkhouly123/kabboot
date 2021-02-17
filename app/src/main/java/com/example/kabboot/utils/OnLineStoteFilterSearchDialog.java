@@ -40,7 +40,7 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
     private TextInputLayout dialogSearchProductNameSearchTil;
     private TextInputLayout dialogSearchProductCategoryNameSearchPriceTil, dialogSearchProductVendorNameSearchPriceTil;
     private Spinner dialogSearchProductCategorySpId, dialogSearchProductVendorSpId;
-    private String searchprice = "";
+    private String searchpriceFrom = "";
     private VendorsSpinnerAdapter vendorsSpinnerAdapter;
     private int vendorSelectedId = 0;
     private AdapterView.OnItemSelectedListener vendorSpinerListener;
@@ -51,6 +51,7 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
     private AdapterView.OnItemSelectedListener productCatSpinerListener;
     private String vendorIdValue="";
     private String productCatIdValue="";
+    private String searchpriceTo="";
 
 
     public OnLineStoteFilterSearchDialog() {
@@ -91,8 +92,10 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
         dialogSearchProductVendorSpId = (Spinner) rootView.findViewById(R.id.dialog_store_filter_search_category_vendor_name_sp);
 //        showPaddingPart=(TextView) rootView.findViewById(R.id.dialog_flight_search_category_padding_txt);
 
-        SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_seekBar);
-        final TextView seekBarValue = (TextView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_price_tv);
+        SeekBar seekBarFrom = (SeekBar) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_seekBar_from);
+        SeekBar seekBarTo = (SeekBar) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_seekBar_to);
+        final TextView seekBarValueFrom = (TextView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_price_from_tv);
+        final TextView seekBarValueTo = (TextView) rootView.findViewById(R.id.dialog_flight_search_category_close_btn_price_to_tv);
         String status = "false";
         setSpinner();
         //////set the switch to ON
@@ -110,16 +113,40 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
 //            }
 //        });
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBarFrom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
-                seekBarValue.setText(String.valueOf(progress + " EGP"));
-                searchprice = String.valueOf(progress);
+                seekBarValueFrom.setText(String.valueOf(progress + " EGP"));
+                searchpriceFrom = String.valueOf(progress);
                 if (progress == 0) {
-                    searchprice = String.valueOf("");
+                    searchpriceFrom = String.valueOf("");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        seekBarTo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                seekBarValueTo.setText(String.valueOf(progress + " EGP"));
+                searchpriceTo = String.valueOf(progress);
+                if (progress == 0) {
+                    searchpriceTo = String.valueOf("");
                 }
             }
 
@@ -163,7 +190,7 @@ public class OnLineStoteFilterSearchDialog extends DialogFragment {
                 // TODO Auto-generated method stub
 
                 String searchName = dialogSearchProductNameSearchTil.getEditText().getText().toString();
-                showSearchDialog.filterOnMethodCallback(searchName, searchprice,vendorIdValue,productCatIdValue);
+                showSearchDialog.filterOnMethodCallback(searchName, searchpriceFrom,vendorIdValue,productCatIdValue);
 
                 dismiss();
 

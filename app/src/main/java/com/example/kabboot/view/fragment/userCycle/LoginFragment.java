@@ -54,6 +54,7 @@ public class LoginFragment extends BaSeFragment {
     private String password;
     private ViewModelUser viewModelUser;
     private AlertDialog alertDialog;
+    private boolean dialoghide=false;
 
 //    private ViewModelUser viewModelUser;
 
@@ -119,7 +120,13 @@ public class LoginFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        getActivity().finish();
+
+        if(dialoghide){
+            alertDialog.dismiss();
+            dialoghide=false;
+        }else {
+            getActivity().finish();
+        }
     }
 
 
@@ -188,7 +195,8 @@ public class LoginFragment extends BaSeFragment {
             alertDialog = new AlertDialog.Builder(getActivity()).create();
 //            alertDialog.setTitle("Delete");
             alertDialog.setMessage("Please Check Your Email To enter Verification Code");
-            alertDialog.setCancelable(true);
+            alertDialog.setCancelable(false);
+            dialoghide=true;
             confirmEmailDialogTilVerifyCode = (TextInputLayout) view.findViewById(R.id.confirm_email_dialog_til_verify_code);
             tvConfirmEmailDialogOk = (TextView) view.findViewById(R.id.tv_confirmEmailDialog_ok);
 

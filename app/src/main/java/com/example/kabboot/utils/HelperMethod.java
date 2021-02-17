@@ -14,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
@@ -79,18 +80,58 @@ public class HelperMethod {
     }
 
     public static void replaceFragmentWithAnimation(FragmentManager getChildFragmentManager, int id, Fragment fragment, String fromWhere) {
-        FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
-        if(fromWhere=="l"){
+
+            FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
+            if (fromWhere == "l") {
 //            android.R.anim.slide_in_left
-        transaction.setCustomAnimations(R.anim.slide_in_left,
-                R.anim.slide_out_right);}
-        if(fromWhere=="r"){
+                transaction.setCustomAnimations(R.anim.slide_in_left,
+                        R.anim.slide_out_right);
+            }
+            if (fromWhere == "r") {
+                transaction.setCustomAnimations(R.anim.enter_from_right,
+                        R.anim.exit_to_left);
+            }
+            if (fromWhere == "t") {
+                transaction.setCustomAnimations(R.anim.slide_out_down, R.anim.slide_in_down);
+            }
+            if (fromWhere == "b") {
+                transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
+            }
+//        if(fromWhere=="rr"){
+//            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.slide_in_left, R.anim.slide_out_right);}
+//        if(fromWhere=="t"){
+//            transaction.setCustomAnimations(R.anim.slide_in_down, R.anim.slide_out_up);}
+//        if(fromWhere=="b"){
+//            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down);}
+            transaction.replace(id, fragment);
+            transaction.addToBackStack(null);
+
+                    transaction.commit();
+
+//            }
+//        }
+    }
+
+    public static void replaceFragmentWithAnimation2(FragmentManager getChildFragmentManager, int id, Fragment fragment, String fromWhere) {
+//        if (fragment != null) {
+        Handler handler = new Handler();
+
+        FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
+        if (fromWhere == "l") {
+//            android.R.anim.slide_in_left
+            transaction.setCustomAnimations(R.anim.slide_in_left,
+                    R.anim.slide_out_right);
+        }
+        if (fromWhere == "r") {
             transaction.setCustomAnimations(R.anim.enter_from_right,
-                    R.anim.exit_to_left);}
-        if(fromWhere=="t"){
-            transaction.setCustomAnimations(R.anim.slide_out_down, R.anim.slide_in_down);}
-        if(fromWhere=="b"){
-            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);}
+                    R.anim.exit_to_left);
+        }
+        if (fromWhere == "t") {
+            transaction.setCustomAnimations(R.anim.slide_out_down, R.anim.slide_in_down);
+        }
+        if (fromWhere == "b") {
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
+        }
 //        if(fromWhere=="rr"){
 //            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.slide_in_left, R.anim.slide_out_right);}
 //        if(fromWhere=="t"){
@@ -99,7 +140,16 @@ public class HelperMethod {
 //            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down);}
         transaction.replace(id, fragment);
         transaction.addToBackStack(null);
-        transaction.commit();
+        Runnable r = new Runnable() {
+            public void run() {
+                if (!getChildFragmentManager.isDestroyed()) {
+                    transaction.commit();
+                }
+            }
+        };
+        handler.postDelayed(r, 500);
+//            }
+//        }
     }
 
     public static void setInitRecyclerViewAsGridLayoutManager(Activity activity, RecyclerView recyclerView, GridLayoutManager gridLayoutManager, int numberOfColumns) {

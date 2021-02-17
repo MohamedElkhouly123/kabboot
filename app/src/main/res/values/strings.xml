@@ -101,6 +101,7 @@
     <string name="filter">Filter</string>
     <string name="store_filters">Store Filters</string>
     <string name="price_range">Price Range</string>
+    <string name="price_range_to">Price Range To</string>
     <string name="Condition">Condition</string>
     <string name="kabboot_offers">Kabboot Offers</string>
     <string name="sub_cat">Select Sub Category</string>

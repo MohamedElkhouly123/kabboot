@@ -226,8 +226,7 @@
 
                         app:errorTextAppearance="@style/error_appearance"
                         >
-
-                        <com.google.android.material.textfield.TextInputEditText
+                        <AutoCompleteTextView
                             android:id="@+id/fragment_my_cart_phone_etxt"
                             style="@style/EditTextLogin"
                             android:layout_width="match_parent"
@@ -235,7 +234,19 @@
                             android:hint="@string/Enter_your_promocode"
                             android:drawablePadding="@dimen/_5sdp"
                             android:drawableStart="@drawable/ic_baseline_request_page_24"
-                            android:inputType="textAutoComplete" />
+                            android:inputType="textAutoComplete"
+                            android:completionThreshold="1"
+                            android:popupBackground="@color/white"
+                            />
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/fragment_my_cart_phone_etxt"-->
+<!--                            style="@style/EditTextLogin"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/_55sdp"-->
+<!--                            android:hint="@string/Enter_your_promocode"-->
+<!--                            android:drawablePadding="@dimen/_5sdp"-->
+<!--                            android:drawableStart="@drawable/ic_baseline_request_page_24"-->
+<!--                            android:inputType="textAutoComplete" />-->
                     </com.google.android.material.textfield.TextInputLayout>
                             <Spinner
                                 android:id="@+id/fragment_my_cart_promo_code_sp_promo"

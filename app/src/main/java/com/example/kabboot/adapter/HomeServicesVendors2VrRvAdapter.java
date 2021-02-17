@@ -125,12 +125,15 @@ public class HomeServicesVendors2VrRvAdapter extends RecyclerView.Adapter<HomeSe
             openOrClose(getAllvendor);
             if(dayOpened&&hourOpened){
                 holder.cardviewVendorDetailsItem2OpenTv.setVisibility(View.VISIBLE);
+//                holder.cardviewVendorDetailsItem2IsOpenTv.setVisibility(View.VISIBLE);
+                whenOpened(getAllvendor);
+                holder.cardviewVendorDetailsItem2IsOpenTv.setText("");
 
             }else {
                 holder.cardviewVendorDetailsItem2IsCloseTv.setVisibility(View.VISIBLE);
-                holder.cardviewVendorDetailsItem2IsOpenTv.setVisibility(View.VISIBLE);
+//                holder.cardviewVendorDetailsItem2IsOpenTv.setVisibility(View.VISIBLE);
                 whenOpened(getAllvendor);
-                holder.cardviewVendorDetailsItem2IsOpenTv.setText("Opens "+getAllvendor.getStartHour()+" In Opened Days");
+                holder.cardviewVendorDetailsItem2IsOpenTv.setText("Start Hour : "+getAllvendor.getStartHour()+"    End Hour : "+getAllvendor.getEndHour());
 
             }
 

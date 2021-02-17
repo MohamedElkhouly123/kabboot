@@ -99,7 +99,7 @@ public class MyAllBookingFragment extends BaSeFragment  {
 //        bottomSheetBehavior = BottomSheetBehavior.from(root.findViewById(R.id.bottom1));
 //        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         setUpActivity();
-        homeCycleActivity.setNavigation("g");
+        homeCycleActivity.setNavigation("v");
         initListener();
         init();
         return root;

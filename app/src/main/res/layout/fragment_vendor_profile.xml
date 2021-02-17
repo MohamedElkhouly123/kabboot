@@ -94,6 +94,7 @@
                     android:layout_marginStart="@dimen/_6sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:layout_gravity="center"
                     android:src="@drawable/road"
                     android:elevation="8dp"
@@ -265,7 +266,7 @@
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_4sdp"
             app:cardBackgroundColor="@android:color/white"
             >

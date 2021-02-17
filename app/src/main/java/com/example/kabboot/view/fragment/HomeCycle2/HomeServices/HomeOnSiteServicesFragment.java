@@ -70,7 +70,7 @@ public class HomeOnSiteServicesFragment extends BaSeFragment {
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
 //        HomeCycleActivity homeCycleActivity = (HomeCycleActivity) getActivity();
-        homeCycleActivity.setNavigation("g");
+        homeCycleActivity.setNavigation("v");
         init();
         return root;
     }

@@ -3,11 +3,15 @@ package com.example.kabboot.view.fragment.HomeCycle2.onLineStore;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,7 +41,6 @@ import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.activity.MapsActivity;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -74,8 +77,8 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
 //    TextView fragmentMyCartTaxTv;
     @BindView(R.id.fragment_my_cart_promo_code_sp_promo)
     Spinner fragmentMyCartPromoCodeSpPromo;
-    @BindView(R.id.fragment_my_cart_phone_etxt)
-    TextInputEditText fragmentMyCartPhoneEtxt;
+//    @BindView(R.id.fragment_my_cart_phone_etxt)
+//    TextInputEditText fragmentMyCartPhoneEtxt;
     @BindView(R.id.fragment_my_cart_til_promo_code)
     TextInputLayout fragmentMyCartTilPromoCode;
     @BindView(R.id.fragment_my_cart_Subtotal)
@@ -84,6 +87,8 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
     TextView fragmentMyCartDiscountTv;
     @BindView(R.id.fragment_my_cart_total_price)
     TextView fragmentMyCartTotalPriceTv;
+    @BindView(R.id.fragment_my_cart_phone_etxt)
+    AutoCompleteTextView fragmentMyCartPhoneEtxt;
 
     private NavController navController;
     private String onSoreOrAllProducts;
@@ -108,7 +113,7 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
     private String OnSoreOrAllProductsOrDetails;
     private boolean first = true;
     private ViewModelUser viewMode2;
-    private int promoSelectedId =0;
+    private int promoSelectedId = 0;
     private PromoCodesSpinnerAdapter promoCodesSpinnerAdapter;
     private AdapterView.OnItemSelectedListener promoCodeSpinerListener;
     private String promoFilterValue;
@@ -116,9 +121,11 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
     private double discountPrice;
     private double finalTotalPrice;
     private String promoCodeFromUser;
-    private boolean foundPromo=false;
-    private boolean noPromo=false;
-    private boolean first2=true;
+    private boolean foundPromo = false;
+    private boolean noPromo = false;
+    private boolean first2 = true;
+    private List<String> promoCodeName = new ArrayList<>();
+//    private String[] promoCodeName=;
 
     public MyCartFragment() {
         // Required empty public constructor
@@ -164,7 +171,7 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
         }
 //        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice+" EGP");
 //        showToast(getActivity(), orderItemsList.get(1).getId() + "  " + orderItemsList.get(1).getProductQuantity());
-        fragmentMyCartTotalItemsPriceTv.setText( allProductsTotalPrice + " EGP");
+        fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice + " EGP");
         fragmentMyCartSubtotalTv.setText("Subtotal Before Discount  :  " + allProductsTotalPrice + " EGP");
         fragmentMyCartTotalPriceTv.setText("Total :  " + allProductsTotalPrice + " EGP");
     }
@@ -178,11 +185,15 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
                 if (response != null) {
                     if (response.getSuccess() == 1) {
 //                        showToast(getActivity(), "success");
-                        myLang=0;
-                        myLat=0;
-                        mabBack=false;
+                        myLang = 0;
+                        myLat = 0;
+                        mabBack = false;
                         roomClear();
-                        navController.navigate(R.id.action_myCartFragment_to_navigation_online_store);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("BookingType", getString(R.string.My_Products_Bookings));
+                        navController.navigate(R.id.navigation_profile);
+                        navController.navigate(R.id.action_navigation_profile_to_myAllBookingFragment, bundle);
                         homeCycleActivity.setNavigation("v");
                     }
                 }
@@ -190,26 +201,58 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
         });
 
 
-            viewMode2 = ViewModelProviders.of(this).get(ViewModelUser.class);
+        viewMode2 = ViewModelProviders.of(this).get(ViewModelUser.class);
 
         viewMode2.makeGetSpinnerPromoCodeData().observe(this, new Observer<CustomerPromoCodesResponce>() {
             @Override
             public void onChanged(@Nullable CustomerPromoCodesResponce response) {
                 if (response != null) {
-                    if (response.getCustomerPromocodes()!=null) {
+                    if (response.getCustomerPromocodes() != null) {
                         customerPromocodes.addAll(response.getCustomerPromocodes());
 ////                        showToast(getActivity(), "success2");
 //                        fragmentMyCartTilPromoCode.getEditText().setText("No Available Promo Codes Now");
 //
 //                    } else {
 ////                        showToast(getActivity(), "error");
+                     autoComplete();
 //
                     }
                 }
             }
         });
 
-            setSpinner();
+        setSpinner();
+    }
+
+    private void autoComplete() {
+        for (int i = 0; i < customerPromocodes.size(); i++) {
+            promoCodeName.add(customerPromocodes.get(i).getPromoCodeName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.custam_text_view, R.id.text_view_list_item, promoCodeName);
+        fragmentMyCartPhoneEtxt.setAdapter(adapter);
+        //editText.setThreshold(1);
+        //get the input like for a normal EditText
+        //String input = editText.getText().toString();
+        fragmentMyCartPhoneEtxt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+//                                             Your code .........
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void setSpinner() {
@@ -217,6 +260,7 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
         promoCodesSpinnerAdapter = new PromoCodesSpinnerAdapter(getActivity());
         viewMode2.getSpinnerPromoCodeData(getActivity(), fragmentMyCartPromoCodeSpPromo, promoCodesSpinnerAdapter, "",
                 getApiClient().customerPromoCodes(userData.getUserId()), promoSelectedId, null, fragmentMyCartTilPromoCode);
+
 //        promoCodeSpinerListener = new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -261,7 +305,7 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
             fragmentMyCartRecyclerView.setLayoutManager(lLayout);
             fragmentMyCartRecyclerView.setItemAnimator(null);
 //            showToast(getActivity(), items.get(0).getProductId());
-            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(), this::onMethodCallback,allProductsTotalPrice, navController, items);
+            getAllProductsItemsInMyCartAdapter = new GetAllProductsItemsInMyCartAdapter(getContext(), getActivity(), this::onMethodCallback, allProductsTotalPrice, navController, items);
             fragmentMyCartRecyclerView.setAdapter(getAllProductsItemsInMyCartAdapter);
 
 //            noResultErrorTitle.setVisibility(View.GONE);
@@ -290,10 +334,10 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
                     @Override
                     public void run() {
 //                    dataBase.addNewOrderItemDao().deletAll();
-                            items.clear();
-                            items = dataBase.addNewOrderItemDao().getAllItems();
-                            Log.i(TAG,items.get(0).getQuantity() +"  mohamed");
-                        }
+                        items.clear();
+                        items = dataBase.addNewOrderItemDao().getAllItems();
+                        Log.i(TAG, items.get(0).getQuantity() + "  mohamed");
+                    }
 
                 });
     }
@@ -317,23 +361,23 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
         saveStoreOrdersRequest.setMapLat(String.valueOf(myLat));
         saveStoreOrdersRequest.setToken(userToken);
 //        saveStoreOrdersRequest.setPromoCode("2");
-        if(foundPromo){
+        if (foundPromo) {
             promoCodeFromUser = fragmentMyCartTilPromoCode.getEditText().getText().toString();
-            if (promoCodeFromUser.length()==0) {
+            if (promoCodeFromUser.length() == 0) {
 //                showToast(getActivity(), "her"+promoFilterValueId);
                 saveStoreOrdersRequest.setPromoCode("");
-            }else {
+            } else {
                 saveStoreOrdersRequest.setPromoCode(promoFilterValueId);
             }
-        }else {
+        } else {
             saveStoreOrdersRequest.setPromoCode("");
 
         }
         saveStoreOrdersRequest.setOrderItemList(orderItemsList);
-        Log.i(TAG,String.valueOf(saveStoreOrdersRequest.getUserId()+" "+saveStoreOrdersRequest.getUserName()+" "+saveStoreOrdersRequest.getUserPhone()+" "
-        +saveStoreOrdersRequest.getUserCity()+" "+saveStoreOrdersRequest.getMapLong()+" "+saveStoreOrdersRequest.getMapLat()+" "
-        +saveStoreOrdersRequest.getToken()+" "+saveStoreOrdersRequest.getOrderItemList().get(0).getProductQty()+" "
-                + saveStoreOrdersRequest.getOrderItemList().get(0).getProductId()+" "+orderItemsList.size()+" "+saveStoreOrdersRequest.getOrderTime()+"time"));
+        Log.i(TAG, String.valueOf(saveStoreOrdersRequest.getUserId() + " " + saveStoreOrdersRequest.getUserName() + " " + saveStoreOrdersRequest.getUserPhone() + " "
+                + saveStoreOrdersRequest.getUserCity() + " " + saveStoreOrdersRequest.getMapLat() + " , " + saveStoreOrdersRequest.getMapLong() + " " +
+                saveStoreOrdersRequest.getToken() + " " + saveStoreOrdersRequest.getOrderItemList().get(0).getProductQty() + " "
+                + saveStoreOrdersRequest.getOrderItemList().get(0).getProductId() + " " + orderItemsList.size() + " " + saveStoreOrdersRequest.getOrderTime() + "time"));
 
         saveStoreOrdersCall = getApiClient().saveStoreOrders(saveStoreOrdersRequest);
 
@@ -345,8 +389,8 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
     @Override
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
-        myLat=0;
-        myLang=0;
+        myLat = 0;
+        myLang = 0;
         if (OnSoreOrAllProductsOrDetails.equalsIgnoreCase("onLineStore")) {
             navController.navigate(R.id.action_myCartFragment_to_navigation_online_store);
         }
@@ -371,7 +415,7 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
 //        }
 //    }
 
-    @OnClick({R.id.fragment_my_cart_back_img, R.id.fragment_home_complet_booking_order,R.id.fragment_my_cart_apply_now_btn})
+    @OnClick({R.id.fragment_my_cart_back_img, R.id.fragment_home_complet_booking_order, R.id.fragment_my_cart_apply_now_btn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fragment_my_cart_back_img:
@@ -389,13 +433,12 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
                     intent.putExtra("key", "myCard");
                     getActivity().startActivity(intent);
-                    ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.location_required));
                 } else {
 //                    if(myLang!=0&&myLat!=0) {
-                    if (fragmentMyCartTilPromoCode.getEditText().length()==0&&foundPromo) {
+                    if (fragmentMyCartTilPromoCode.getEditText().length() == 0 && foundPromo) {
                         ToastCreator.onCreateErrorToast(getActivity(), "Please Apply new Promo code value first");
-                        noPromo=true;
-                    }else {
+                        noPromo = true;
+                    } else {
                         onCall();
                     }
                 }
@@ -404,39 +447,40 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
     }
 
     private void checkPromo() {
-        if(noPromo||first2) {
+
+        if (noPromo || first2) {
             if (!validationLengthZero(fragmentMyCartTilPromoCode, getString(R.string.invalid_user_prom), 0)) {
                 ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_user_prom));
-                first2=false;
+                first2 = false;
                 return;
             }
         }
-        if(customerPromocodes!=null&&customerPromocodes.size()!=0) {
-            foundPromo=false;
+        if (customerPromocodes != null && customerPromocodes.size() != 0) {
+            foundPromo = false;
             promoCodeFromUser = fragmentMyCartTilPromoCode.getEditText().getText().toString();
             for (int i = 0; i < customerPromocodes.size(); i++) {
-                  if(customerPromocodes.get(i).getPromoCodeName().equalsIgnoreCase(promoCodeFromUser)||customerPromocodes.get(i).getPromoCodePercent().equalsIgnoreCase(promoCodeFromUser)){
-                      promoFilterValue =String.valueOf(customerPromocodes.get(i).getPromoCodePercent());
+                if (customerPromocodes.get(i).getPromoCodeName().equalsIgnoreCase(promoCodeFromUser) || customerPromocodes.get(i).getPromoCodePercent().equalsIgnoreCase(promoCodeFromUser)) {
+                    promoFilterValue = String.valueOf(customerPromocodes.get(i).getPromoCodePercent());
 
-                      promoFilterValueId =String.valueOf(customerPromocodes.get(i).getPromoIdFk());
-                      foundPromo=true;
-                  }
+                    promoFilterValueId = String.valueOf(customerPromocodes.get(i).getPromoIdFk());
+                    foundPromo = true;
+                }
             }
-        }else {
+        } else {
             ToastCreator.onCreateErrorToast(getActivity(), "No Available Promo Codes Now");
             return;
         }
-        if(foundPromo){
-                    noPromo=false;
-                    discountPrice= (allProductsTotalPrice / 100 ) * Integer.parseInt(promoFilterValue);
-                    finalTotalPrice=allProductsTotalPrice-discountPrice;
-                    fragmentMyCartDiscountTv.setText("Discount ( " + promoFilterValue + " % ) : "+ discountPrice + " EGP");
-                    fragmentMyCartTotalPriceTv.setText("Total :  " + finalTotalPrice + " EGP");
-                    ToastCreator.onCreateSuccessToast(getActivity(), "Success Promo Code");
-        }else {
+        if (foundPromo) {
+            noPromo = false;
+            discountPrice = (allProductsTotalPrice / 100) * Integer.parseInt(promoFilterValue);
+            finalTotalPrice = allProductsTotalPrice - discountPrice;
+            fragmentMyCartDiscountTv.setText("Discount ( " + promoFilterValue + " % ) : " + discountPrice + " EGP");
+            fragmentMyCartTotalPriceTv.setText("Total :  " + finalTotalPrice + " EGP");
+            ToastCreator.onCreateSuccessToast(getActivity(), "Success Promo Code");
+        } else {
             fragmentMyCartDiscountTv.setText("Discount: 0 EGP");
             fragmentMyCartTotalPriceTv.setText("Total :  " + allProductsTotalPrice + " EGP");
-            if(fragmentMyCartTilPromoCode.getEditText().length()!=0) {
+            if (fragmentMyCartTilPromoCode.getEditText().length() != 0) {
                 ToastCreator.onCreateErrorToast(getActivity(), "InValid Promo Code");
                 return;
             }
@@ -456,17 +500,17 @@ public class MyCartFragment extends BaSeFragment implements MyCartAdapterCallbac
 
     @Override
     public void onMethodCallback(int allProductsTotalPrice2) {
-        allProductsTotalPrice=allProductsTotalPrice2;
-        if(foundPromo){
+        allProductsTotalPrice = allProductsTotalPrice2;
+        if (foundPromo) {
             fragmentMyCartSubtotalTv.setText("Subtotal Before Discount  :  " + allProductsTotalPrice2 + " EGP");
             discountPrice = (allProductsTotalPrice2 / 100) * Integer.parseInt(promoFilterValue);
             finalTotalPrice = allProductsTotalPrice2 - discountPrice;
 //            showToast(getActivity(), "succss");
-            fragmentMyCartTotalItemsPriceTv.setText( finalTotalPrice + " EGP");
+            fragmentMyCartTotalItemsPriceTv.setText(finalTotalPrice + " EGP");
             fragmentMyCartDiscountTv.setText("Discount ( " + promoFilterValue + " % ) : " + discountPrice + " EGP");
             fragmentMyCartTotalPriceTv.setText("Total :  " + finalTotalPrice + " EGP");
-        }else {
-            fragmentMyCartTotalItemsPriceTv.setText( allProductsTotalPrice2 + " EGP");
+        } else {
+            fragmentMyCartTotalItemsPriceTv.setText(allProductsTotalPrice2 + " EGP");
             fragmentMyCartSubtotalTv.setText("Subtotal Before Discount  :  " + allProductsTotalPrice2 + " EGP");
             fragmentMyCartTotalPriceTv.setText("Total :  " + allProductsTotalPrice2 + " EGP");
             fragmentMyCartDiscountTv.setText("Discount: 0 EGP");

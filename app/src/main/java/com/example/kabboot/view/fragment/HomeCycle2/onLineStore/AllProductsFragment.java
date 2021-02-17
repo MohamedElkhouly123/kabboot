@@ -81,7 +81,7 @@ public class AllProductsFragment extends BaSeFragment {
         ButterKnife.bind(this, root);
         navController = Navigation.findNavController(getActivity(), R.id.home_activity_fragment);
         setUpActivity();
-        homeCycleActivity.setNavigation("g");
+        homeCycleActivity.setNavigation("v");
         if (dealOrPromo.equalsIgnoreCase("hotDeal")) {
             ffragmentAllProductsTitleNameTv.setText("Hot Deal Products");
         }

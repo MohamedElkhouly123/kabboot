@@ -2,11 +2,15 @@ package com.example.kabboot.view.fragment.HomeCycle2.HomeServices;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,7 +38,6 @@ import com.example.kabboot.data.model.saveServiceOrdersRequest.SaveServiceOrders
 import com.example.kabboot.utils.ToastCreator;
 import com.example.kabboot.view.fragment.BaSeFragment;
 import com.example.kabboot.view.viewModel.ViewModelUser;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.Serializable;
@@ -51,7 +54,6 @@ import static com.example.kabboot.data.api.ApiClient.getApiClient;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.USER_TOKEN;
-import static com.example.kabboot.utils.HelperMethod.showToast;
 import static com.example.kabboot.utils.validation.Validation.validationLengthZero;
 
 
@@ -75,8 +77,8 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     RecyclerView fragmentHomeCompletBookingServicesRecyclerView;
     @BindView(R.id.fragment_home_complet_booking_services_promo_code_sp_promo)
     Spinner fragmentMyServicesPromoCodeSpPromo;
-    @BindView(R.id.fragment_home_complet_booking_services_phone_etxt)
-    TextInputEditText fragmentHomeCompletBookingServicesPhoneEtxt;
+    //    @BindView(R.id.fragment_home_complet_booking_services_phone_etxt)
+//    TextInputEditText fragmentHomeCompletBookingServicesPhoneEtxt;
     @BindView(R.id.fragment_home_complet_booking_services_til_promo_code)
     TextInputLayout fragmentHomeCompletBookingServicesTilPromoCode;
     @BindView(R.id.fragment_home_complet_booking_services_Subtotal)
@@ -85,6 +87,8 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     TextView fragmentHomeCompletBookingServicesDiscount;
     @BindView(R.id.fragment_home_complet_booking_services_total_price)
     TextView fragmentHomeCompletBookingServicesTotalPrice;
+    @BindView(R.id.fragment_home_complet_booking_services_phone_etxt)
+    AutoCompleteTextView fragmentHomeCompletBookingServicesPhoneEtxt;
 
     //    @BindView(R.id.fragment_home_complet_booking_services_book_sub_cat_name_tv)
 //    TextView fragmentHomeCompletBookingServicesBookSubCatNameTv;
@@ -109,15 +113,16 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     private ViewModelUser viewMode2;
     private AdapterView.OnItemSelectedListener promoCodeSpinerListener;
     private PromoCodesSpinnerAdapter promoCodesSpinnerAdapter;
-    private int promoSelectedId =0;
+    private int promoSelectedId = 0;
     private String promoFilterValue;
     private String promoFilterValueId;
     private double discountPrice;
     private double finalTotalPrice;
-    private boolean noPromo=false;
-    private boolean foundPromo=false;
+    private boolean noPromo = false;
+    private boolean foundPromo = false;
     private String promoCodeFromUser;
-    private boolean first2=true;
+    private boolean first2 = true;
+    private List<String> promoCodeName = new ArrayList<>();
 
     public CompleteBookingServicesFragment() {
         // Required empty public constructor
@@ -159,14 +164,15 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
             @Override
             public void onChanged(@Nullable CustomerPromoCodesResponce response) {
                 if (response != null) {
-                    if (response.getCustomerPromocodes()!=null) {
+                    if (response.getCustomerPromocodes() != null) {
                         customerPromocodes.addAll(response.getCustomerPromocodes());
-                        showToast(getActivity(), "success2");
+//                        showToast(getActivity(), "success2");
 //                        fragmentHomeCompletBookingServicesTilPromoCode.getEditText().setText("No Available Promo Codes Now");
 //
 //                    } else {
 ////                        showToast(getActivity(), "error");
 //
+                        autoComplete();
                     }
                 }
             }
@@ -174,6 +180,38 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
 
         setSpinner();
     }
+
+    private void autoComplete() {
+        for (int i = 0; i < customerPromocodes.size(); i++) {
+            promoCodeName.add(customerPromocodes.get(i).getPromoCodeName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.custam_text_view, R.id.text_view_list_item, promoCodeName);
+        fragmentHomeCompletBookingServicesPhoneEtxt.setAdapter(adapter);
+        //editText.setThreshold(1);
+        //get the input like for a normal EditText
+        //String input = editText.getText().toString();
+        fragmentHomeCompletBookingServicesPhoneEtxt.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+//                                             Your code .........
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     private void setData() {
 
         for (int i = 0; i < allVendorServiceListSelected.size(); i++) {
@@ -197,7 +235,7 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
 
         promoCodesSpinnerAdapter = new PromoCodesSpinnerAdapter(getActivity());
         viewMode2.getSpinnerPromoCodeData(getActivity(), fragmentMyServicesPromoCodeSpPromo, promoCodesSpinnerAdapter, "",
-                getApiClient().customerPromoCodes(userData.getUserId()), promoSelectedId, null,fragmentHomeCompletBookingServicesTilPromoCode);
+                getApiClient().customerPromoCodes(userData.getUserId()), promoSelectedId, null, fragmentHomeCompletBookingServicesTilPromoCode);
 //        promoCodeSpinerListener = new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -257,8 +295,8 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     public void onBack() {
 //        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fragment,new SelectPaymentMethodFragment());
 //        showToast(getActivity(), "lat="+myLat+" , "+myLang);
-        myLat=0;
-        myLang=0;
+        myLat = 0;
+        myLang = 0;
         Bundle bundle = new Bundle();
         bundle.putString("MainServiceName", mainServiceName);
         bundle.putSerializable("VendorDataObject", vendorData);
@@ -290,10 +328,10 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
             case R.id.fragment_home_complet_booking_services:
                 if (myLang != 0 && myLat != 0) {
                     initListener();
-                    if (fragmentHomeCompletBookingServicesTilPromoCode.getEditText().length()==0&&foundPromo) {
+                    if (fragmentHomeCompletBookingServicesTilPromoCode.getEditText().length() == 0 && foundPromo) {
                         ToastCreator.onCreateErrorToast(getActivity(), "Please Apply new Promo code value first");
-                        noPromo=true;
-                    }else {
+                        noPromo = true;
+                    } else {
                         onCall();
                     }
                 }
@@ -302,40 +340,40 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
     }
 
     private void checkPromo() {
-        if(noPromo||first2) {
-            first2=false;
+        if (noPromo || first2) {
+            first2 = false;
             if (!validationLengthZero(fragmentHomeCompletBookingServicesTilPromoCode, getString(R.string.invalid_user_prom), 0)) {
                 ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.invalid_user_prom));
                 return;
             }
         }
-        if(customerPromocodes!=null&&customerPromocodes.size()!=0) {
-            foundPromo=false;
+        if (customerPromocodes != null && customerPromocodes.size() != 0) {
+            foundPromo = false;
             promoCodeFromUser = fragmentHomeCompletBookingServicesTilPromoCode.getEditText().getText().toString();
             for (int i = 0; i < customerPromocodes.size(); i++) {
-                if(customerPromocodes.get(i).getPromoCodeName().equalsIgnoreCase(promoCodeFromUser)||customerPromocodes.get(i).getPromoCodePercent().equalsIgnoreCase(promoCodeFromUser)){
-                    promoFilterValue =String.valueOf(customerPromocodes.get(i).getPromoCodePercent());
+                if (customerPromocodes.get(i).getPromoCodeName().equalsIgnoreCase(promoCodeFromUser) || customerPromocodes.get(i).getPromoCodePercent().equalsIgnoreCase(promoCodeFromUser)) {
+                    promoFilterValue = String.valueOf(customerPromocodes.get(i).getPromoCodePercent());
 
-                    promoFilterValueId =String.valueOf(customerPromocodes.get(i).getPromoIdFk());
-                    foundPromo=true;
+                    promoFilterValueId = String.valueOf(customerPromocodes.get(i).getPromoIdFk());
+                    foundPromo = true;
                 }
             }
-        }else {
+        } else {
             ToastCreator.onCreateErrorToast(getActivity(), "No Available Promo Codes Now");
             return;
         }
-        if(foundPromo){
-            noPromo=false;
-            discountPrice= (totalPrice / 100 ) * Integer.parseInt(promoFilterValue);
-            finalTotalPrice=totalPrice-discountPrice;
-            fragmentHomeCompletBookingServicesDiscount.setText("Discount ( " + promoFilterValue + " % ) : "+ discountPrice + " EGP");
+        if (foundPromo) {
+            noPromo = false;
+            discountPrice = (totalPrice / 100) * Integer.parseInt(promoFilterValue);
+            finalTotalPrice = totalPrice - discountPrice;
+            fragmentHomeCompletBookingServicesDiscount.setText("Discount ( " + promoFilterValue + " % ) : " + discountPrice + " EGP");
             fragmentHomeCompletBookingServicesTotalPrice.setText("Total :  " + finalTotalPrice + " EGP");
             ToastCreator.onCreateSuccessToast(getActivity(), "Success Promo Code");
-        }else {
+        } else {
             fragmentHomeCompletBookingServicesDiscount.setText("Discount: 0 EGP");
             fragmentHomeCompletBookingServicesTotalPrice.setText("Total :  " + totalPrice + " EGP");
 
-            if(fragmentHomeCompletBookingServicesTilPromoCode.getEditText().length()!=0) {
+            if (fragmentHomeCompletBookingServicesTilPromoCode.getEditText().length() != 0) {
                 ToastCreator.onCreateErrorToast(getActivity(), "InValid Promo Code");
                 return;
             }
@@ -351,7 +389,10 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
             public void onChanged(@Nullable GetSaveOrdersResponce response) {
                 if (response != null) {
                     if (response.getSuccess() == 1) {
-                        navController.navigate(R.id.action_completeBookingServicesFragment_to_navigation_services);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("BookingType", getString(R.string.My_service_Bookings));
+                        navController.navigate(R.id.navigation_profile);
+                        navController.navigate(R.id.action_navigation_profile_to_myAllBookingFragment, bundle);
                         homeCycleActivity.setNavigation("v");
 
                     }
@@ -386,23 +427,23 @@ public class CompleteBookingServicesFragment extends BaSeFragment {
 //            saveServiceOrdersRequest.setPromo_code("");
 //
 //        }
-        if(foundPromo){
+        if (foundPromo) {
             promoCodeFromUser = fragmentHomeCompletBookingServicesTilPromoCode.getEditText().getText().toString();
-            if (promoCodeFromUser.length()==0) {
+            if (promoCodeFromUser.length() == 0) {
 //                showToast(getActivity(), "her"+promoFilterValueId);
                 saveServiceOrdersRequest.setPromo_code("");
-            }else {
+            } else {
                 saveServiceOrdersRequest.setPromo_code(promoFilterValueId);
             }
-        }else {
+        } else {
             saveServiceOrdersRequest.setPromo_code("");
 
         }
         saveServiceOrdersRequest.setOrderServiceList(servicesSelectedIds);
         Log.i(TAG, String.valueOf(saveServiceOrdersRequest.getUserId() + " " + saveServiceOrdersRequest.getUserName() + " " + saveServiceOrdersRequest.getUserPhone() + " "
-                + saveServiceOrdersRequest.getUserCity() + " " + saveServiceOrdersRequest.getMapLong() + " " + saveServiceOrdersRequest.getMapLat() + " "
+                + saveServiceOrdersRequest.getUserCity() + " " + saveServiceOrdersRequest.getMapLat() + " " + saveServiceOrdersRequest.getMapLong() + " "
                 + saveServiceOrdersRequest.getToken() + " " + saveServiceOrdersRequest.getOrderServiceList().get(0).getServiceId() + " " + saveServiceOrdersRequest.getOrderTime() + "time"
-        +"promo "+promoFilterValueId));
+                + "promo " + promoFilterValueId));
 
 //        saveServiceOrdersCall = getApiClient().saveServiceOrders(userId,userName,userPhone,userCity,userToken,servicesSelectedIds);
         saveServiceOrdersCall = getApiClient().saveServiceOrders(saveServiceOrdersRequest);

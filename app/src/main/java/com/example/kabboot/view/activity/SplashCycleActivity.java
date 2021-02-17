@@ -1,7 +1,6 @@
 package com.example.kabboot.view.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,7 @@ import static com.example.kabboot.data.local.SharedPreferencesManger.LoadBoolean
 import static com.example.kabboot.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.kabboot.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.kabboot.utils.HelperMethod.replaceFragment;
-import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation;
+import static com.example.kabboot.utils.HelperMethod.replaceFragmentWithAnimation2;
 
 
 public class SplashCycleActivity extends BaseActivity {
@@ -68,10 +67,9 @@ public class SplashCycleActivity extends BaseActivity {
 //                }
 //                fragmentLoadSplashAnimationImg.setAnimation(null);
                 if(isTransactionSafe) {
-                    replaceFragmentWithAnimation(getSupportFragmentManager(), R.id.splash_activity_fram, new SplashLoadFragment(), "b");
+                    replaceFragmentWithAnimation2(getSupportFragmentManager(), R.id.splash_activity_fram, new SplashLoadFragment(), "b");
                 }
-                    //                    startActivity(new Intent(SplashCycleActivity.this, AboutAppActivity.class));
-//                }
+//                    startActivity(new Intent(SplashCycleActivity.this, UserCycleActivity.class));
 //                    finish();
                 }
             }

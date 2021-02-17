@@ -159,7 +159,7 @@ public class HomeServicesEnterVenderData2Fragment extends BaSeFragment implement
             fragmentHomeCompletBookingIsCloseTv.setVisibility(View.VISIBLE);
             fragmentHomeCompletBookingIsOpenTv.setVisibility(View.VISIBLE);
 //            whenOpened(getAllvendor);
-            fragmentHomeCompletBookingIsOpenTv.setText("Opens " + vendorData.getStartHour() + " In Opened Days");
+            fragmentHomeCompletBookingIsOpenTv.setText("Start Hour : "+vendorData.getStartHour()+"    End Hour : "+vendorData.getEndHour());
 
         }
     }

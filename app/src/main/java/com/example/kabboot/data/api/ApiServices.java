@@ -70,6 +70,8 @@ public interface ApiServices {
             @Header("Authorization") String userAuth,
             @Field("product_name") String product_name,
             @Field("product_price") String product_price,
+            @Field("from_price") String from_price,
+            @Field("to_price") String to_price,
             @Field("product_cat") String product_cat,
             @Field("vendor_id") String vendor_id
     );

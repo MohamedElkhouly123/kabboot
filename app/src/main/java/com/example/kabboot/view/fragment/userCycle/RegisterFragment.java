@@ -73,6 +73,7 @@ public class RegisterFragment extends BaSeFragment {
     private ViewModelUser viewModelUser;
     private boolean first = true;
     private AlertDialog alertDialog;
+    private boolean dialoghide =false;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -120,7 +121,12 @@ public class RegisterFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new LoginFragment(), "b");
+        if(dialoghide){
+            alertDialog.dismiss();
+            dialoghide=false;
+        }else {
+            replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new LoginFragment(), "b");
+        }
     }
 
 
@@ -153,7 +159,8 @@ public class RegisterFragment extends BaSeFragment {
             alertDialog = new AlertDialog.Builder(getActivity()).create();
 //            alertDialog.setTitle("Delete");
             alertDialog.setMessage("Please Check Your Email To enter Verification Code");
-            alertDialog.setCancelable(true);
+            alertDialog.setCancelable(false);
+            dialoghide=true;
             confirmEmailDialogTilVerifyCode = (TextInputLayout) view.findViewById(R.id.confirm_email_dialog_til_verify_code);
             tvConfirmEmailDialogOk = (TextView) view.findViewById(R.id.tv_confirmEmailDialog_ok);
 
