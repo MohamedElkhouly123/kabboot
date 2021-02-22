@@ -158,4 +158,24 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ThemeOverlay.AppCompat.navTheme">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <!-- Color of text and icon when SELECTED -->
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/black2</item>
+        <!--        <item name="android:selectableItemBackground">@color/red</item>-->
+        <!--        android:fillViewport="true"-->
+        <!--        app:tabBackground="@drawable/fixed_bottom_button"-->
+        <!--        app:tabIndicatorColor="@color/color_primary_text"-->
+        <!--        app:tabMode="fixed"-->
+        <!--        app:tabSelectedTextColor="@color/color_primary_text"-->
+        <!--        app:tabTextColor="@color/color_secondary_text"-->
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
 </resources>

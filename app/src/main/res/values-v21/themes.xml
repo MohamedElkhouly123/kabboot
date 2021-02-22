@@ -17,4 +17,10 @@
 <!--        android:progressDrawable="@drawable/red_shape_circle"-->
 <!--        android:thumb="@drawable/red_shape_circle"-->
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/white</item>
+    </style>
 </resources>

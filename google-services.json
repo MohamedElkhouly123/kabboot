@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822064568397",
+    "project_id": "kaboott-765e7",
+    "storage_bucket": "kaboott-765e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822064568397:android:e5832d055c9505404f6404",
+        "android_client_info": {
+          "package_name": "com.kabbootcar.egkabboot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822064568397-pa15r8r7m9hmcaqprm8ms3selbs52738.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kabbootcar.egkabboot",
+            "certificate_hash": "fca377542ae9d88a8fbb283a3ea14fcd67993db2"
+          }
+        },
+        {
+          "client_id": "822064568397-150e2tauol7o0iu2bc5ohs9ss53l5d9r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIzr7HDa1k61E81lEREO6ZJx8gwqqTMBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822064568397-150e2tauol7o0iu2bc5ohs9ss53l5d9r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_services"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesFragment"
         android:label="HomeServicesFragment" >
         <action
             android:id="@+id/action_navigation_services_to_homeOnSiteServicesFragment"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_online_store"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.OnLineStoreFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.onLineStore.OnLineStoreFragment"
         android:label="OnLineStoreFragment" >
         <action
             android:id="@+id/action_navigation_online_store_to_navigation_services"
@@ -35,15 +35,18 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_notification"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.Notification.NotificationFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.Notification.NotificationFragment"
         android:label="NotificationFragment" >
         <action
             android:id="@+id/action_navigation_notification_to_navigation_services"
             app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_navigation_notification_to_myBookingSubItemsFragment"
+            app:destination="@id/myBookingSubItemsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ProfileFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_navigation_profile_to_navigation_services"
@@ -63,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeOnSiteServicesFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeOnSiteServicesFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.HomeOnSiteServicesFragment"
         android:label="HomeOnSiteServicesFragment" >
         <action
             android:id="@+id/action_homeOnSiteServicesFragment_to_navigation_services"
@@ -77,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeServicesEnterVenderDataFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderDataFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderDataFragment"
         android:label="HomeServicesEnterVenderDataFragment" >
         <action
             android:id="@+id/action_homeServicesEnterVenderDataFragment_to_homeOnSiteServicesFragment"
@@ -94,7 +97,7 @@
     </fragment>
     <fragment
         android:id="@+id/completeBookingServicesFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.CompleteBookingServicesFragment"
         android:label="CompleteBookingServicesFragment" >
         <action
             android:id="@+id/action_completeBookingServicesFragment_to_homeServicesEnterVenderData2Fragment"
@@ -102,10 +105,13 @@
         <action
             android:id="@+id/action_completeBookingServicesFragment_to_navigation_services"
             app:destination="@id/navigation_services" />
+        <action
+            android:id="@+id/action_completeBookingServicesFragment_to_navigation_notification"
+            app:destination="@id/navigation_notification" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.ProductDetailsFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.onLineStore.ProductDetailsFragment"
         android:label="ProductDetailsFragment" >
         <action
             android:id="@+id/action_productDetailsFragment_to_navigation_online_store"
@@ -119,7 +125,7 @@
     </fragment>
     <fragment
         android:id="@+id/vendorProfileFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.VendorProfileFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.VendorProfileFragment"
         android:label="VendorProfileFragment" >
         <action
             android:id="@+id/action_vendorProfileFragment_to_homeServicesEnterVenderDataFragment"
@@ -130,7 +136,7 @@
     </fragment>
     <fragment
         android:id="@+id/myCartFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.onLineStore.MyCartFragment"
         android:label="MyCartFragment" >
         <action
             android:id="@+id/action_myCartFragment_to_productDetailsFragment"
@@ -138,10 +144,13 @@
         <action
             android:id="@+id/action_myCartFragment_to_navigation_online_store"
             app:destination="@id/navigation_online_store" />
+        <action
+            android:id="@+id/action_myCartFragment_to_navigation_notification"
+            app:destination="@id/navigation_notification" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.AboutUsFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.AboutUsFragment"
         android:label="AboutUsFragment" >
         <action
             android:id="@+id/action_aboutUsFragment_to_navigation_profile"
@@ -152,7 +161,7 @@
     </fragment>
     <fragment
         android:id="@+id/allProductsFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.AllProductsFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.onLineStore.AllProductsFragment"
         android:label="AllProductsFragment" >
         <action
             android:id="@+id/action_allProductsFragment_to_navigation_services"
@@ -163,7 +172,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeServicesEnterVenderData2Fragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderData2Fragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.HomeServicesEnterVenderData2Fragment"
         android:label="HomeServicesEnterVenderData2Fragment" >
         <action
             android:id="@+id/action_homeServicesEnterVenderData2Fragment_to_homeServicesEnterVenderDataFragment"
@@ -180,7 +189,7 @@
     </fragment>
     <fragment
         android:id="@+id/changeDetailsFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsFragment"
         android:label="ChangeDetailsFragment" >
         <action
             android:id="@+id/action_changeDetailsFragment_to_navigation_profile"
@@ -188,7 +197,7 @@
     </fragment>
     <fragment
         android:id="@+id/changeDetailsMoreFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsMoreFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.ChangeDetailsMoreFragment"
         android:label="ChangeDetailsMoreFragment" >
         <action
             android:id="@+id/action_changeDetailsMoreFragment_to_navigation_profile"
@@ -199,7 +208,7 @@
     </fragment>
     <fragment
         android:id="@+id/myAllBookingFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.MyAllBookingFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.MyAllBookingFragment"
         android:label="MyAllBookingFragment" >
         <action
             android:id="@+id/action_myAllBookingFragment_to_navigation_profile"
@@ -210,15 +219,18 @@
     </fragment>
     <fragment
         android:id="@+id/myBookingSubItemsFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.accountProfile.MyBookingSubItemsFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.accountProfile.MyBookingSubItemsFragment"
         android:label="MyBookingSubItemsFragment" >
         <action
             android:id="@+id/action_myBookingSubItemsFragment_to_myAllBookingFragment"
             app:destination="@id/myAllBookingFragment" />
+        <action
+            android:id="@+id/action_myBookingSubItemsFragment_to_navigation_notification"
+            app:destination="@id/navigation_notification" />
     </fragment>
     <fragment
         android:id="@+id/promoCodeFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.onLineStore.PromoCodeFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.onLineStore.PromoCodeFragment"
         android:label="PromoCodeFragment" >
         <action
             android:id="@+id/action_promoCodeFragment_to_navigation_services"
@@ -226,7 +238,7 @@
     </fragment>
     <fragment
         android:id="@+id/vendorsCityListFragment"
-        android:name="com.example.kabboot.view.fragment.HomeCycle2.HomeServices.VendorsCityListFragment"
+        android:name="com.kabbootcar.egkabboot.view.fragment.HomeCycle2.HomeServices.VendorsCityListFragment"
         android:label="VendorsCityListFragment" >
         <action
             android:id="@+id/action_vendorsCityListFragment_to_homeOnSiteServicesFragment"
